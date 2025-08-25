@@ -29,13 +29,7 @@ const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
 const normalizedClientUrl = clientUrl.endsWith('/') ? clientUrl.slice(0, -1) : clientUrl;
 const allowedOrigins = [
   normalizedClientUrl,
-  "https://your-habitflex-app.vercel.app", // Replace with your actual Vercel URL
-  "wss://your-habitflex-app.vercel.app",   // Replace with your actual Vercel URL
-  "http://localhost:5173", // Keep for local development
-  "https://habitz-three.vercel.app",
-  "wss://habitz-three.vercel.app",
-  "https://habit-flex.vercel.app",
-  "wss://habit-flex.vercel.app",
+  "https://habit-flex.vercel.app",  // Replace with your actual Vercel URL
   "http://localhost:5173", // Keep for local development // For local development
   // Add your actual Vercel frontend URLs here after deployment
   // "https://your-habitflex-frontend.vercel.app",
