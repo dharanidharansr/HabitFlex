@@ -166,7 +166,7 @@ const Challenges = () => {
     // Determine WebSocket URL based on environment
     const wsUrl = import.meta.env.DEV
       ? `ws://localhost:8000`
-      : `wss://habitflex-backend.onrender.com`;
+      : `wss://habitflex.onrender.com`;
 
     console.log("Attempting to connect to WebSocket:", wsUrl);
     
