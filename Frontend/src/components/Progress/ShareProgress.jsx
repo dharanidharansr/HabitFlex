@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 const ShareProgress = ({ stats }) => {
   const [copying, setCopying] = useState(false);
   const [activeTab, setActiveTab] = useState("text"); // text, image
+  const [generatingImage, setGeneratingImage] = useState(false);
+  const canvasRef = useRef(null);
 
   const generateShareText = () => {
     return `🚀 My Habit Journey on HabitFlex
@@ -17,11 +19,168 @@ const ShareProgress = ({ stats }) => {
 Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
   };
 
+  const generateProgressImage = async () => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas size to match the design proportions
+      canvas.width = 800;
+      canvas.height = 500;
+      
+      // Create dark gradient background similar to the image
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#2c3e50');
+      gradient.addColorStop(0.5, '#34495e');
+      gradient.addColorStop(1, '#2c3e50');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Add subtle rounded rectangle effect
+      ctx.fillStyle = '#34495e';
+      const cornerRadius = 20;
+      const x = 50;
+      const y = 50;
+      const width = canvas.width - 100;
+      const height = canvas.height - 100;
+      
+      // Draw rounded rectangle
+      ctx.beginPath();
+      ctx.moveTo(x + cornerRadius, y);
+      ctx.lineTo(x + width - cornerRadius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + cornerRadius);
+      ctx.lineTo(x + width, y + height - cornerRadius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - cornerRadius, y + height);
+      ctx.lineTo(x + cornerRadius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - cornerRadius);
+      ctx.lineTo(x, y + cornerRadius);
+      ctx.quadraticCurveTo(x, y, x + cornerRadius, y);
+      ctx.closePath();
+      ctx.fill();
+      
+      // Add subtle border
+      ctx.strokeStyle = '#4a5568';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
+      // Get current date in the same format as the image
+      const currentDate = new Date().toLocaleDateString('en-US', {
+        month: 'numeric',
+        day: 'numeric', 
+        year: 'numeric'
+      });
+      
+      // Add HabitFlex title (top left) - matching the blue color from image
+      ctx.fillStyle = '#74a9ff';
+      ctx.font = 'bold 32px "Segoe UI", Arial, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('HabitFlex', 80, 120);
+      
+      // Add date (top right) - matching gray color
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '20px "Segoe UI", Arial, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(currentDate, 720, 120);
+      
+      // Add "LONGEST STREAK" label - matching the styling
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '16px "Segoe UI", Arial, sans-serif';
+      ctx.textAlign = 'left';
+      ctx.letterSpacing = '2px';
+      ctx.fillText('LONGEST STREAK', 80, 200);
+      
+      // Add longest streak value - large white text
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 56px "Segoe UI", Arial, sans-serif';
+      ctx.fillText(`${stats.longestStreak} days`, 80, 260);
+      
+      // Add "COMPLETION RATE" label
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = '16px "Segoe UI", Arial, sans-serif';
+      ctx.fillText('COMPLETION RATE', 80, 330);
+      
+      // Add completion rate value
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 56px "Segoe UI", Arial, sans-serif';
+      ctx.fillText(`${stats.completionRate}%`, 80, 390);
+      
+      // Add motivational quote at bottom - matching the italic styling
+      ctx.fillStyle = '#9ca3af';
+      ctx.font = 'italic 22px "Segoe UI", Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('"Building better habits, one day at a time"', 400, 450);
+      
+      // Convert to blob and resolve
+      canvas.toBlob((blob) => {
+        resolve(blob);
+      }, 'image/png', 0.9);
+    });
+  };
+
+  const handleShareImage = async (platform) => {
+    try {
+      setGeneratingImage(true);
+      
+      if (navigator.share && platform === 'whatsapp') {
+        // Use native sharing API for WhatsApp if available
+        const imageBlob = await generateProgressImage();
+        const file = new File([imageBlob], 'habit-progress.png', { type: 'image/png' });
+        
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            title: 'My HabitFlex Progress',
+            text: generateShareText(),
+            files: [file]
+          });
+          toast.success('Shared successfully!');
+          return;
+        }
+      }
+      
+      // Fallback: Download image and share text
+      const imageBlob = await generateProgressImage();
+      const url = URL.createObjectURL(imageBlob);
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'habitflex-progress.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      
+      // Also open sharing URL for text
+      const text = encodeURIComponent(generateShareText() + '\n\n📸 Check out my progress image!');
+      const shareUrl = platform === 'whatsapp' 
+        ? `https://wa.me/?text=${text}`
+        : `https://wa.me/?text=${text}`;
+        
+      window.open(shareUrl, '_blank');
+      toast.success('Image downloaded! Share it along with the text.');
+      
+    } catch (error) {
+      console.error('Error sharing image:', error);
+      toast.error('Failed to generate image. Sharing text instead.');
+      handleShareSocial(platform);
+    } finally {
+      setGeneratingImage(false);
+    }
+  };
+
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(generateShareText());
     setCopying(true);
     toast.success("Copied to clipboard!");
     setTimeout(() => setCopying(false), 2000);
+  };
+
+  const handleShare = (platform) => {
+    if (activeTab === 'image' && (platform === 'whatsapp' || platform === 'telegram')) {
+      handleShareImage(platform);
+    } else {
+      handleShareSocial(platform);
+    }
   };
 
   const handleShareSocial = (platform) => {
@@ -122,7 +281,7 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
             </div>
           </div>
           <div className="text-xs text-[#f5f5f7]/50 mt-3">
-            *This is a preview. Actual image will be generated when shared.
+            *This is a preview. When you share to WhatsApp with "Image" selected, an actual image will be generated and shared.
           </div>
         </div>
       )}
@@ -169,7 +328,7 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
         
         {/* Twitter */}
         <motion.button
-          onClick={() => handleShareSocial("twitter")}
+          onClick={() => handleShare("twitter")}
           className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -191,7 +350,7 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
         
         {/* Facebook */}
         <motion.button
-          onClick={() => handleShareSocial("facebook")}
+          onClick={() => handleShare("facebook")}
           className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -213,10 +372,13 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
         
         {/* WhatsApp */}
         <motion.button
-          onClick={() => handleShareSocial("whatsapp")}
-          className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          onClick={() => handleShare("whatsapp")}
+          className={`flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition ${
+            generatingImage ? 'opacity-50 cursor-wait' : ''
+          }`}
+          whileHover={{ scale: generatingImage ? 1 : 1.05 }}
+          whileTap={{ scale: generatingImage ? 1 : 0.95 }}
+          disabled={generatingImage}
         >
           <div className="w-8 h-8 rounded-full bg-[#25D366] flex items-center justify-center">
             <svg
@@ -230,12 +392,14 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
               <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
             </svg>
           </div>
-          <span className="text-xs font-medium text-[#f5f5f7]/80">WhatsApp</span>
+          <span className="text-xs font-medium text-[#f5f5f7]/80">
+            {generatingImage ? 'Generating...' : 'WhatsApp'}
+          </span>
         </motion.button>
         
         {/* LinkedIn */}
         <motion.button
-          onClick={() => handleShareSocial("linkedin")}
+          onClick={() => handleShare("linkedin")}
           className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -261,6 +425,9 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
           Share your habit journey and inspire your friends to build better habits too!
         </div>
       </div>
+      
+      {/* Hidden canvas for image generation */}
+      <canvas ref={canvasRef} style={{ display: 'none' }} />
     </motion.div>
   );
 };

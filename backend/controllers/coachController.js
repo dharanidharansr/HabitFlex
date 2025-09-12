@@ -3,17 +3,77 @@ const User = require('../models/user');
 const Habit = require('../models/habitSchema');
 
 /**
- * Get coaching advice based on user habits and coach personality
- * @route POST /api/coach
+ * Test the GROQ API connection
+ * @route GET /api/coach/test
  * @access Private
  */
+exports.testGroqAPI = async (req, res) => {
+  try {
+    // Check if Groq API key exists
+    if (!process.env.GROQ_API_KEY) {
+      return res.status(500).json({ message: 'GROQ API key not configured' });
+    }
+
+    // Simple test request
+    const testResponse = await axios.post(
+      'https://api.groq.com/openai/v1/chat/completions',
+      {
+        model: "llama-3.1-8b-instant", // Updated to use current supported model
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant. Respond briefly."
+          },
+          {
+            role: "user",
+            content: "Say hello and confirm you're working."
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 50
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        timeout: 10000
+      }
+    );
+
+    res.json({
+      success: true,
+      message: 'GROQ API is working',
+      response: testResponse.data.choices[0].message.content,
+      model: testResponse.data.model
+    });
+
+  } catch (error) {
+    console.error("GROQ API Test Error:", error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      message: 'GROQ API test failed',
+      error: error.response?.data?.error || error.message,
+      status: error.response?.status
+    });
+  }
+};
 exports.getCoachingAdvice = async (req, res) => {
   try {
     const userId = req.user.id;
     const { message, coachType } = req.body;
     
+    // Validate message
     if (!message) {
       return res.status(400).json({ message: 'Message is required' });
+    }
+    
+    if (message.trim().length < 2) {
+      return res.status(400).json({ message: 'Message must be at least 2 characters long' });
+    }
+    
+    if (message.trim().length > 500) {
+      return res.status(400).json({ message: 'Message must be less than 500 characters' });
     }
 
     // Get user's habits from database
@@ -59,7 +119,7 @@ exports.getCoachingAdvice = async (req, res) => {
     const groqResponse = await axios.post(
       'https://api.groq.com/openai/v1/chat/completions',
       {
-        model: "llama3-70b-8192",
+        model: "llama-3.1-8b-instant", // Updated to use current supported model
         messages: [
           {
             role: "system",
@@ -76,7 +136,7 @@ exports.getCoachingAdvice = async (req, res) => {
             
             My habits are: ${habits.map(h => `${h.name} (${h.currentStreak} day streak)`).join(', ')}
             
-            My question/message: ${message}`
+            My question/message: ${message.trim()}`
           }
         ],
         temperature: 0.7,
@@ -86,9 +146,14 @@ exports.getCoachingAdvice = async (req, res) => {
         headers: {
           'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
           'Content-Type': 'application/json'
-        }
+        },
+        timeout: 30000 // 30 second timeout
       }
     );
+    
+    if (!groqResponse.data?.choices?.[0]?.message?.content) {
+      throw new Error('Invalid response from AI service');
+    }
     
     const response = groqResponse.data.choices[0].message.content;
     
@@ -99,6 +164,36 @@ exports.getCoachingAdvice = async (req, res) => {
     
   } catch (error) {
     console.error("Coach API Error:", error);
-    res.status(500).json({ message: error.response?.data?.error || 'Failed to get coaching advice' });
+    
+    // Handle specific GROQ API errors
+    if (error.response?.status === 400) {
+      const errorDetail = error.response.data?.error?.message || 'Invalid request to AI service';
+      console.error("GROQ API 400 Error:", error.response.data);
+      return res.status(400).json({ 
+        message: 'Your message could not be processed. Please try rephrasing your question.',
+        detail: errorDetail 
+      });
+    }
+    
+    if (error.response?.status === 401) {
+      console.error("GROQ API Authentication Error");
+      return res.status(500).json({ message: 'AI service authentication error' });
+    }
+    
+    if (error.response?.status === 429) {
+      console.error("GROQ API Rate Limit Error");
+      return res.status(429).json({ message: 'AI service is busy. Please try again in a moment.' });
+    }
+    
+    if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') {
+      console.error("GROQ API Timeout Error");
+      return res.status(503).json({ message: 'AI service is taking too long to respond. Please try again.' });
+    }
+    
+    // Generic error
+    res.status(500).json({ 
+      message: 'Failed to get coaching advice. Please try again later.',
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
+    });
   }
 };

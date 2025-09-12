@@ -11,4 +11,9 @@ router.use(auth);
 // @access  Private
 router.post('/', coachController.getCoachingAdvice);
 
+// @route   GET api/coach/test
+// @desc    Test GROQ API connection
+// @access  Private
+router.get('/test', coachController.testGroqAPI);
+
 module.exports = router;
