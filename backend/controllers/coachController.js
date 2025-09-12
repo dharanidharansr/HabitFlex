@@ -3,7 +3,7 @@ const User = require('../models/user');
 const Habit = require('../models/habitSchema');
 
 /**
- * Test the GROQ API connection
+ 
  * @route GET /api/coach/test
  * @access Private
  */
