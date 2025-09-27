@@ -13,6 +13,8 @@ A comprehensive habit tracking application with AI coaching, social features, an
 - **Achievements System**: Unlock achievements as you build consistency
 - **Real-time Chat**: Communicate with your accountability partners
 
+
+
 ## Tech Stack
 
 ### Frontend
