@@ -279,7 +279,7 @@ const Achievements = () => {
         id: "well-rounded",
         name: "Well-Rounded",
         description: "Created habits in 5 different categories",
-        icon: "🔄",
+        icon: "🔀",
         category: "variety",
         unlocked: stats.categories.length >= 5,
         progress: Math.min(stats.categories.length, 5),
@@ -348,10 +348,10 @@ const Achievements = () => {
     selectedFilter === "all"
       ? achievements
       : selectedFilter === "unlocked"
-      ? achievements.filter((a) => a.unlocked)
-      : selectedFilter === "locked"
-      ? achievements.filter((a) => !a.unlocked)
-      : achievements.filter((a) => a.category === selectedFilter);
+        ? achievements.filter((a) => a.unlocked)
+        : selectedFilter === "locked"
+          ? achievements.filter((a) => !a.unlocked)
+          : achievements.filter((a) => a.category === selectedFilter);
 
   const categories = [
     "all",
@@ -440,11 +440,10 @@ const Achievements = () => {
               <motion.button
                 key={category}
                 onClick={() => setSelectedFilter(category)}
-                className={`px-4 py-2 text-sm rounded-lg capitalize ${
-                  selectedFilter === category
+                className={`px-4 py-2 text-sm rounded-lg capitalize ${selectedFilter === category
                     ? "bg-[#A2BFFE] text-[#080808]"
                     : "bg-[#111] hover:bg-[#222] text-[#f5f5f7]/70"
-                }`}
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
