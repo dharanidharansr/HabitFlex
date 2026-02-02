@@ -332,11 +332,10 @@ const Progress = () => {
               <button
                 key={mode}
                 onClick={() => setViewMode(mode)}
-                className={`px-4 py-2 text-sm font-medium rounded-full ${
-                  viewMode === mode
+                className={`px-4 py-2 text-sm font-medium rounded-full ${viewMode === mode
                     ? "bg-[#A2BFFE] text-[#080808]"
                     : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-                }`}
+                  }`}
               >
                 {mode.charAt(0).toUpperCase() + mode.slice(1)}
               </button>
@@ -415,20 +414,18 @@ const Progress = () => {
           </div>
 
           <div
-            className={`grid ${
-              viewMode === "week"
+            className={`grid ${viewMode === "week"
                 ? "grid-cols-3 sm:grid-cols-7"
                 : "grid-cols-3 sm:grid-cols-10 overflow-x-auto"
-            } gap-2`}
+              } gap-2`}
           >
             {weeklyData.map((day, index) => (
               <div
                 key={index}
-                className={`p-3 rounded-lg text-center ${
-                  day.isToday
+                className={`p-3 rounded-lg text-center ${day.isToday
                     ? "border border-[#A2BFFE]/50"
                     : "border border-[#222]"
-                }`}
+                  }`}
               >
                 <p className="text-sm font-medium text-[#f5f5f7]/80">
                   {day.day}
@@ -501,9 +498,8 @@ const Progress = () => {
                     return (
                       <div
                         key={idx}
-                        className={`flex-1 h-2 rounded-full ${
-                          wasCompleted ? "bg-[#A2BFFE]" : "bg-[#222]"
-                        }`}
+                        className={`flex-1 h-2 rounded-full ${wasCompleted ? "bg-[#A2BFFE]" : "bg-[#222]"
+                          }`}
                       ></div>
                     );
                   })}

@@ -36,13 +36,13 @@ const Challenges = () => {
   const fetchChallenges = async () => {
     try {
       setLoading(true);
-      
+
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       // Use mock data instead of API call
       const userId = getCurrentUserId();
-      
+
       const participations = mockChallenges.filter((challenge) =>
         challenge.participants.some(
           (p) => p.user._id === userId
@@ -64,7 +64,7 @@ const Challenges = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 300));
-      
+
       toast.success("Successfully joined challenge!");
       toast.info("Demo mode: Changes are not persisted");
       // In demo mode, we don't actually update the data
@@ -131,7 +131,7 @@ const Challenges = () => {
       : `wss://habitflex.onrender.com/ws/challenges`;
 
     console.log("Attempting to connect to WebSocket:", wsUrl);
-    
+
     let socket = null;
     let connectionAttempted = false;
 
@@ -174,7 +174,7 @@ const Challenges = () => {
           reason: event.reason,
           wasClean: event.wasClean
         });
-        
+
         // Don't log as warning if it's a normal closure or going away
         if (event.code !== 1000 && event.code !== 1001) {
           console.warn("WebSocket closed unexpectedly. Code:", event.code);
@@ -314,17 +314,16 @@ const Challenges = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 px-1 relative whitespace-nowrap ${
-                activeTab === tab
+              className={`pb-2 px-1 relative whitespace-nowrap ${activeTab === tab
                   ? "text-[#A2BFFE]"
                   : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-              }`}
+                }`}
             >
               {tab === "explore"
                 ? "Explore"
                 : tab === "my-challenges"
-                ? "My Challenges"
-                : "Live Updates"}
+                  ? "My Challenges"
+                  : "Live Updates"}
               {activeTab === tab && (
                 <motion.div
                   layoutId="activeTab"
@@ -555,11 +554,10 @@ const Challenges = () => {
                               onClick={() =>
                                 updateProgress(challenge._id, amount, progress)
                               }
-                              className={`flex-1 bg-[#222] hover:bg-[#333] text-[#f5f5f7] py-2 rounded-lg text-sm ${
-                                progress >= 100
+                              className={`flex-1 bg-[#222] hover:bg-[#333] text-[#f5f5f7] py-2 rounded-lg text-sm ${progress >= 100
                                   ? "opacity-50 cursor-not-allowed"
                                   : ""
-                              }`}
+                                }`}
                               whileHover={{ scale: progress >= 100 ? 1 : 1.02 }}
                               whileTap={{ scale: progress >= 100 ? 1 : 0.98 }}
                               disabled={progress >= 100}
@@ -586,15 +584,13 @@ const Challenges = () => {
                                 placeholder="Custom %"
                                 min="1"
                                 max={100 - progress}
-                                className={`w-full px-4 py-2 bg-[#111] border ${
-                                  progressErrors[challenge._id]
+                                className={`w-full px-4 py-2 bg-[#111] border ${progressErrors[challenge._id]
                                     ? "border-red-500"
                                     : "border-[#222]"
-                                } rounded-lg focus:outline-none focus:ring-1 focus:ring-[#A2BFFE]/50 ${
-                                  progress >= 100
+                                  } rounded-lg focus:outline-none focus:ring-1 focus:ring-[#A2BFFE]/50 ${progress >= 100
                                     ? "opacity-50 cursor-not-allowed"
                                     : ""
-                                }`}
+                                  }`}
                                 disabled={progress >= 100}
                               />
                               <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#f5f5f7]/40">
@@ -630,11 +626,10 @@ const Challenges = () => {
                                 );
                               }
                             }}
-                            className={`bg-[#A2BFFE] text-[#080808] px-4 py-2 rounded-lg font-medium text-sm ${
-                              !customProgress || progress >= 100
+                            className={`bg-[#A2BFFE] text-[#080808] px-4 py-2 rounded-lg font-medium text-sm ${!customProgress || progress >= 100
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
-                            }`}
+                              }`}
                             whileHover={{
                               scale:
                                 !customProgress || progress >= 100 ? 1 : 1.02,
@@ -702,11 +697,10 @@ const Challenges = () => {
                     >
                       <div className="flex items-center gap-3">
                         <div
-                          className={`w-2 h-2 rounded-full ${
-                            update.type === "join"
+                          className={`w-2 h-2 rounded-full ${update.type === "join"
                               ? "bg-green-500"
                               : "bg-blue-500"
-                          }`}
+                            }`}
                         ></div>
                         <p className="text-sm">{update.message}</p>
                       </div>

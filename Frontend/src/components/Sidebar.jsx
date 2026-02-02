@@ -76,24 +76,24 @@ const Sidebar = ({ children }) => {
       ),
     },
     // Add to your navItems array:
-    {
-      path: "/visualizer",
-      name: "Visualizer",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    },
+    // {
+    //   path: "/visualizer",
+    //   name: "Visualizer",
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       className="h-5 w-5"
+    //       viewBox="0 0 20 20"
+    //       fill="currentColor"
+    //     >
+    //       <path
+    //         fillRule="evenodd"
+    //         d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+    //         clipRule="evenodd"
+    //       />
+    //     </svg>
+    //   ),
+    // },
     // Add this to your navigation items array
     {
       path: "/challenges",
@@ -110,26 +110,26 @@ const Sidebar = ({ children }) => {
       ),
     },
     // Add to your Sidebar component's navigation links
-    {
-      name: "AI Coach",
-      path: "/coach",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
-          />
-        </svg>
-      ),
-    },
+    // {
+    //   name: "AI Coach",
+    //   path: "/coach",
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       className="h-5 w-5"
+    //       fill="none"
+    //       viewBox="0 0 24 24"
+    //       stroke="currentColor"
+    //     >
+    //       <path
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //         strokeWidth={2}
+    //         d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+    //       />
+    //     </svg>
+    //   ),
+    // },
   ];
 
   const logout = () => {
@@ -150,8 +150,8 @@ const Sidebar = ({ children }) => {
               ? "4rem"
               : "100vw"
             : isCollapsed
-            ? "4rem"
-            : "16rem",
+              ? "4rem"
+              : "16rem",
         }}
         className={`fixed top-0 left-0 h-full bg-[#0a0a0a] border-r border-[#222] flex flex-col py-6 z-10 max-w-full transition-all duration-300`}
         style={{ minWidth: 0 }}
@@ -214,11 +214,10 @@ const Sidebar = ({ children }) => {
                 }}
               >
                 <motion.div
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg mb-2 ${
-                    isActive
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg mb-2 ${isActive
                       ? "bg-[#A2BFFE]/10 text-[#A2BFFE]"
                       : "text-[#f5f5f7]/70 hover:text-[#f5f5f7] hover:bg-[#222]/50"
-                  }`}
+                    }`}
                   whileHover={{ x: 4 }}
                 >
                   {item.icon}
@@ -291,8 +290,8 @@ const Sidebar = ({ children }) => {
                 ? "4rem"
                 : "0"
               : isCollapsed
-              ? "4rem"
-              : "16rem",
+                ? "4rem"
+                : "16rem",
         }}
         animate={{
           marginLeft:
@@ -301,8 +300,8 @@ const Sidebar = ({ children }) => {
                 ? "4rem"
                 : "0"
               : isCollapsed
-              ? "4rem"
-              : "16rem",
+                ? "4rem"
+                : "16rem",
         }}
         className="flex-1 transition-all duration-300 min-w-0"
       >

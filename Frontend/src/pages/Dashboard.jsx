@@ -107,7 +107,7 @@ const Dashboard = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       // Use mock recommendations
       setRecommendations(mockRecommendations);
     } catch (error) {
@@ -330,19 +330,18 @@ const Dashboard = () => {
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`pb-2 px-1 relative ${
-                    activeTab === tab
+                  className={`pb-2 px-1 relative ${activeTab === tab
                       ? "text-[#A2BFFE]"
                       : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-                  }`}
+                    }`}
                 >
                   {tab === "habits"
                     ? "Daily Habits"
                     : tab === "streaks"
-                    ? "Streak Stats"
-                    : tab === "recommendations"
-                    ? "For You"
-                    : "Habit Forest"}
+                      ? "Streak Stats"
+                      : tab === "recommendations"
+                        ? "For You"
+                        : "Habit Forest"}
                   {activeTab === tab && (
                     <motion.div
                       layoutId="activeTab"

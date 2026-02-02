@@ -103,7 +103,7 @@ const AICoach = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Generate mock response based on coach type
       const mockResponses = {
         supportive: "That's a great question! I believe in you and I'm here to help you every step of the way. 💪",
@@ -244,9 +244,8 @@ const AICoach = () => {
               {Object.entries(COACH_TYPES).map(([type, details]) => (
                 <motion.button
                   key={type}
-                  className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#222] text-left ${
-                    coachType === type ? "border border-[#A2BFFE]" : ""
-                  }`}
+                  className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#222] text-left ${coachType === type ? "border border-[#A2BFFE]" : ""
+                    }`}
                   onClick={() => changeCoachType(type)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -276,18 +275,16 @@ const AICoach = () => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`flex ${
-                msg.sender === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
+                }`}
             >
               <div
-                className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${
-                  msg.sender === "user"
+                className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${msg.sender === "user"
                     ? "bg-[#A2BFFE] text-[#080808]"
                     : msg.coachType
-                    ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
-                    : "bg-[#1a1a1a]"
-                }`}
+                      ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
+                      : "bg-[#1a1a1a]"
+                  }`}
               >
                 <p>{msg.text}</p>
                 <p className="text-xs mt-1 opacity-70">

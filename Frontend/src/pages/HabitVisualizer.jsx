@@ -543,11 +543,10 @@ const HabitVisualizer = () => {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 px-1 relative whitespace-nowrap ${
-                activeTab === tab
+              className={`pb-2 px-1 relative whitespace-nowrap ${activeTab === tab
                   ? "text-[#A2BFFE]"
                   : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-              }`}
+                }`}
             >
               {tab === "create" ? "Create New" : "Saved Visualizations"}
               {activeTab === tab && (
@@ -672,11 +671,10 @@ const HabitVisualizer = () => {
                             </motion.button>
                             <motion.button
                               onClick={() => setShowCode(!showCode)}
-                              className={`text-xs ${
-                                showCode
+                              className={`text-xs ${showCode
                                   ? "bg-[#A2BFFE] text-[#080808]"
                                   : "bg-[#222] hover:bg-[#333] text-[#f5f5f7]"
-                              } px-3 py-1 rounded-md flex items-center`}
+                                } px-3 py-1 rounded-md flex items-center`}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -734,45 +732,45 @@ const HabitVisualizer = () => {
                                       {day === "30"
                                         ? "30 Days"
                                         : day === "90"
-                                        ? "90 Days"
-                                        : "1 Year"}
+                                          ? "90 Days"
+                                          : "1 Year"}
                                     </h3>
                                     {forecast?.[day] &&
-                                    typeof forecast[day] === "object" ? (
+                                      typeof forecast[day] === "object" ? (
                                       <div className="space-y-3 text-sm text-[#f5f5f7]/90">
                                         {forecast[day][
                                           "Summary of expected progress or changes"
                                         ] && (
-                                          <div>
-                                            <h4 className="font-medium text-[#A2BFFE]/90">
-                                              Progress & Changes
-                                            </h4>
-                                            <p className="mt-1">
-                                              {
-                                                forecast[day][
+                                            <div>
+                                              <h4 className="font-medium text-[#A2BFFE]/90">
+                                                Progress & Changes
+                                              </h4>
+                                              <p className="mt-1">
+                                                {
+                                                  forecast[day][
                                                   "Summary of expected progress or changes"
-                                                ]
-                                              }
-                                            </p>
-                                          </div>
-                                        )}
+                                                  ]
+                                                }
+                                              </p>
+                                            </div>
+                                          )}
 
                                         {forecast[day][
                                           "Potential challenges"
                                         ] && (
-                                          <div>
-                                            <h4 className="font-medium text-[#A2BFFE]/90">
-                                              Challenges
-                                            </h4>
-                                            <p className="mt-1">
-                                              {
-                                                forecast[day][
+                                            <div>
+                                              <h4 className="font-medium text-[#A2BFFE]/90">
+                                                Challenges
+                                              </h4>
+                                              <p className="mt-1">
+                                                {
+                                                  forecast[day][
                                                   "Potential challenges"
-                                                ]
-                                              }
-                                            </p>
-                                          </div>
-                                        )}
+                                                  ]
+                                                }
+                                              </p>
+                                            </div>
+                                          )}
 
                                         {forecast[day]["Motivation tips"] && (
                                           <div>
@@ -814,10 +812,10 @@ const HabitVisualizer = () => {
                                           ? typeof forecast[day] === "string"
                                             ? forecast[day]
                                             : JSON.stringify(
-                                                forecast[day],
-                                                null,
-                                                2
-                                              )
+                                              forecast[day],
+                                              null,
+                                              2
+                                            )
                                           : "No data."}
                                       </pre>
                                     )}

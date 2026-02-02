@@ -29,7 +29,7 @@ const PartnersSection = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       // Use mock data and filter pending partners
       const pending = mockPartners.filter(p => p.status === 'pending');
       setPendingRequests(pending);
@@ -42,7 +42,7 @@ const PartnersSection = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 300));
-      
+
       toast.success("Partner request accepted!");
       toast.info("Demo mode: Changes are not persisted");
       // fetchPartners();
@@ -56,7 +56,7 @@ const PartnersSection = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 300));
-      
+
       toast.success("Partner request declined");
       toast.info("Demo mode: Changes are not persisted");
       // fetchPendingRequests();
@@ -73,7 +73,7 @@ const PartnersSection = () => {
     try {
       // Simulate API delay
       await new Promise(resolve => setTimeout(resolve, 500));
-      
+
       // Use mock data and filter active partners
       const activePartners = mockPartners.filter(p => p.status === 'active');
       setPartners(activePartners);
@@ -269,7 +269,7 @@ const PartnersSection = () => {
               partnership.user._id === currentUser.id
                 ? partnership.partner
                 : partnership.user;
-            
+
             // Additional check to ensure partner is not null
             if (!partner || !partner._id) {
               console.warn('Partner is null or missing _id:', partnership);

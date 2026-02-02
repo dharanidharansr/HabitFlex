@@ -324,7 +324,7 @@ export const getCurrentUserId = () => {
 export const getMyParticipations = () => {
   const userId = getCurrentUserId();
   if (!userId) return [];
-  
+
   return mockChallenges.filter(challenge =>
     challenge.participants.some(p => p.user._id === userId)
   );
@@ -333,7 +333,7 @@ export const getMyParticipations = () => {
 export const getAvailableChallenges = () => {
   const userId = getCurrentUserId();
   if (!userId) return mockChallenges;
-  
+
   return mockChallenges.filter(challenge =>
     !challenge.participants.some(p => p.user._id === userId)
   );
