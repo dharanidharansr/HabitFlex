@@ -96,33 +96,33 @@ const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-[#080808] text-[#f5f5f7] overflow-hidden p-6">
+    <div className="relative min-h-screen flex items-center justify-center bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] overflow-hidden p-6">
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="h-full w-full grid grid-cols-[repeat(40,1fr)] grid-rows-[repeat(20,1fr)]">
           {[...Array(800)].map((_, i) => (
             <div
               key={i}
-              className="w-0.5 h-0.5 rounded-full bg-[#A2BFFE]/20"
+              className="w-0.5 h-0.5 rounded-full bg-[rgb(var(--accent-primary))]/20"
             ></div>
           ))}
         </div>
       </div>
 
       <motion.div
-        className="relative z-10 w-full max-w-md p-8 bg-[#0a0a0a]/80 border border-[#A2BFFE]/10 rounded-xl shadow-lg backdrop-blur-md"
+        className="relative z-10 w-full max-w-md p-8 bg-[rgb(var(--bg-secondary))]/80 border border-[rgb(var(--accent-primary))]/10 rounded-xl shadow-lg backdrop-blur-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-bold text-center mb-8 text-[#A2BFFE]">
+        <h2 className="text-3xl font-bold text-center mb-8 text-[rgb(var(--accent-primary))]">
           Login to HabitFlex
         </h2>
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-[#f5f5f7]/80 mb-2"
+              className="block text-sm font-medium text-[rgb(var(--text-primary))]/80 mb-2"
             >
               Email Address
             </label>
@@ -135,14 +135,14 @@ const Login = () => {
                 setFormData({ ...formData, email: e.target.value })
               }
               required
-              className="w-full px-4 py-2 bg-[#1a1a1a] border border-[#222] rounded-md focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50 focus:border-[#A2BFFE]/50 transition"
+              className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 focus:border-[rgb(var(--accent-primary))]/50 transition"
               placeholder="you@example.com"
             />
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-[#f5f5f7]/80 mb-2"
+              className="block text-sm font-medium text-[rgb(var(--text-primary))]/80 mb-2"
             >
               Password
             </label>
@@ -155,20 +155,20 @@ const Login = () => {
                 setFormData({ ...formData, password: e.target.value })
               }
               required
-              className="w-full px-4 py-2 bg-[#1a1a1a] border border-[#222] rounded-md focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50 focus:border-[#A2BFFE]/50 transition"
+              className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 focus:border-[rgb(var(--accent-primary))]/50 transition"
               placeholder="••••••••"
             />
           </div>
           <motion.button
             type="submit"
-            className="w-full bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-4 py-3 rounded-md font-bold text-base transition flex justify-center items-center"
+            className="w-full bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] px-4 py-3 rounded-md font-bold text-base transition flex justify-center items-center"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             disabled={loading}
           >
             {loading ? (
               <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5 text-[#080808]"
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-[rgb(var(--bg-primary))]"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -195,10 +195,10 @@ const Login = () => {
         {/* Divider */}
         <div className="relative my-6">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[#222]"></div>
+            <div className="w-full border-t border-[rgb(var(--border-primary))]"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-[#0a0a0a] text-[#f5f5f7]/60">Or continue with</span>
+            <span className="px-2 bg-[rgb(var(--bg-secondary))] text-[rgb(var(--text-primary))]/60">Or continue with</span>
           </div>
         </div>
 

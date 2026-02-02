@@ -55,10 +55,10 @@ const StreaksList = ({ habits }) => {
         {habits.map((habit) => (
           <motion.div
             key={habit._id}
-            className={`bg-[#0a0a0a] border ${
+            className={`bg-[rgb(var(--bg-secondary))] border ${
               selectedHabit?._id === habit._id
-                ? "border-[#A2BFFE]"
-                : "border-[#222]"
+                ? "border-[rgb(var(--accent-primary))]"
+                : "border-[rgb(var(--border-primary))]"
             } rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between cursor-pointer`}
             whileHover={{ y: -2 }}
             onClick={() => handleHabitSelect(habit)}
@@ -66,31 +66,31 @@ const StreaksList = ({ habits }) => {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full gap-2">
               <div>
                 <h3 className="font-bold text-lg sm:text-xl">{habit.name}</h3>
-                <p className="text-sm sm:text-base text-[#f5f5f7]/60">
+                <p className="text-sm sm:text-base text-[rgb(var(--text-primary))]/60">
                   {habit.frequency} •{" "}
                   {format(new Date(`2000-01-01T${habit.timeOfDay}`), "h:mm a")}
                 </p>
               </div>
               <div className="flex flex-row items-center gap-2 mt-2 sm:mt-0">
                 <div>
-                  <p className="text-xs sm:text-sm text-[#f5f5f7]/60">
+                  <p className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60">
                     Current
                   </p>
-                  <p className="text-lg sm:text-xl font-bold text-[#A2BFFE]">
+                  <p className="text-lg sm:text-xl font-bold text-[rgb(var(--accent-primary))]">
                     {habit.currentStreak}
-                    <span className="text-xs sm:text-sm text-[#f5f5f7]/60 ml-1">
+                    <span className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60 ml-1">
                       days
                     </span>
                   </p>
                 </div>
-                <div className="h-8 sm:h-10 w-px bg-[#222]" />
+                <div className="h-8 sm:h-10 w-px bg-[rgb(var(--border-primary))]" />
                 <div>
-                  <p className="text-xs sm:text-sm text-[#f5f5f7]/60">
+                  <p className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60">
                     Longest
                   </p>
-                  <p className="text-lg sm:text-xl font-bold text-[#A2BFFE]">
+                  <p className="text-lg sm:text-xl font-bold text-[rgb(var(--accent-primary))]">
                     {habit.longestStreak}
-                    <span className="text-xs sm:text-sm text-[#f5f5f7]/60 ml-1">
+                    <span className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60 ml-1">
                       days
                     </span>
                   </p>
@@ -105,8 +105,8 @@ const StreaksList = ({ habits }) => {
                   key={idx}
                   className={`h-1.5 flex-1 rounded-full ${
                     idx < Math.min(habit.currentStreak, 7)
-                      ? "bg-gradient-to-r from-[#A2BFFE] to-[#91AFFE]"
-                      : "bg-[#222]"
+                      ? "bg-gradient-to-r from-[rgb(var(--accent-primary))] to-[rgb(var(--accent-primary))]/80"
+                      : "bg-[rgb(var(--border-primary))]"
                   }`}
                 />
               ))}

@@ -89,13 +89,13 @@ const HabitEditor = ({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-[#0a0a0a] rounded-xl p-8 w-full max-w-2xl border border-[#222] my-8"
+        className="bg-[rgb(var(--bg-secondary))] rounded-xl p-8 w-full max-w-2xl border border-[rgb(var(--border-primary))] my-8">
       >
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Edit Habit</h2>
           <button
             onClick={onClose}
-            className="text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
+            className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
           >
             <svg
               className="w-6 h-6"
@@ -127,7 +127,7 @@ const HabitEditor = ({
                   onChange={(e) =>
                     setEditedHabit({ ...editedHabit, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                  className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                   required
                 />
               </div>
@@ -144,7 +144,7 @@ const HabitEditor = ({
                       description: e.target.value,
                     })
                   }
-                  className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE] h-24 resize-none"
+                  className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))] h-24 resize-none"
                 />
               </div>
             </div>
@@ -164,7 +164,7 @@ const HabitEditor = ({
                         frequency: e.target.value,
                       })
                     }
-                    className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                    className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -184,17 +184,17 @@ const HabitEditor = ({
                         timeOfDay: e.target.value,
                       })
                     }
-                    className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                    className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                     required
                   />
                 </div>
               </div>
 
-              <div className="bg-[#111] rounded-lg p-4 border border-[#222] space-y-4">
+              <div className="bg-[rgb(var(--bg-tertiary))] rounded-lg p-4 border border-[rgb(var(--border-primary))] space-y-4">
                 <h3 className="font-medium">Reminder Settings</h3>
                 <div className="space-y-3">
-                  <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg">
-                    <label className="text-sm font-medium text-[#f5f5f7]/80">
+                  <div className="flex items-center justify-between p-3 bg-[rgb(var(--bg-secondary))] rounded-lg">
+                    <label className="text-sm font-medium text-[rgb(var(--text-primary))]/80">
                       Enable Reminders
                     </label>
                     <input
@@ -215,7 +215,7 @@ const HabitEditor = ({
 
                   {editedHabit.reminderSettings.enabled && (
                     <div className="space-y-3">
-                      <div className="p-3 bg-[#0a0a0a] rounded-lg">
+                      <div className="p-3 bg-[rgb(var(--bg-secondary))] rounded-lg">
                         <label className="block text-sm font-medium mb-2">
                           Reminder Time (minutes before)
                         </label>
@@ -233,12 +233,12 @@ const HabitEditor = ({
                               },
                             })
                           }
-                          className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                          className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                         />
                       </div>
 
-                      <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg">
-                        <label className="text-sm font-medium text-[#f5f5f7]/80">
+                      <div className="flex items-center justify-between p-3 bg-[rgb(var(--bg-secondary))] rounded-lg">
+                        <label className="text-sm font-medium text-[rgb(var(--text-primary))]/80">
                           Enable Missed Habit Check
                         </label>
                         <input
@@ -259,8 +259,8 @@ const HabitEditor = ({
                         />
                       </div>
 
-                      <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg">
-                        <label className="text-sm font-medium text-[#f5f5f7]/80">
+                      <div className="flex items-center justify-between p-3 bg-[rgb(var(--bg-secondary))] rounded-lg">
+                        <label className="text-sm font-medium text-[rgb(var(--text-primary))]/80">
                           Sync with Google Calendar
                         </label>
                         <input
@@ -278,7 +278,7 @@ const HabitEditor = ({
                       </div>
 
                       {!userGoogleCalendarConnected && (
-                        <p className="text-xs text-[#f5f5f7]/60 mt-2">
+                        <p className="text-xs text-[rgb(var(--text-primary))]/60 mt-2">
                           Connect Google Calendar in settings to enable this
                           feature
                         </p>
@@ -293,13 +293,13 @@ const HabitEditor = ({
           <div className="flex gap-3 mt-8">
             <motion.button
               type="submit"
-              className="flex-1 bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] py-2 rounded-lg font-bold flex items-center justify-center"
+              className="flex-1 bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] py-2 rounded-lg font-bold flex items-center justify-center"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={loading}
             >
               {loading ? (
-                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#080808]" />
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[rgb(var(--bg-primary))]" />
               ) : (
                 "Save Changes"
               )}
@@ -319,7 +319,7 @@ const HabitEditor = ({
             <motion.button
               type="button"
               onClick={onClose}
-              className="flex-1 border border-[#222] hover:border-[#A2BFFE] py-2 rounded-lg"
+              className="flex-1 border border-[rgb(var(--border-primary))] hover:border-[rgb(var(--accent-primary))] py-2 rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={loading}

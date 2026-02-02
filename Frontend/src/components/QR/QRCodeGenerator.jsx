@@ -48,19 +48,19 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 w-full max-w-md"
+        className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 w-full max-w-md"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-[#f5f5f7]">
+          <h2 className="text-xl font-bold text-[rgb(var(--text-primary))]">
             {type === 'habit' ? 'Habit QR Code' : 'Challenge QR Code'}
           </h2>
-          <button onClick={onClose} className="text-[#f5f5f7]/60 hover:text-[#f5f5f7] text-2xl">
+          <button onClick={onClose} className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))] text-2xl">
             ×
           </button>
         </div>
         
         <div className="flex flex-col items-center mb-6">
-          <p className="text-[#f5f5f7]/60 mb-4 text-center">
+          <p className="text-[rgb(var(--text-primary))]/60 mb-4 text-center">
             {type === 'habit' 
               ? 'Scan this QR code to mark this habit as completed for today.' 
               : 'Scan this QR code to add 10% progress to this challenge.'}
@@ -86,7 +86,7 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
         
         <motion.button
           onClick={downloadQRCode}
-          className="w-full flex justify-center items-center gap-2 bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] py-3 rounded-lg font-bold"
+          className="w-full flex justify-center items-center gap-2 bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] py-3 rounded-lg font-bold"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -96,7 +96,7 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
           Download QR Code
         </motion.button>
         
-        <p className="text-[#f5f5f7]/40 text-xs text-center mt-4">
+        <p className="text-[rgb(var(--text-primary))]/40 text-xs text-center mt-4">
           Print this QR code and place it where you perform your habit for easy check-ins.
         </p>
       </motion.div>

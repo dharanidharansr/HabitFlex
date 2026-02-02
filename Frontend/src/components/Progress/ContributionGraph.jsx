@@ -27,12 +27,12 @@ const ContributionGraph = ({ habits }) => {
 
   // Helper function to get color based on completion count
   const getColor = (count) => {
-    if (count === 0) return "bg-[#1a1a1a]";
+    if (count === 0) return "bg-[rgb(var(--bg-tertiary))]";
     const intensity = Math.min((count / maxCompletions) * 100, 100);
     if (intensity < 25) return "bg-[#1e3a8a]";
     if (intensity < 50) return "bg-[#2563eb]";
     if (intensity < 75) return "bg-[#60a5fa]";
-    return "bg-[#A2BFFE]";
+    return "bg-[rgb(var(--accent-primary))]";
   };
 
   // Group dates by week (ensure 52 weeks + remaining days)
@@ -53,8 +53,8 @@ const ContributionGraph = ({ habits }) => {
   }
 
   return (
-    <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6">
-      <h3 className="font-medium text-[#A2BFFE] mb-4">Contribution Activity</h3>
+    <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6">
+      <h3 className="font-medium text-[rgb(var(--accent-primary))] mb-4">Contribution Activity</h3>
       <div className="w-full overflow-hidden">
         {" "}
         <div className="w-full">
@@ -67,7 +67,7 @@ const ContributionGraph = ({ habits }) => {
                     return (
                       <motion.div
                         key={`empty-${weekIndex}-${dateIndex}`}
-                        className="w-3 h-3 rounded-sm bg-[#1a1a1a]"
+                        className="w-3 h-3 rounded-sm bg-[rgb(var(--bg-tertiary))]"
                       />
                     );
                   }
@@ -85,9 +85,8 @@ const ContributionGraph = ({ habits }) => {
                       title={`${format(
                         date,
                         "MMM d, yyyy"
-                      )}: ${completions} completion${
-                        completions !== 1 ? "s" : ""
-                      }`}
+                      )}: ${completions} completion${completions !== 1 ? "s" : ""
+                        }`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: (weekIndex + dateIndex) * 0.001 }}
@@ -97,15 +96,15 @@ const ContributionGraph = ({ habits }) => {
               </div>
             ))}
           </div>
-          <div className="mt-4 flex items-center justify-end gap-2 text-xs text-[#f5f5f7]/60">
+          <div className="mt-4 flex items-center justify-end gap-2 text-xs text-[rgb(var(--text-primary))]/60">
             <span>Less</span>
             <div className="flex gap-1">
               {[
-                "bg-[#1a1a1a]",
+                "bg-[rgb(var(--bg-tertiary))]",
                 "bg-[#1e3a8a]",
                 "bg-[#2563eb]",
                 "bg-[#60a5fa]",
-                "bg-[#A2BFFE]",
+                "bg-[rgb(var(--accent-primary))]",
               ].map((color, i) => (
                 <div key={i} className={`w-3 h-3 rounded-sm ${color}`} />
               ))}

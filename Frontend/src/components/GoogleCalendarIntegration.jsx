@@ -127,9 +127,9 @@ const GoogleCalendarIntegration = () => {
   };
 
   return (
-    <div className="bg-[#111] border border-[#222] rounded-lg p-4">
+    <div className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg p-4">
       <h3 className="font-bold mb-2">Google Calendar Integration</h3>
-      <p className="text-sm text-[#f5f5f7]/60 mb-4">
+      <p className="text-sm text-[rgb(var(--text-primary))]/60 mb-4">
         Sync your habits with Google Calendar to keep everything organized
       </p>
 
@@ -142,7 +142,7 @@ const GoogleCalendarIntegration = () => {
 
           <motion.button
             onClick={disconnectGoogleCalendar}
-            className="text-sm bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-4 py-2 rounded-md"
+            className="text-sm bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] px-4 py-2 rounded-md"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={connecting}
@@ -153,7 +153,7 @@ const GoogleCalendarIntegration = () => {
       ) : (
         <motion.button
           onClick={connectGoogleCalendar}
-          className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-4 py-2 rounded-md text-sm font-medium"
+          className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-4 py-2 rounded-md text-sm font-medium"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           disabled={connecting}

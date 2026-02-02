@@ -34,13 +34,13 @@ const PartnerProgress = ({ partnerId, partnerName, onClose }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="bg-[#0a0a0a] w-full max-w-lg rounded-xl shadow-xl p-6"
+        className="bg-[rgb(var(--bg-secondary))] w-full max-w-lg rounded-xl shadow-xl p-6"
       >
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-bold">{partnerName}'s Progress</h3>
           <button
             onClick={onClose}
-            className="text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
+            className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
           >
             ×
           </button>
@@ -53,7 +53,7 @@ const PartnerProgress = ({ partnerId, partnerName, onClose }) => {
             {habits.map((habit) => (
               <div key={habit._id} className="bg-[#1a1a1a] p-4 rounded-lg">
                 <h4 className="font-bold">{habit.name}</h4>
-                <p className="text-[#f5f5f7]/60 text-sm">{habit.description}</p>
+                <p className="text-[rgb(var(--text-primary))]/60 text-sm">{habit.description}</p>
                 <div className="mt-2 flex gap-4">
                   <div>
                     <span className="text-sm text-[#f5f5f7]/60">

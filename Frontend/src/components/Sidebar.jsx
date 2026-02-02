@@ -7,16 +7,40 @@ const Sidebar = ({ children }) => {
   // Only calculate on mount
   const isMobile = useMemo(() => window.innerWidth < 640, []);
   const [isCollapsed, setIsCollapsed] = useState(isMobile);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-  
+
   // Search state
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const searchRef = useRef(null);
+
+  // Load theme preference on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      setIsDarkMode(false);
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  }, []);
+
+  // Toggle theme
+  const toggleTheme = () => {
+    const newMode = !isDarkMode;
+    setIsDarkMode(newMode);
+
+    if (newMode) {
+      document.documentElement.removeAttribute('data-theme');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   // Close search results when clicking outside
   useEffect(() => {
@@ -201,7 +225,7 @@ const Sidebar = ({ children }) => {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#080808]">
+    <div className="flex min-h-screen bg-[rgb(var(--bg-primary))]">
       <motion.div
         initial={{
           width: isMobile ? (isCollapsed ? "4rem" : "100vw") : "16rem",
@@ -212,22 +236,22 @@ const Sidebar = ({ children }) => {
               ? "4rem"
               : "100vw"
             : isCollapsed
-            ? "4rem"
-            : "16rem",
+              ? "4rem"
+              : "16rem",
         }}
-        className={`fixed top-0 left-0 h-full bg-[#0a0a0a] border-r border-[#222] flex flex-col py-6 z-10 max-w-full transition-all duration-300`}
+        className={`fixed top-0 left-0 h-full bg-[rgb(var(--bg-secondary))] border-r border-[rgb(var(--border-primary))] flex flex-col py-6 z-10 max-w-full transition-all duration-300`}
         style={{ minWidth: 0 }}
       >
         {/* Header */}
         <div className="px-4 mb-8 flex items-center justify-between">
           {!isCollapsed && (
-            <Link to="/dashboard" className="text-xl font-bold text-[#A2BFFE]">
+            <Link to="/dashboard" className="text-xl font-bold text-[rgb(var(--accent-primary))]">
               HabitFlex
             </Link>
           )}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-2 hover:bg-[#222] rounded-lg transition-colors"
+            className="p-2 hover:bg-[rgb(var(--border-primary))] rounded-lg transition-colors"
           >
             {isCollapsed ? (
               <svg
@@ -272,7 +296,7 @@ const Sidebar = ({ children }) => {
                 placeholder="Search users..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 pl-10 text-sm text-white placeholder-[#666] focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                className="w-full bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-secondary))] rounded-lg px-4 py-2 pl-10 text-sm text-white placeholder-[#666] focus:outline-none focus:border-[rgb(var(--accent-primary))] transition-colors"
               />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -290,7 +314,7 @@ const Sidebar = ({ children }) => {
               </svg>
               {searchLoading && (
                 <div className="absolute right-3 top-2.5">
-                  <div className="animate-spin h-5 w-5 border-2 border-[#A2BFFE] border-t-transparent rounded-full"></div>
+                  <div className="animate-spin h-5 w-5 border-2 border-[rgb(var(--accent-primary))] border-t-transparent rounded-full"></div>
                 </div>
               )}
             </div>
@@ -302,16 +326,16 @@ const Sidebar = ({ children }) => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#333] rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto"
+                  className="absolute top-full left-4 right-4 mt-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-secondary))] rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto"
                 >
                   {searchResults.map((result) => (
                     <motion.div
                       key={result._id}
                       whileHover={{ backgroundColor: "#222" }}
                       onClick={() => handleUserClick(result._id)}
-                      className="flex items-center gap-3 p-3 cursor-pointer border-b border-[#222] last:border-b-0"
+                      className="flex items-center gap-3 p-3 cursor-pointer border-b border-[rgb(var(--border-primary))] last:border-b-0"
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#A2BFFE] to-[#6B8FFF] flex items-center justify-center text-sm font-bold text-[#080808]">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[rgb(var(--accent-primary))] to-[#6B8FFF] flex items-center justify-center text-sm font-bold text-[rgb(var(--bg-primary))]">
                         {result.avatar ? (
                           <img
                             src={result.avatar}
@@ -339,7 +363,7 @@ const Sidebar = ({ children }) => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#333] rounded-lg shadow-xl p-4 z-50"
+                  className="absolute top-full left-4 right-4 mt-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-secondary))] rounded-lg shadow-xl p-4 z-50"
                 >
                   <p className="text-sm text-[#666] text-center">
                     No users found
@@ -363,18 +387,17 @@ const Sidebar = ({ children }) => {
                 }}
               >
                 <motion.div
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg mb-2 ${
-                    isActive
-                      ? "bg-[#A2BFFE]/10 text-[#A2BFFE]"
-                      : "text-[#f5f5f7]/70 hover:text-[#f5f5f7] hover:bg-[#222]/50"
-                  }`}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg mb-2 ${isActive
+                      ? "bg-[rgb(var(--accent-bg))]/10 text-[rgb(var(--accent-primary))]"
+                      : "text-[rgb(var(--text-tertiary))]/70 hover:text-[rgb(var(--text-primary))] hover:bg-[rgb(var(--border-primary))]/50"
+                    }`}
                   whileHover={{ x: 4 }}
                 >
                   {item.icon}
                   {!isCollapsed && <span>{item.name}</span>}
                   {isActive && (
                     <motion.div
-                      className="absolute left-0 w-1 h-8 bg-[#A2BFFE] rounded-r-full"
+                      className="absolute left-0 w-1 h-8 bg-[rgb(var(--accent-primary))] rounded-r-full"
                       layoutId="activeNav"
                     />
                   )}
@@ -388,20 +411,20 @@ const Sidebar = ({ children }) => {
         <div className="mt-auto px-2">
           <Link to="/profile">
             <motion.div
-              className={`flex items-center gap-3 p-3 rounded-lg mb-2 hover:bg-[#222]/50 transition-colors`}
+              className={`flex items-center gap-3 p-3 rounded-lg mb-2 hover:bg-[rgb(var(--border-primary))]/50 transition-colors`}
               whileHover={{ x: 4 }}
             >
-              <div className="w-8 h-8 rounded-full bg-[#A2BFFE] flex items-center justify-center">
-                <span className="text-sm font-bold text-[#080808]">
+              <div className="w-8 h-8 rounded-full bg-[rgb(var(--accent-primary))] flex items-center justify-center">
+                <span className="text-sm font-bold text-[rgb(var(--bg-primary))]">
                   {user?.username?.[0]?.toUpperCase()}
                 </span>
               </div>
               {!isCollapsed && (
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[#f5f5f7] truncate">
+                  <p className="text-sm font-medium text-[rgb(var(--text-primary))] truncate">
                     {user?.username}
                   </p>
-                  <p className="text-xs text-[#f5f5f7]/50 truncate">
+                  <p className="text-xs text-[rgb(var(--text-secondary))]/50 truncate">
                     {user?.email}
                   </p>
                 </div>
@@ -411,7 +434,7 @@ const Sidebar = ({ children }) => {
 
           <motion.button
             onClick={logout}
-            className="flex items-center gap-3 px-3 py-3 rounded-lg w-full text-[#f5f5f7]/70 hover:text-[#f5f5f7] hover:bg-[#222]/50"
+            className="flex items-center gap-3 px-3 py-3 rounded-lg w-full text-[rgb(var(--text-tertiary))]/70 hover:text-[rgb(var(--text-primary))] hover:bg-[rgb(var(--border-primary))]/50"
             whileHover={{ x: 4 }}
           >
             <svg
@@ -440,8 +463,8 @@ const Sidebar = ({ children }) => {
                 ? "4rem"
                 : "0"
               : isCollapsed
-              ? "4rem"
-              : "16rem",
+                ? "4rem"
+                : "16rem",
         }}
         animate={{
           marginLeft:
@@ -450,8 +473,8 @@ const Sidebar = ({ children }) => {
                 ? "4rem"
                 : "0"
               : isCollapsed
-              ? "4rem"
-              : "16rem",
+                ? "4rem"
+                : "16rem",
         }}
         className="flex-1 transition-all duration-300 min-w-0"
       >

@@ -130,9 +130,8 @@ const HabitList = ({ habits, onHabitUpdate, user }) => {
       {sortedHabits.map((habit) => (
         <motion.div
           key={habit._id}
-          className={`bg-[#0a0a0a] border ${
-            habit.completedToday ? "border-[#222] opacity-75" : "border-[#222]"
-          } rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between transition-all duration-200 gap-4`}
+          className={`bg-[rgb(var(--bg-secondary))] border ${habit.completedToday ? "border-[rgb(var(--border-primary))] opacity-75" : "border-[rgb(var(--border-primary))]"
+            } rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between transition-all duration-200 gap-4`}
           whileHover={{ y: habit.completedToday ? 0 : -2 }}
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full">
@@ -140,17 +139,16 @@ const HabitList = ({ habits, onHabitUpdate, user }) => {
               onClick={() => handleCheck(habit._id)}
               disabled={habit.completedToday || completingHabitId === habit._id}
               className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors
-                ${
-                  habit.completedToday
-                    ? "bg-[#A2BFFE] border-[#A2BFFE] cursor-not-allowed"
-                    : "border-[#444] hover:border-[#A2BFFE] cursor-pointer"
+                ${habit.completedToday
+                  ? "bg-[rgb(var(--accent-primary))] border-[rgb(var(--accent-primary))] cursor-not-allowed"
+                  : "border-[rgb(var(--border-secondary))] hover:border-[rgb(var(--accent-primary))] cursor-pointer"
                 }`}
               whileHover={habit.completedToday ? {} : { scale: 1.1 }}
               whileTap={habit.completedToday ? {} : { scale: 0.9 }}
             >
               {habit.completedToday && (
                 <svg
-                  className="w-4 h-4 text-[#080808]"
+                  className="w-4 h-4 text-[rgb(var(--bg-primary))]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -167,18 +165,16 @@ const HabitList = ({ habits, onHabitUpdate, user }) => {
 
             <div className="min-w-0">
               <h3
-                className={`font-bold text-base sm:text-lg ${
-                  habit.completedToday ? "line-through text-[#f5f5f7]/40" : ""
-                }`}
+                className={`font-bold text-base sm:text-lg ${habit.completedToday ? "line-through text-[rgb(var(--text-primary))]/40" : ""
+                  }`}
               >
                 {habit.name}
               </h3>
               <p
-                className={`text-xs sm:text-sm ${
-                  habit.completedToday
-                    ? "text-[#f5f5f7]/40"
-                    : "text-[#f5f5f7]/60"
-                }`}
+                className={`text-xs sm:text-sm ${habit.completedToday
+                    ? "text-[rgb(var(--text-primary))]/40"
+                    : "text-[rgb(var(--text-primary))]/60"
+                  }`}
               >
                 {habit.frequency} •{" "}
                 {format(new Date(`2000-01-01T${habit.timeOfDay}`), "h:mm a")}
@@ -187,8 +183,8 @@ const HabitList = ({ habits, onHabitUpdate, user }) => {
           </div>
 
           <div className="flex flex-wrap gap-2 sm:gap-4 items-center justify-end mt-2 sm:mt-0">
-            <div className="text-xs sm:text-sm text-[#f5f5f7]/60">
-              <span className="font-medium text-[#A2BFFE]">
+            <div className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60">
+              <span className="font-medium text-[rgb(var(--accent-primary))]">
                 {habit.currentStreak}
               </span>{" "}
               day streak
@@ -199,7 +195,7 @@ const HabitList = ({ habits, onHabitUpdate, user }) => {
                 setSelectedHabit(habit);
                 setShowQRGenerator(true);
               }}
-              className="p-1 rounded-full hover:bg-[#222] text-[#f5f5f7]/60"
+              className="p-1 rounded-full hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))]/60"
             >
               <svg
                 className="w-4 h-4"
@@ -217,12 +213,12 @@ const HabitList = ({ habits, onHabitUpdate, user }) => {
             </motion.button>
             <motion.button
               onClick={() => handleEdit(habit)}
-              className="p-2 hover:bg-[#111] rounded-lg transition-colors"
+              className="p-2 hover:bg-[rgb(var(--bg-tertiary))] rounded-lg transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <svg
-                className="w-4 h-4 text-[#f5f5f7]/60"
+                className="w-4 h-4 text-[rgb(var(--text-primary))]/60"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"

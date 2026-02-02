@@ -67,26 +67,26 @@ const ParticipantsList = ({ challengeId, challenges }) => {
   if (!challenge) return null;
   
   return (
-    <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6">
+    <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6">
       <div className="mb-6">
         <h2 className="text-xl font-bold">{challenge.name}: Participants</h2>
-        <p className="text-[#f5f5f7]/60 mt-1">
+        <p className="text-[rgb(var(--text-primary))]/60 mt-1">
           {participants.length} participants in this challenge
         </p>
       </div>
       
       {loading ? (
         <div className="flex justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
         </div>
       ) : participants.length === 0 ? (
         <div className="text-center py-8">
-          <p className="text-[#f5f5f7]/60">No participants yet</p>
+          <p className="text-[rgb(var(--text-primary))]/60">No participants yet</p>
         </div>
       ) : (
         <div className="space-y-3">
           {/* Header Row */}
-          <div className="grid grid-cols-12 text-sm text-[#f5f5f7]/60 pb-2 border-b border-[#222]">
+          <div className="grid grid-cols-12 text-sm text-[rgb(var(--text-primary))]/60 pb-2 border-b border-[rgb(var(--border-primary))]">
             <div className="col-span-1">#</div>
             <div className="col-span-5">Participant</div>
             <div className="col-span-4">Progress</div>
@@ -112,7 +112,7 @@ const ParticipantsList = ({ challengeId, challenges }) => {
                 <motion.div
                   key={index}
                   className={`grid grid-cols-12 items-center py-3 px-2 rounded-lg ${
-                    isCurrentUser ? "bg-[#1a1a1a]" : ""
+                    isCurrentUser ? "bg-[rgb(var(--bg-tertiary))]" : ""
                   }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -122,8 +122,8 @@ const ParticipantsList = ({ challengeId, challenges }) => {
                   
                   <div className="col-span-5">
                     <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-[#A2BFFE] flex items-center justify-center mr-3">
-                        <span className="text-xs font-bold text-[#080808]">
+                      <div className="w-8 h-8 rounded-full bg-[rgb(var(--accent-primary))] flex items-center justify-center mr-3">
+                        <span className="text-xs font-bold text-[rgb(var(--bg-primary))]">
                           {username.charAt(0).toUpperCase()}
                         </span>
                       </div>
@@ -136,9 +136,9 @@ const ParticipantsList = ({ challengeId, challenges }) => {
                   </div>
                   
                   <div className="col-span-4">
-                    <div className="w-full bg-[#222] rounded-full h-2.5">
+                    <div className="w-full bg-[rgb(var(--border-primary))] rounded-full h-2.5">
                       <div 
-                        className="bg-[#A2BFFE] h-2.5 rounded-full" 
+                        className="bg-[rgb(var(--accent-primary))] h-2.5 rounded-full" 
                         style={{ width: `${participant.progress || 0}%` }}
                       ></div>
                     </div>

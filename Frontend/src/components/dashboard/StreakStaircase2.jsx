@@ -23,7 +23,7 @@ const CharacterAvatar = ({ isActive }) => {
         />
 
         {/* Character body */}
-        <div className="relative z-10 bg-[#0a0a0a] w-12 h-12 rounded-full flex items-center justify-center border-2 border-[#A2BFFE]">
+        <div className="relative z-10 bg-[rgb(var(--bg-secondary))] w-12 h-12 rounded-full flex items-center justify-center border-2 border-[rgb(var(--accent-primary))]">
           <motion.div
             animate={{ y: [0, -2, 0] }}
             transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
@@ -84,7 +84,7 @@ const StreakStaircase2 = ({ streak = 0 }) => {
   }, [streak, isMobile]);
 
   return (
-    <div className="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-black rounded-xl shadow-2xl border border-[#222] p-6 h-[400px]">
+    <div className="relative overflow-hidden bg-gradient-to-b from-[rgb(var(--bg-primary))] via-[rgb(var(--bg-secondary))] to-[rgb(var(--bg-secondary))] rounded-xl shadow-2xl border border-[rgb(var(--border-primary))] p-6 h-[400px]">
       {/* Background ambient effects */}
       <div className="absolute inset-0 overflow-hidden opacity-90">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-cyan-900/30 via-slate-900/0 to-slate-900/0"></div>
@@ -131,10 +131,10 @@ const StreakStaircase2 = ({ streak = 0 }) => {
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400, damping: 10 }}
         >
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-[#A2BFFE] rounded-lg blur opacity-50 group-hover:opacity-80 transition duration-300" />
-          <div className="relative bg-gradient-to-br from-[#0a0a0a]/90 to-[#1a1a1a]/70 px-4 py-2 rounded-lg border border-[#A2BFFE]/30 shadow-inner">
-            <span className="text-xl font-bold text-[#A2BFFE]">{streak}</span>
-            <span className="ml-2 text-sm text-[#f5f5f7]/60">day streak</span>
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-[rgb(var(--accent-primary))] rounded-lg blur opacity-50 group-hover:opacity-80 transition duration-300" />
+          <div className="relative bg-gradient-to-br from-[rgb(var(--bg-secondary))]/90 to-[rgb(var(--bg-tertiary))]/70 px-4 py-2 rounded-lg border border-[rgb(var(--accent-primary))]/30 shadow-inner">
+            <span className="text-xl font-bold text-[rgb(var(--accent-primary))]">{streak}</span>
+            <span className="ml-2 text-sm text-[rgb(var(--text-primary))]/60">day streak</span>
           </div>
         </motion.div>
       </div>
@@ -203,7 +203,7 @@ const StreakStaircase2 = ({ streak = 0 }) => {
                     ? "bg-gradient-to-br from-[#A2BFFE]/80 to-blue-600/70"
                     : isCurrentDay
                     ? "bg-gradient-to-br from-emerald-500/80 to-green-600/70"
-                    : "bg-gradient-to-br from-[#222]/90 to-[#1a1a1a]/80"
+                    : "bg-gradient-to-br from-[rgb(var(--border-primary))]/90 to-[rgb(var(--bg-tertiary))]/80"
                 } 
                 rounded-lg border border-white/10 shadow-lg`}
                       whileHover={{
@@ -325,11 +325,11 @@ const StreakStaircase2 = ({ streak = 0 }) => {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 bg-[#0a0a0a]/50 backdrop-blur-sm border-t border-[#222] p-3">
-        <div className="flex flex-row xs:flex-row items-center justify-center gap-6 xs:gap-3 text-xs sm:text-sm text-[#f5f5f7]/60">
+      <div className="absolute bottom-0 left-0 right-0 bg-[rgb(var(--bg-secondary))]/50 backdrop-blur-sm border-t border-[rgb(var(--border-primary))] p-3">
+        <div className="flex flex-row xs:flex-row items-center justify-center gap-6 xs:gap-3 text-xs sm:text-sm text-[rgb(var(--text-primary))]/60">
           {[
-            { color: "bg-[#222]", label: "Regular" },
-            { color: "bg-[#A2BFFE]", label: "Weekly" },
+            { color: "bg-[rgb(var(--border-primary))]", label: "Regular" },
+            { color: "bg-[rgb(var(--accent-primary))]", label: "Weekly" },
             { color: "bg-emerald-500", label: "Current" },
           ].map((item, index) => (
             <div key={index} className="flex items-center gap-1">
@@ -338,23 +338,23 @@ const StreakStaircase2 = ({ streak = 0 }) => {
                 animate={{
                   boxShadow: [
                     `0 0 1px ${
-                      item.color === "bg-[#222]"
+                      item.color === "bg-[rgb(var(--border-primary))]"
                         ? "rgba(255, 255, 255, 0.2)"
-                        : item.color === "bg-[#A2BFFE]"
+                        : item.color === "bg-[rgb(var(--accent-primary))]"
                         ? "rgba(162, 191, 254, 0.3)"
                         : "rgba(16, 185, 129, 0.3)"
                     }`,
                     `0 0 3px ${
-                      item.color === "bg-[#222]"
+                      item.color === "bg-[rgb(var(--border-primary))]"
                         ? "rgba(255, 255, 255, 0.4)"
-                        : item.color === "bg-[#A2BFFE]"
+                        : item.color === "bg-[rgb(var(--accent-primary))]"
                         ? "rgba(162, 191, 254, 0.6)"
                         : "rgba(16, 185, 129, 0.6)"
                     }`,
                     `0 0 1px ${
-                      item.color === "bg-[#222]"
+                      item.color === "bg-[rgb(var(--border-primary))]"
                         ? "rgba(255, 255, 255, 0.2)"
-                        : item.color === "bg-[#A2BFFE]"
+                        : item.color === "bg-[rgb(var(--accent-primary))]"
                         ? "rgba(162, 191, 254, 0.3)"
                         : "rgba(16, 185, 129, 0.3)"
                     }`,

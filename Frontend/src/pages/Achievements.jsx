@@ -372,27 +372,27 @@ const Achievements = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080808] text-[#f5f5f7] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+      <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#f5f5f7] py-8">
+    <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] py-8">
       <main className="max-w-4xl mx-auto px-6">
         {/* Responsive Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold">Achievements</h1>
-            <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
+            <p className="text-[rgb(var(--text-secondary))]/60 text-sm sm:text-base">
               You've unlocked {unlockedCount} of {achievements.length}{" "}
               achievements ({percentage}%)
             </p>
           </div>
           <Link to="/progress" className="w-full sm:w-auto">
             <motion.button
-              className="flex items-center gap-2 px-4 py-2 bg-[#0a0a0a] border border-[#222] rounded-lg hover:border-[#A2BFFE]/30 text-sm w-full sm:w-auto mt-3 sm:mt-0"
+              className="flex items-center gap-2 px-4 py-2 bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-lg hover:border-[rgb(var(--accent-hover))]/30 text-sm w-full sm:w-auto mt-3 sm:mt-0"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -414,21 +414,21 @@ const Achievements = () => {
         </div>
 
         {/* Achievement Progress */}
-        <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6 mb-6">
+        <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6 mb-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
             <h2 className="text-lg sm:text-xl font-bold mb-2 sm:mb-0">
               Your Achievement Progress
             </h2>
-            <div className="bg-[#A2BFFE]/10 rounded-full px-4 py-1 w-full sm:w-auto text-center sm:text-left">
-              <span className="text-sm font-medium text-[#A2BFFE]">
+            <div className="bg-[rgb(var(--accent-bg))]/10 rounded-full px-4 py-1 w-full sm:w-auto text-center sm:text-left">
+              <span className="text-sm font-medium text-[rgb(var(--accent-primary))]">
                 {percentage}% Complete
               </span>
             </div>
           </div>
 
-          <div className="w-full bg-[#111] rounded-full h-4 mb-6">
+          <div className="w-full bg-[rgb(var(--bg-tertiary))] rounded-full h-4 mb-6">
             <motion.div
-              className="bg-[#A2BFFE] h-4 rounded-full"
+              className="bg-[rgb(var(--accent-primary))] h-4 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${percentage}%` }}
               transition={{ duration: 1, ease: "easeOut" }}
@@ -441,8 +441,8 @@ const Achievements = () => {
                 key={category}
                 onClick={() => setSelectedFilter(category)}
                 className={`px-4 py-2 text-sm rounded-lg capitalize ${selectedFilter === category
-                    ? "bg-[#A2BFFE] text-[#080808]"
-                    : "bg-[#111] hover:bg-[#222] text-[#f5f5f7]/70"
+                  ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                  : "bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-primary))] text-[rgb(var(--text-tertiary))]/70"
                   }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}

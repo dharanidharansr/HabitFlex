@@ -38,7 +38,7 @@ const Features = () => {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 hover:border-[#A2BFFE]/50 transition-colors backdrop-blur-sm"
+              className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 hover:border-[rgb(var(--accent-primary))]/50 transition-colors backdrop-blur-sm"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -48,11 +48,11 @@ const Features = () => {
                 boxShadow: "0 10px 30px -10px rgba(162, 191, 254, 0.2)",
               }}
             >
-              <div className="w-12 h-12 bg-[#A2BFFE]/20 rounded-lg flex items-center justify-center mb-4 text-2xl">
+              <div className="w-12 h-12 bg-[rgb(var(--accent-primary))]/20 rounded-lg flex items-center justify-center mb-4 text-2xl">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
-              <p className="text-[#f5f5f7]/70">{feature.description}</p>
+              <p className="text-[rgb(var(--text-primary))]/70">{feature.description}</p>
             </motion.div>
           ))}
         </div>

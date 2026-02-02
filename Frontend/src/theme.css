@@ -1,0 +1,71 @@
+/* Theme CSS Variables for Light and Dark Mode */
+
+:root {
+  /* Dark Mode Colors (Default) */
+  --bg-primary: 8 8 8;
+  --bg-secondary: 10 10 10;
+  --bg-tertiary: 17 17 17;
+
+  --text-primary: 245 245 247;
+  --text-secondary: 245 245 247;
+  --text-tertiary: 245 245 247;
+  --text-muted: 245 245 247;
+
+  --border-primary: 34 34 34;
+  --border-secondary: 51 51 51;
+
+  --accent-primary: 162 191 254;
+  --accent-hover: 162 191 254;
+  --accent-bg: 162 191 254;
+  --accent-border: 162 191 254;
+
+  --success: 74 222 128;
+  --warning: 249 115 22;
+  --info: 59 130 246;
+  --purple: 139 92 246;
+  --pink: 236 72 153;
+  --yellow: 234 179 8;
+}
+
+/* Light Mode Colors */
+[data-theme="light"] {
+  --bg-primary: 255 255 255;
+  --bg-secondary: 245 245 247;
+  --bg-tertiary: 229 229 231;
+
+  --text-primary: 29 29 31;
+  --text-secondary: 29 29 31;
+  --text-tertiary: 29 29 31;
+  --text-muted: 29 29 31;
+
+  --border-primary: 209 209 214;
+  --border-secondary: 199 199 204;
+
+  --accent-primary: 0 102 204;
+  --accent-hover: 0 102 204;
+  --accent-bg: 0 102 204;
+  --accent-border: 0 102 204;
+
+  --success: 52 199 89;
+  --warning: 255 149 0;
+  --info: 0 122 255;
+  --purple: 175 82 222;
+  --pink: 255 45 85;
+  --yellow: 255 204 0;
+}
+
+/* Apply theme colors to body */
+body {
+  background-color: rgb(var(--bg-primary));
+  color: rgb(var(--text-primary));
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Prevent transition on page load */
+.no-transition * {
+  transition: none !important;
+}

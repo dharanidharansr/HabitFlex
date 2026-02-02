@@ -43,8 +43,7 @@ const PartnersSection = () => {
   const handleAcceptRequest = async (requestId) => {
     try {
       await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
+        `${import.meta.env.VITE_API_URL
         }/api/partners/request/${requestId}/accept`,
         {},
         {
@@ -64,8 +63,7 @@ const PartnersSection = () => {
   const handleDeclineRequest = async (requestId) => {
     try {
       await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
+        `${import.meta.env.VITE_API_URL
         }/api/partners/request/${requestId}/decline`,
         {},
         {
@@ -182,7 +180,7 @@ const PartnersSection = () => {
   return (
     <div className="space-y-6">
       {/* Search Section */}
-      <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6">
+      <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6">
         <h3 className="text-xl font-bold mb-4">Find Partners</h3>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -190,11 +188,11 @@ const PartnersSection = () => {
             value={searchTerm}
             onChange={handleSearch}
             placeholder="Search by username or email"
-            className="flex-1 px-4 py-2 bg-[#1a1a1a] border border-[#222] rounded-lg"
+            className="flex-1 px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg"
           />
           <motion.button
             onClick={handleSearch}
-            className="bg-[#A2BFFE] text-[#080808] px-4 py-2 rounded-lg font-bold"
+            className="bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] px-4 py-2 rounded-lg font-bold"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={loading}
@@ -209,15 +207,15 @@ const PartnersSection = () => {
             {searchResults.map((user) => (
               <div
                 key={user._id}
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 bg-[#1a1a1a] rounded-lg gap-2"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 bg-[rgb(var(--bg-tertiary))] rounded-lg gap-2"
               >
                 <div>
                   <p className="font-medium">{user.username}</p>
-                  <p className="text-sm text-[#f5f5f7]/60">{user.email}</p>
+                  <p className="text-sm text-[rgb(var(--text-primary))]/60">{user.email}</p>
                 </div>
                 <motion.button
                   onClick={() => sendPartnerRequest(user._id)}
-                  className="w-full sm:w-auto text-sm bg-[#A2BFFE]/20 text-[#A2BFFE] px-3 py-1.5 rounded-md mt-2 sm:mt-0"
+                  className="w-full sm:w-auto text-sm bg-[rgb(var(--accent-primary))]/20 text-[rgb(var(--accent-primary))] px-3 py-1.5 rounded-md mt-2 sm:mt-0"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -231,24 +229,24 @@ const PartnersSection = () => {
 
       {/* Pending Requests */}
       {pendingRequests.length > 0 && (
-        <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6">
+        <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6">
           <h3 className="text-xl font-bold mb-4">Pending Requests</h3>
           <div className="space-y-3">
             {pendingRequests.map((request) => (
               <div
                 key={request._id}
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[#1a1a1a] rounded-lg gap-2"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[rgb(var(--bg-tertiary))] rounded-lg gap-2"
               >
                 <div>
                   <p className="font-medium">{request.user.username}</p>
-                  <p className="text-sm text-[#f5f5f7]/60">
+                  <p className="text-sm text-[rgb(var(--text-primary))]/60">
                     {request.user.email}
                   </p>
                 </div>
                 <div className="flex gap-2">
                   <motion.button
                     onClick={() => handleAcceptRequest(request._id)}
-                    className="px-4 py-2 bg-[#A2BFFE] text-[#080808] rounded-md font-medium"
+                    className="px-4 py-2 bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] rounded-md font-medium"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -256,7 +254,7 @@ const PartnersSection = () => {
                   </motion.button>
                   <motion.button
                     onClick={() => handleDeclineRequest(request._id)}
-                    className="px-4 py-2 bg-[#222] text-[#f5f5f7] rounded-md font-medium"
+                    className="px-4 py-2 bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] rounded-md font-medium"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -273,7 +271,7 @@ const PartnersSection = () => {
       <div className="space-y-4">
         <h3 className="text-xl font-bold">Your Partners</h3>
         {partners.length === 0 ? (
-          <p className="text-[#f5f5f7]/60">
+          <p className="text-[rgb(var(--text-primary))]/60">
             No partners yet. Search to add some!
           </p>
         ) : (
@@ -288,7 +286,7 @@ const PartnersSection = () => {
               partnership.user._id === currentUser.id
                 ? partnership.partner
                 : partnership.user;
-            
+
             // Additional check to ensure partner is not null
             if (!partner || !partner._id) {
               console.warn('Partner is null or missing _id:', partnership);
@@ -300,21 +298,21 @@ const PartnersSection = () => {
             return (
               <div
                 key={partnership._id}
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[#1a1a1a] rounded-lg gap-2"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-[rgb(var(--bg-tertiary))] rounded-lg gap-2"
               >
                 <div>
                   <p className="font-medium">{partner.username}</p>
-                  <p className="text-sm text-[#f5f5f7]/60">{partner.email}</p>
+                  <p className="text-sm text-[rgb(var(--text-primary))]/60">{partner.email}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   {unreadCount > 0 && (
-                    <span className="bg-[#A2BFFE] text-[#080808] rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold">
+                    <span className="bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] rounded-full text-xs w-5 h-5 flex items-center justify-center font-bold">
                       {unreadCount}
                     </span>
                   )}
                   <motion.button
                     onClick={() => handleStartChat(partner)}
-                    className="px-4 py-2 bg-[#222] text-[#f5f5f7] rounded-md font-medium"
+                    className="px-4 py-2 bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] rounded-md font-medium"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -371,17 +369,17 @@ const PartnerCard = ({ partner }) => {
   return (
     <>
       <motion.div
-        className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4"
+        className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4"
         whileHover={{ y: -2 }}
       >
         <div className="flex items-center justify-between">
           <div>
             <h4 className="font-bold">{partner.username}</h4>
-            <p className="text-sm text-[#f5f5f7]/60">{partner.email}</p>
+            <p className="text-sm text-[rgb(var(--text-primary))]/60">{partner.email}</p>
           </div>
           <div className="flex items-center">
             <motion.button
-              className="bg-[#A2BFFE]/20 text-[#A2BFFE] px-4 py-2 rounded-md text-sm"
+              className="bg-[rgb(var(--accent-primary))]/20 text-[rgb(var(--accent-primary))] px-4 py-2 rounded-md text-sm"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowChat(true)}

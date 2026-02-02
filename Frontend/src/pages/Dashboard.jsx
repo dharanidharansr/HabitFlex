@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import QRCodeScanner from "../components/QR/QRCodeScanner";
 import { subDays } from "date-fns";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Dashboard = () => {
   const [habits, setHabits] = useState([]);
@@ -256,21 +257,21 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080808] text-[#f5f5f7] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+      <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#f5f5f7]">
+    <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))]">
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 sm:gap-4 mb-8">
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold mb-1 sm:mb-2">
               yo, {user?.username || "User"}! 👋
             </h1>
-            <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
+            <p className="text-[rgb(var(--text-primary))]/60 text-sm sm:text-base">
               {new Date().toLocaleDateString("en-US", {
                 weekday: "long",
                 year: "numeric",
@@ -282,7 +283,7 @@ const Dashboard = () => {
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto">
             <motion.button
               onClick={() => setShowQRScanner(true)}
-              className="bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-4 py-2.5 rounded-lg text-sm flex items-center gap-2 w-full sm:w-auto"
+              className="bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] px-4 py-2.5 rounded-lg text-sm flex items-center gap-2 w-full sm:w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -303,7 +304,7 @@ const Dashboard = () => {
             </motion.button>
             <motion.button
               onClick={() => setShowForm(true)}
-              className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 py-2.5 rounded-full font-bold text-sm w-full sm:w-auto"
+              className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 py-2.5 rounded-full font-bold text-sm w-full sm:w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -344,12 +345,12 @@ const Dashboard = () => {
           >
             <div className="text-4xl mb-4">🌱</div>
             <h3 className="text-xl font-bold mb-2">Start Your Journey</h3>
-            <p className="text-[#f5f5f7]/60 mb-6">
+            <p className="text-[rgb(var(--text-primary))]/60 mb-6">
               Create your first habit and begin tracking your progress
             </p>
             <motion.button
               onClick={() => setShowForm(true)}
-              className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 py-3 rounded-full font-bold"
+              className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 py-3 rounded-full font-bold"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -361,28 +362,27 @@ const Dashboard = () => {
         {/* After Stats Cards */}
         {!error && habits.length > 0 && (
           <>
-            <div className="flex gap-2 sm:gap-4 mb-6 border-b border-[#222] overflow-x-auto">
+            <div className="flex gap-2 sm:gap-4 mb-6 border-b border-[rgb(var(--border-primary))] overflow-x-auto">
               {["habits", "streaks", "recommendations", "forest"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={`pb-2 px-1 relative ${
-                    activeTab === tab
-                      ? "text-[#A2BFFE]"
-                      : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-                  }`}
+                  className={`pb-2 px-1 relative ${activeTab === tab
+                      ? "text-[rgb(var(--accent-primary))]"
+                      : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
+                    }`}
                 >
                   {tab === "habits"
                     ? "Daily Habits"
                     : tab === "streaks"
-                    ? "Streak Stats"
-                    : tab === "recommendations"
-                    ? "For You"
-                    : "Habit Forest"}
+                      ? "Streak Stats"
+                      : tab === "recommendations"
+                        ? "For You"
+                        : "Habit Forest"}
                   {activeTab === tab && (
                     <motion.div
                       layoutId="activeTab"
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#A2BFFE]"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--accent-primary))]"
                     />
                   )}
                 </button>
@@ -437,11 +437,11 @@ const Dashboard = () => {
             <button
               onClick={connectGoogleCalendar}
               disabled={connectingCalendar}
-              className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-4 py-2 rounded-lg font-semibold flex items-center"
+              className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] px-4 py-2 rounded-lg font-semibold flex items-center"
             >
               {connectingCalendar ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#080808] mr-2" />
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[rgb(var(--bg-primary))] mr-2" />
                   Connecting...
                 </>
               ) : (
@@ -459,6 +459,7 @@ const Dashboard = () => {
           />
         )}
       </AnimatePresence>
+      <ThemeToggle />
     </div>
   );
 };

@@ -33,7 +33,7 @@ const HeroSection = () => {
             return (
               <motion.div
                 key={i}
-                className="w-0.5 h-0.5 rounded-full bg-[#A2BFFE]/60"
+                className="w-0.5 h-0.5 rounded-full bg-[rgb(var(--accent-primary))]/60"
                 style={{
                   gridColumn: col + 1,
                   gridRow: row + 1,
@@ -65,11 +65,11 @@ const HeroSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Build Better <span className="text-[#A2BFFE]">Habits</span>
+          Build Better <span className="text-[rgb(var(--accent-primary))]">Habits</span>
         </motion.h1>
 
         <motion.p
-          className="text-[#f5f5f7]/80 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-xl md:max-w-2xl mx-auto"
+          className="text-[rgb(var(--text-primary))]/80 text-base sm:text-lg md:text-xl mb-8 sm:mb-10 max-w-xl md:max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -85,7 +85,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <motion.button
-            className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 sm:px-8 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg w-full sm:w-auto"
+            className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 sm:px-8 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg w-full sm:w-auto"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
@@ -95,7 +95,7 @@ const HeroSection = () => {
             Get Started
           </motion.button>
           <motion.button
-            className="border border-[#f5f5f7]/20 hover:border-[#A2BFFE] text-[#f5f5f7] px-6 sm:px-8 py-3 sm:py-4 rounded-md font-medium text-base sm:text-lg w-full sm:w-auto"
+            className="border border-[rgb(var(--text-primary))]/20 hover:border-[rgb(var(--accent-primary))] text-[rgb(var(--text-primary))] px-6 sm:px-8 py-3 sm:py-4 rounded-md font-medium text-base sm:text-lg w-full sm:w-auto"
             whileHover={{
               scale: 1.05,
               borderColor: "rgba(162, 191, 254, 0.5)",

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import ParticipantsList from "../components/Challenges/ParticipantsList";
 import QRCodeGenerator from "../components/QR/QRCodeGenerator";
 import QRCodeScanner from "../components/QR/QRCodeScanner";
+import ThemeToggle from "../components/ThemeToggle";
 
 const Challenges = () => {
   const [activeTab, setActiveTab] = useState("explore");
@@ -104,8 +105,7 @@ const Challenges = () => {
       const user = localStorage.getItem("user");
 
       await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
+        `${import.meta.env.VITE_API_URL
         }/api/challenges/${challengeId}/progress`,
         {
           progress,
@@ -169,7 +169,7 @@ const Challenges = () => {
       : `wss://habitflex.onrender.com/ws/challenges`;
 
     console.log("Attempting to connect to WebSocket:", wsUrl);
-    
+
     let socket = null;
     let connectionAttempted = false;
 
@@ -212,7 +212,7 @@ const Challenges = () => {
           reason: event.reason,
           wasClean: event.wasClean
         });
-        
+
         // Don't log as warning if it's a normal closure or going away
         if (event.code !== 1000 && event.code !== 1001) {
           console.warn("WebSocket closed unexpectedly. Code:", event.code);
@@ -294,14 +294,14 @@ const Challenges = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080808] text-[#f5f5f7] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+      <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#f5f5f7] py-8">
+    <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] py-8">
       <main className="max-w-4xl mx-auto px-3 sm:px-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -309,13 +309,13 @@ const Challenges = () => {
             <h1 className="text-2xl sm:text-3xl font-bold mb-2">
               Social Challenges
             </h1>
-            <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
+            <p className="text-[rgb(var(--text-primary))]/60 text-sm sm:text-base">
               Join challenges and build habits together
             </p>
           </div>
           <motion.button
             onClick={() => setShowCreateModal(true)}
-            className="w-full sm:w-auto bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 py-2.5 rounded-lg font-bold text-sm mt-3 sm:mt-0"
+            className="w-full sm:w-auto bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 py-2.5 rounded-lg font-bold text-sm mt-3 sm:mt-0"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -326,7 +326,7 @@ const Challenges = () => {
         <div className="flex flex-col sm:flex-row gap-2 mb-4">
           <motion.button
             onClick={() => setShowQRScanner(true)}
-            className="bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-4 py-2.5 rounded-lg text-sm flex items-center gap-2 w-full sm:w-auto"
+            className="bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] px-4 py-2.5 rounded-lg text-sm flex items-center gap-2 w-full sm:w-auto"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
@@ -347,26 +347,25 @@ const Challenges = () => {
           </motion.button>
         </div>
         {/* Tabs */}
-        <div className="flex gap-4 mb-6 border-b border-[#222] overflow-x-auto">
+        <div className="flex gap-4 mb-6 border-b border-[rgb(var(--border-primary))] overflow-x-auto">
           {["explore", "my-challenges", "live-updates"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 px-1 relative whitespace-nowrap ${
-                activeTab === tab
-                  ? "text-[#A2BFFE]"
-                  : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-              }`}
+              className={`pb-2 px-1 relative whitespace-nowrap ${activeTab === tab
+                  ? "text-[rgb(var(--accent-primary))]"
+                  : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
+                }`}
             >
               {tab === "explore"
                 ? "Explore"
                 : tab === "my-challenges"
-                ? "My Challenges"
-                : "Live Updates"}
+                  ? "My Challenges"
+                  : "Live Updates"}
               {activeTab === tab && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#A2BFFE]"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--accent-primary))]"
                 />
               )}
             </button>
@@ -389,7 +388,7 @@ const Challenges = () => {
                   <h3 className="text-xl font-bold mb-2">
                     No Challenges Available
                   </h3>
-                  <p className="text-[#f5f5f7]/60 mb-6">
+                  <p className="text-[rgb(var(--text-primary))]/60 mb-6">
                     Be the first to create a challenge for the community!
                   </p>
                 </div>
@@ -407,24 +406,24 @@ const Challenges = () => {
                   return (
                     <motion.div
                       key={challenge._id}
-                      className="bg-[#0a0a0a] border border-[#222] rounded-xl p-5 hover:border-[#A2BFFE]/30"
+                      className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-5 hover:border-[rgb(var(--accent-primary))]/30"
                       whileHover={{ y: -2 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <h3 className="font-bold text-[#A2BFFE] mb-2">
+                      <h3 className="font-bold text-[rgb(var(--accent-primary))] mb-2">
                         {challenge.name}
                       </h3>
-                      <p className="text-sm text-[#f5f5f7]/60 mb-3 line-clamp-2">
+                      <p className="text-sm text-[rgb(var(--text-primary))]/60 mb-3 line-clamp-2">
                         {challenge.description}
                       </p>
 
                       <div className="flex flex-wrap gap-2 mb-3">
-                        <span className="text-xs bg-[#222] px-2 py-1 rounded-full text-[#f5f5f7]/60">
+                        <span className="text-xs bg-[rgb(var(--bg-tertiary))] px-2 py-1 rounded-full text-[rgb(var(--text-primary))]/60">
                           {new Date(challenge.startDate).toLocaleDateString()}{" "}
                           to {new Date(challenge.endDate).toLocaleDateString()}
                         </span>
                         <button
-                          className="text-xs bg-[#222] px-2 py-1 rounded-full text-[#f5f5f7]/60 cursor-pointer hover:bg-[#333] flex items-center"
+                          className="text-xs bg-[rgb(var(--bg-tertiary))] px-2 py-1 rounded-full text-[rgb(var(--text-primary))]/60 cursor-pointer hover:bg-[rgb(var(--border-secondary))] flex items-center"
                           onClick={() => {
                             setSelectedChallengeId(challenge._id);
                             setActiveTab("participants");
@@ -440,7 +439,7 @@ const Challenges = () => {
                           setSelectedItem(challenge);
                           setShowQRGenerator(true);
                         }}
-                        className="text-xs bg-[#222] px-2 py-1 rounded-full text-[#f5f5f7]/60 cursor-pointer hover:bg-[#333] flex items-center"
+                        className="text-xs bg-[rgb(var(--bg-tertiary))] px-2 py-1 rounded-full text-[rgb(var(--text-primary))]/60 cursor-pointer hover:bg-[rgb(var(--border-secondary))] flex items-center"
                       >
                         <svg
                           className="w-3 h-3 mr-1"
@@ -459,11 +458,11 @@ const Challenges = () => {
                       </motion.button>
                       {isParticipant ? (
                         <div className="flex items-center justify-between">
-                          <span className="text-xs text-[#A2BFFE]">
+                          <span className="text-xs text-[rgb(var(--accent-primary))]">
                             You've joined
                           </span>
                           <button
-                            className="text-xs bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-3 py-1.5 rounded-md"
+                            className="text-xs bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] px-3 py-1.5 rounded-md"
                             onClick={() => setActiveTab("my-challenges")}
                           >
                             View Status
@@ -472,7 +471,7 @@ const Challenges = () => {
                       ) : (
                         <motion.button
                           onClick={() => joinChallenge(challenge._id)}
-                          className="w-full bg-[#222] hover:bg-[#333] text-[#f5f5f7] py-2 rounded-md text-sm font-medium mt-4"
+                          className="w-full bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] py-2 rounded-md text-sm font-medium mt-4"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
@@ -500,12 +499,12 @@ const Challenges = () => {
                   <h3 className="text-xl font-bold mb-2">
                     No Active Challenges
                   </h3>
-                  <p className="text-[#f5f5f7]/60 mb-6">
+                  <p className="text-[rgb(var(--text-primary))]/60 mb-6">
                     Join a challenge to start tracking your progress together!
                   </p>
                   <motion.button
                     onClick={() => setActiveTab("explore")}
-                    className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 py-2.5 rounded-full font-bold text-sm"
+                    className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 py-2.5 rounded-full font-bold text-sm"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -531,34 +530,34 @@ const Challenges = () => {
                     return (
                       <motion.div
                         key={challenge._id}
-                        className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6"
+                        className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <h3 className="font-bold text-xl text-[#A2BFFE] mb-2">
+                        <h3 className="font-bold text-xl text-[rgb(var(--accent-primary))] mb-2">
                           {challenge.name}
                         </h3>
-                        <p className="text-[#f5f5f7]/60 mb-4">
+                        <p className="text-[rgb(var(--text-primary))]/60 mb-4">
                           {challenge.description}
                         </p>
 
                         <div className="mb-6">
                           <div className="flex justify-between text-sm mb-1">
                             <span>Progress</span>
-                            <span className="text-[#A2BFFE]">{progress}%</span>
+                            <span className="text-[rgb(var(--accent-primary))]">{progress}%</span>
                           </div>
-                          <div className="w-full bg-[#222] rounded-full h-2.5">
+                          <div className="w-full bg-[rgb(var(--border-primary))] rounded-full h-2.5">
                             <div
-                              className="bg-[#A2BFFE] h-2.5 rounded-full"
+                              className="bg-[rgb(var(--accent-primary))] h-2.5 rounded-full"
                               style={{ width: `${progress}%` }}
                             ></div>
                           </div>
                         </div>
 
                         <div className="flex flex-wrap gap-3 mb-6">
-                          <div className="bg-[#111] border border-[#222] rounded-lg px-4 py-2 text-center flex-1">
-                            <p className="text-xs text-[#f5f5f7]/60">
+                          <div className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-center flex-1">
+                            <p className="text-xs text-[rgb(var(--text-primary))]/60">
                               Start Date
                             </p>
                             <p className="text-sm font-medium">
@@ -567,16 +566,16 @@ const Challenges = () => {
                               ).toLocaleDateString()}
                             </p>
                           </div>
-                          <div className="bg-[#111] border border-[#222] rounded-lg px-4 py-2 text-center flex-1">
-                            <p className="text-xs text-[#f5f5f7]/60">
+                          <div className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-center flex-1">
+                            <p className="text-xs text-[rgb(var(--text-primary))]/60">
                               End Date
                             </p>
                             <p className="text-sm font-medium">
                               {new Date(challenge.endDate).toLocaleDateString()}
                             </p>
                           </div>
-                          <div className="bg-[#111] border border-[#222] rounded-lg px-4 py-2 text-center flex-1">
-                            <p className="text-xs text-[#f5f5f7]/60">
+                          <div className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-center flex-1">
+                            <p className="text-xs text-[rgb(var(--text-primary))]/60">
                               Participants
                             </p>
                             <p className="text-sm font-medium">
@@ -593,11 +592,10 @@ const Challenges = () => {
                               onClick={() =>
                                 updateProgress(challenge._id, amount, progress)
                               }
-                              className={`flex-1 bg-[#222] hover:bg-[#333] text-[#f5f5f7] py-2 rounded-lg text-sm ${
-                                progress >= 100
+                              className={`flex-1 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] py-2 rounded-lg text-sm ${progress >= 100
                                   ? "opacity-50 cursor-not-allowed"
                                   : ""
-                              }`}
+                                }`}
                               whileHover={{ scale: progress >= 100 ? 1 : 1.02 }}
                               whileTap={{ scale: progress >= 100 ? 1 : 0.98 }}
                               disabled={progress >= 100}
@@ -624,18 +622,16 @@ const Challenges = () => {
                                 placeholder="Custom %"
                                 min="1"
                                 max={100 - progress}
-                                className={`w-full px-4 py-2 bg-[#111] border ${
-                                  progressErrors[challenge._id]
+                                className={`w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border ${progressErrors[challenge._id]
                                     ? "border-red-500"
-                                    : "border-[#222]"
-                                } rounded-lg focus:outline-none focus:ring-1 focus:ring-[#A2BFFE]/50 ${
-                                  progress >= 100
+                                    : "border-[rgb(var(--border-primary))]"
+                                  } rounded-lg focus:outline-none focus:ring-1 focus:ring-[rgb(var(--accent-primary))]/50 ${progress >= 100
                                     ? "opacity-50 cursor-not-allowed"
                                     : ""
-                                }`}
+                                  }`}
                                 disabled={progress >= 100}
                               />
-                              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[#f5f5f7]/40">
+                              <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[rgb(var(--text-primary))]/40">
                                 %
                               </span>
                             </div>
@@ -668,11 +664,10 @@ const Challenges = () => {
                                 );
                               }
                             }}
-                            className={`bg-[#A2BFFE] text-[#080808] px-4 py-2 rounded-lg font-medium text-sm ${
-                              !customProgress || progress >= 100
+                            className={`bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] px-4 py-2 rounded-lg font-medium text-sm ${!customProgress || progress >= 100
                                 ? "opacity-50 cursor-not-allowed"
                                 : ""
-                            }`}
+                              }`}
                             whileHover={{
                               scale:
                                 !customProgress || progress >= 100 ? 1 : 1.02,
@@ -718,14 +713,14 @@ const Challenges = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6"
+              className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6"
             >
               <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <span className="text-[#A2BFFE]">Live</span> Challenge Updates
+                <span className="text-[rgb(var(--accent-primary))]">Live</span> Challenge Updates
               </h2>
 
               {updates.length === 0 ? (
-                <div className="text-center py-8 text-[#f5f5f7]/60">
+                <div className="text-center py-8 text-[rgb(var(--text-primary))]/60">
                   <p>No updates yet. Updates will appear here in real-time!</p>
                 </div>
               ) : (
@@ -733,22 +728,21 @@ const Challenges = () => {
                   {updates.map((update, index) => (
                     <motion.div
                       key={index}
-                      className="bg-[#111] border border-[#222] rounded-lg p-4"
+                      className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg p-4"
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3 }}
                     >
                       <div className="flex items-center gap-3">
                         <div
-                          className={`w-2 h-2 rounded-full ${
-                            update.type === "join"
+                          className={`w-2 h-2 rounded-full ${update.type === "join"
                               ? "bg-green-500"
                               : "bg-blue-500"
-                          }`}
+                            }`}
                         ></div>
                         <p className="text-sm">{update.message}</p>
                       </div>
-                      <p className="text-xs text-[#f5f5f7]/40 mt-2">
+                      <p className="text-xs text-[rgb(var(--text-primary))]/40 mt-2">
                         {new Date().toLocaleTimeString()}
                       </p>
                     </motion.div>
@@ -771,7 +765,7 @@ const Challenges = () => {
               <div className="mb-4 flex items-center">
                 <button
                   onClick={() => setActiveTab("explore")}
-                  className="flex items-center text-[#f5f5f7]/60 hover:text-[#f5f5f7] mr-4"
+                  className="flex items-center text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))] mr-4"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -790,14 +784,14 @@ const Challenges = () => {
 
                 <h2 className="text-xl font-bold">
                   Challenge Participants:
-                  <span className="ml-2 text-[#A2BFFE]">
+                  <span className="ml-2 text-[rgb(var(--accent-primary))]">
                     {challenges.find((c) => c._id === selectedChallengeId)
                       ?.name || ""}
                   </span>
                 </h2>
               </div>
 
-              <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6">
+              <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6">
                 <ParticipantsList
                   challengeId={selectedChallengeId}
                   challenges={challenges}
@@ -821,13 +815,13 @@ const Challenges = () => {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 w-full max-w-md"
+              className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 w-full max-w-md"
             >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold">Create New Challenge</h2>
                 <button
                   onClick={() => setShowCreateModal(false)}
-                  className="text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
+                  className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
                 >
                   ×
                 </button>
@@ -835,7 +829,7 @@ const Challenges = () => {
 
               <form onSubmit={createChallenge} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-[#f5f5f7]/70 mb-2">
+                  <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-2">
                     Challenge Name
                   </label>
                   <input
@@ -845,12 +839,12 @@ const Challenges = () => {
                     onChange={handleChange}
                     required
                     placeholder="e.g., 7-Day Meditation"
-                    className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50"
+                    className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-[#f5f5f7]/70 mb-2">
+                  <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-2">
                     Description
                   </label>
                   <textarea
@@ -858,13 +852,13 @@ const Challenges = () => {
                     value={formData.description}
                     onChange={handleChange}
                     placeholder="Describe the challenge..."
-                    className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50 min-h-[100px]"
+                    className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 min-h-[100px]"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-[#f5f5f7]/70 mb-2">
+                    <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-2">
                       Start Date
                     </label>
                     <input
@@ -872,12 +866,12 @@ const Challenges = () => {
                       name="startDate"
                       value={formData.startDate}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50"
+                      className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-[#f5f5f7]/70 mb-2">
+                    <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-2">
                       End Date
                     </label>
                     <input
@@ -885,7 +879,7 @@ const Challenges = () => {
                       name="endDate"
                       value={formData.endDate}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50"
+                      className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50"
                     />
                   </div>
                 </div>
@@ -894,7 +888,7 @@ const Challenges = () => {
                   <motion.button
                     type="button"
                     onClick={() => setShowCreateModal(false)}
-                    className="flex-1 bg-[#222] hover:bg-[#333] text-[#f5f5f7] py-2.5 rounded-lg"
+                    className="flex-1 bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] py-2.5 rounded-lg"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -903,7 +897,7 @@ const Challenges = () => {
 
                   <motion.button
                     type="submit"
-                    className="flex-1 bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] py-2.5 rounded-lg font-bold"
+                    className="flex-1 bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] py-2.5 rounded-lg font-bold"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -941,6 +935,7 @@ const Challenges = () => {
           />
         )}
       </AnimatePresence>
+      <ThemeToggle />
     </div>
   );
 };

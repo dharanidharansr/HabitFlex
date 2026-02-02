@@ -43,7 +43,7 @@ const HabitRecommendations = ({
     <div className="space-y-4 mb-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 w-full">
         <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start">
-          <h3 className="text-lg sm:text-xl font-bold text-[#f5f5f7]">
+          <h3 className="text-lg sm:text-xl font-bold text-[rgb(var(--text-primary))]">
             <span className="block sm:hidden">Habit Recommendations</span>
             <span className="hidden sm:block">
               Personalized Recommendations
@@ -51,7 +51,7 @@ const HabitRecommendations = ({
           </h3>
           <motion.button
             onClick={onRefresh}
-            className="text-[#A2BFFE] hover:text-[#91AFFE] p-2 rounded-full sm:ml-3 ml-2"
+            className="text-[rgb(var(--accent-primary))] hover:text-[rgb(var(--accent-primary))]/80 p-2 rounded-full sm:ml-3 ml-2"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             disabled={loading}
@@ -77,43 +77,43 @@ const HabitRecommendations = ({
         </div>
       </div>
 
-      <p className="text-[#f5f5f7]/60 mb-4 text-sm sm:text-base">
+      <p className="text-[rgb(var(--text-primary))]/60 mb-4 text-sm sm:text-base">
         Based on your habit patterns, here are some ideas that might work well
         for you:
       </p>
 
       {loading ? (
         <div className="flex justify-center py-10">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
         </div>
       ) : (
         <div className="space-y-3">
           {displayRecommendations.map((rec, index) => (
             <motion.div
               key={index}
-              className="bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#A2BFFE]/10 rounded-xl p-3 sm:p-4"
+              className="bg-[rgb(var(--bg-secondary))]/80 backdrop-blur-sm border border-[rgb(var(--accent-primary))]/10 rounded-xl p-3 sm:p-4"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               whileHover={{ y: -2, borderColor: "rgba(162, 191, 254, 0.3)" }}
             >
               <div className="flex flex-col sm:flex-row items-start gap-3">
-                <div className="w-10 h-10 flex items-center justify-center bg-[#A2BFFE]/10 rounded-full text-xl mb-2 sm:mb-0">
+                <div className="w-10 h-10 flex items-center justify-center bg-[rgb(var(--accent-primary))]/10 rounded-full text-xl mb-2 sm:mb-0">
                   {rec.icon}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-bold text-[#A2BFFE] text-base sm:text-lg">
+                  <h4 className="font-bold text-[rgb(var(--accent-primary))] text-base sm:text-lg">
                     {rec.title}
                   </h4>
-                  <p className="text-xs sm:text-sm text-[#f5f5f7]/60 mt-1">
+                  <p className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60 mt-1">
                     {rec.recommendation}
                   </p>
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mt-3 gap-2 sm:gap-0">
-                    <span className="text-xs text-[#f5f5f7]/40">
+                    <span className="text-xs text-[rgb(var(--text-primary))]/40">
                       Suggested time: {rec.timeOfDay}
                     </span>
                     <motion.button
-                      className="text-xs font-medium text-[#A2BFFE] hover:text-[#91AFFE] flex items-center gap-1"
+                      className="text-xs font-medium text-[rgb(var(--accent-primary))] hover:text-[rgb(var(--accent-primary))]/80 flex items-center gap-1"
                       onClick={() =>
                         onAddHabit({
                           name: rec.title,

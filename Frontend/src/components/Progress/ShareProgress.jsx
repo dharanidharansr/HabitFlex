@@ -23,11 +23,11 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
     return new Promise((resolve) => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
-      
+
       // Set canvas size to match the design proportions
       canvas.width = 800;
       canvas.height = 500;
-      
+
       // Create dark gradient background similar to the image
       const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
       gradient.addColorStop(0, '#2c3e50');
@@ -35,7 +35,7 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
       gradient.addColorStop(1, '#2c3e50');
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
+
       // Add subtle rounded rectangle effect
       ctx.fillStyle = '#34495e';
       const cornerRadius = 20;
@@ -43,7 +43,7 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
       const y = 50;
       const width = canvas.width - 100;
       const height = canvas.height - 100;
-      
+
       // Draw rounded rectangle
       ctx.beginPath();
       ctx.moveTo(x + cornerRadius, y);
@@ -57,59 +57,59 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
       ctx.quadraticCurveTo(x, y, x + cornerRadius, y);
       ctx.closePath();
       ctx.fill();
-      
+
       // Add subtle border
       ctx.strokeStyle = '#4a5568';
       ctx.lineWidth = 1;
       ctx.stroke();
-      
+
       // Get current date in the same format as the image
       const currentDate = new Date().toLocaleDateString('en-US', {
         month: 'numeric',
-        day: 'numeric', 
+        day: 'numeric',
         year: 'numeric'
       });
-      
+
       // Add HabitFlex title (top left) - matching the blue color from image
       ctx.fillStyle = '#74a9ff';
       ctx.font = 'bold 32px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText('HabitFlex', 80, 120);
-      
+
       // Add date (top right) - matching gray color
       ctx.fillStyle = '#9ca3af';
       ctx.font = '20px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'right';
       ctx.fillText(currentDate, 720, 120);
-      
+
       // Add "LONGEST STREAK" label - matching the styling
       ctx.fillStyle = '#9ca3af';
       ctx.font = '16px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'left';
       ctx.letterSpacing = '2px';
       ctx.fillText('LONGEST STREAK', 80, 200);
-      
+
       // Add longest streak value - large white text
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 56px "Segoe UI", Arial, sans-serif';
       ctx.fillText(`${stats.longestStreak} days`, 80, 260);
-      
+
       // Add "COMPLETION RATE" label
       ctx.fillStyle = '#9ca3af';
       ctx.font = '16px "Segoe UI", Arial, sans-serif';
       ctx.fillText('COMPLETION RATE', 80, 330);
-      
+
       // Add completion rate value
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 56px "Segoe UI", Arial, sans-serif';
       ctx.fillText(`${stats.completionRate}%`, 80, 390);
-      
+
       // Add motivational quote at bottom - matching the italic styling
       ctx.fillStyle = '#9ca3af';
       ctx.font = 'italic 22px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('"Building better habits, one day at a time"', 400, 450);
-      
+
       // Convert to blob and resolve
       canvas.toBlob((blob) => {
         resolve(blob);
@@ -120,12 +120,12 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
   const handleShareImage = async (platform) => {
     try {
       setGeneratingImage(true);
-      
+
       if (navigator.share && platform === 'whatsapp') {
         // Use native sharing API for WhatsApp if available
         const imageBlob = await generateProgressImage();
         const file = new File([imageBlob], 'habit-progress.png', { type: 'image/png' });
-        
+
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
             title: 'My HabitFlex Progress',
@@ -136,11 +136,11 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
           return;
         }
       }
-      
+
       // Fallback: Download image and share text
       const imageBlob = await generateProgressImage();
       const url = URL.createObjectURL(imageBlob);
-      
+
       // Create download link
       const link = document.createElement('a');
       link.href = url;
@@ -149,16 +149,16 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      
+
       // Also open sharing URL for text
       const text = encodeURIComponent(generateShareText() + '\n\n📸 Check out my progress image!');
-      const shareUrl = platform === 'whatsapp' 
+      const shareUrl = platform === 'whatsapp'
         ? `https://wa.me/?text=${text}`
         : `https://wa.me/?text=${text}`;
-        
+
       window.open(shareUrl, '_blank');
       toast.success('Image downloaded! Share it along with the text.');
-      
+
     } catch (error) {
       console.error('Error sharing image:', error);
       toast.error('Failed to generate image. Sharing text instead.');
@@ -212,90 +212,88 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
 
   return (
     <motion.div
-      className="bg-gradient-to-br from-[#0a0a0a] to-[#111] border border-[#222] rounded-xl p-6 my-8 shadow-lg"
+      className="bg-gradient-to-br from-[rgb(var(--bg-secondary))] to-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 my-8 shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#A2BFFE] to-[#91AFFE]">
+        <h2 className="text-xl font-bold text-[rgb(var(--accent-primary))]">
           Share Your Progress
         </h2>
-        
-        <div className="bg-[#0a0a0a] border border-[#222] rounded-full p-1 flex">
-          <button 
-            className={`px-3 py-1 text-xs rounded-full font-medium transition ${
-              activeTab === "text" 
-                ? "bg-[#A2BFFE] text-[#080808]" 
-                : "text-[#f5f5f7]/70 hover:text-[#f5f5f7]"
-            }`}
+
+        <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-full p-1 flex">
+          <button
+            className={`px-3 py-1 text-xs rounded-full font-medium transition ${activeTab === "text"
+                ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                : "text-[rgb(var(--text-primary))]/70 hover:text-[rgb(var(--text-primary))]"
+              }`}
             onClick={() => setActiveTab("text")}
           >
             Text
           </button>
-          <button 
-            className={`px-3 py-1 text-xs rounded-full font-medium transition ${
-              activeTab === "image" 
-                ? "bg-[#A2BFFE] text-[#080808]" 
-                : "text-[#f5f5f7]/70 hover:text-[#f5f5f7]"
-            }`}
+          <button
+            className={`px-3 py-1 text-xs rounded-full font-medium transition ${activeTab === "image"
+                ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                : "text-[rgb(var(--text-primary))]/70 hover:text-[rgb(var(--text-primary))]"
+              }`}
             onClick={() => setActiveTab("image")}
           >
             Image
           </button>
         </div>
       </div>
-      
+
       {activeTab === "text" ? (
-        <div className="bg-[#0c0c0c] border border-[#222] rounded-lg p-5 mb-5 shadow-inner">
-          <pre className="whitespace-pre-wrap text-sm leading-relaxed tracking-wide text-[#f5f5f7]/90 font-['Inter',sans-serif]">
+        <div className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg p-5 mb-5 shadow-inner">
+          <pre className="whitespace-pre-wrap text-sm leading-relaxed tracking-wide text-[rgb(var(--text-primary))]/90 font-['Inter',sans-serif]">
             {generateShareText()}
           </pre>
         </div>
       ) : (
-        <div className="bg-gradient-to-br from-[#111] to-[#0a0a0a] border border-[#222] rounded-lg p-5 mb-5 flex flex-col items-center">
-          <div className="bg-gradient-to-br from-[#A2BFFE]/10 to-[#91AFFE]/5 p-6 rounded-lg w-full max-w-sm mx-auto border border-[#A2BFFE]/20 shadow-lg">
+        <div className="bg-gradient-to-br from-[rgb(var(--bg-tertiary))] to-[rgb(var(--bg-primary))] border border-[rgb(var(--border-primary))] rounded-lg p-5 mb-5 flex flex-col items-center">
+          <div className="bg-gradient-to-br from-[rgb(var(--accent-primary))]/10 to-[rgb(var(--accent-primary))]/5 p-6 rounded-lg w-full max-w-sm mx-auto border border-[rgb(var(--accent-primary))]/20 shadow-lg">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-[#A2BFFE]">HabitFlex</h3>
-              <div className="text-xs text-[#f5f5f7]/50">
+              <h3 className="font-bold text-[rgb(var(--accent-primary))]">HabitFlex</h3>
+              <div className="text-xs text-[rgb(var(--text-primary))]/50">
                 {new Date().toLocaleDateString()}
               </div>
             </div>
-            
+
             <div className="space-y-4">
               <div>
-                <div className="text-xs uppercase tracking-wider text-[#f5f5f7]/40 font-medium mb-1">Longest Streak</div>
-                <div className="text-2xl font-bold text-[#f5f5f7]">{stats.longestStreak} days</div>
+                <div className="text-xs uppercase tracking-wider text-[rgb(var(--text-primary))]/40 font-medium mb-1">Longest Streak</div>
+                <div className="text-2xl font-bold text-[rgb(var(--text-primary))]">{stats.longestStreak} days</div>
               </div>
-              
+
               <div>
-                <div className="text-xs uppercase tracking-wider text-[#f5f5f7]/40 font-medium mb-1">Completion Rate</div>
-                <div className="text-2xl font-bold text-[#f5f5f7]">{stats.completionRate}%</div>
+                <div className="text-xs uppercase tracking-wider text-[rgb(var(--text-primary))]/40 font-medium mb-1">Completion Rate</div>
+                <div className="text-2xl font-bold text-[rgb(var(--text-primary))]">{stats.completionRate}%</div>
               </div>
-              
-              <div className="pt-2 border-t border-[#f5f5f7]/10">
-                <div className="text-sm text-[#f5f5f7]/70 italic">
+
+              <div className="pt-2 border-t border-[rgb(var(--text-primary))]/10">
+                <div className="text-sm text-[rgb(var(--text-primary))]/70 italic">
                   "Building better habits, one day at a time"
                 </div>
               </div>
             </div>
           </div>
-          <div className="text-xs text-[#f5f5f7]/50 mt-3">
+          <div className="text-xs text-[rgb(var(--text-primary))]/50 mt-3">
             *This is a preview. When you share to WhatsApp with "Image" selected, an actual image will be generated and shared.
           </div>
         </div>
       )}
 
-      <h3 className="text-sm font-medium text-[#f5f5f7]/70 mb-3">Share via:</h3>
+      <h3 className="text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-3">Share via:</h3>
       <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
         {/* Copy to clipboard */}
         <motion.button
           onClick={handleCopyToClipboard}
-          className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
+          className="flex flex-col items-center gap-2 p-3 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--bg-secondary))] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <div className="w-8 h-8 rounded-full bg-[#333] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-[rgb(var(--border-primary))] flex items-center justify-center">
             {copying ? (
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -321,15 +319,15 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
               </svg>
             )}
           </div>
-          <span className="text-xs font-medium text-[#f5f5f7]/80">
+          <span className="text-xs font-medium text-[rgb(var(--text-primary))]/80">
             {copying ? "Copied!" : "Copy"}
           </span>
         </motion.button>
-        
+
         {/* Twitter */}
         <motion.button
           onClick={() => handleShare("twitter")}
-          className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
+          className="flex flex-col items-center gap-2 p-3 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--bg-secondary))] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -345,13 +343,13 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
               <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
             </svg>
           </div>
-          <span className="text-xs font-medium text-[#f5f5f7]/80">Twitter</span>
+          <span className="text-xs font-medium text-[rgb(var(--text-primary))]/80">Twitter</span>
         </motion.button>
-        
+
         {/* Facebook */}
         <motion.button
           onClick={() => handleShare("facebook")}
-          className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
+          className="flex flex-col items-center gap-2 p-3 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--bg-secondary))] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -367,15 +365,14 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
               <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
             </svg>
           </div>
-          <span className="text-xs font-medium text-[#f5f5f7]/80">Facebook</span>
+          <span className="text-xs font-medium text-[rgb(var(--text-primary))]/80">Facebook</span>
         </motion.button>
-        
+
         {/* WhatsApp */}
         <motion.button
           onClick={() => handleShare("whatsapp")}
-          className={`flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition ${
-            generatingImage ? 'opacity-50 cursor-wait' : ''
-          }`}
+          className={`flex flex-col items-center gap-2 p-3 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--bg-secondary))] rounded-lg transition ${generatingImage ? 'opacity-50 cursor-wait' : ''
+            }`}
           whileHover={{ scale: generatingImage ? 1 : 1.05 }}
           whileTap={{ scale: generatingImage ? 1 : 0.95 }}
           disabled={generatingImage}
@@ -392,15 +389,15 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
               <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
             </svg>
           </div>
-          <span className="text-xs font-medium text-[#f5f5f7]/80">
-            {generatingImage ? 'Generating...' : 'WhatsApp'}
+          <span className="text-xs font-medium text-[rgb(var(--text-primary))]/80">
+            {generatingImage ? "Generating..." : "WhatsApp"}
           </span>
         </motion.button>
-        
+
         {/* LinkedIn */}
         <motion.button
           onClick={() => handleShare("linkedin")}
-          className="flex flex-col items-center gap-2 p-3 bg-[#131313] hover:bg-[#191919] rounded-lg transition"
+          className="flex flex-col items-center gap-2 p-3 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--bg-secondary))] rounded-lg transition"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
@@ -416,16 +413,16 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
               <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
             </svg>
           </div>
-          <span className="text-xs font-medium text-[#f5f5f7]/80">LinkedIn</span>
-        </motion.button>  
+          <span className="text-xs font-medium text-[rgb(var(--text-primary))]/80">LinkedIn</span>
+        </motion.button>
       </div>
-      
-      <div className="mt-6 pt-4 border-t border-[#222]">
-        <div className="text-xs text-[#f5f5f7]/50 text-center">
+
+      <div className="mt-6 pt-4 border-t border-[rgb(var(--border-primary))]">
+        <div className="text-xs text-[rgb(var(--text-primary))]/50 text-center">
           Share your habit journey and inspire your friends to build better habits too!
         </div>
       </div>
-      
+
       {/* Hidden canvas for image generation */}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
     </motion.div>

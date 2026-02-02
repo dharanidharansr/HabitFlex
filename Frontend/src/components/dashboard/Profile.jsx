@@ -145,10 +145,10 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#f5f5f7] py-8">
+    <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] py-8">
       <div className="max-w-4xl mx-auto px-3 sm:px-6">
         {/* Profile Header */}
-        <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6 mb-6">
+        <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6 mb-6">
           <div className="flex justify-between items-start mb-4">
             <h2 className="text-xl font-bold">Profile</h2>
             {isOwnProfile && (
@@ -158,7 +158,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleEditToggle}
-                    className="flex items-center gap-2 px-4 py-2 bg-[#A2BFFE] text-[#080808] rounded-lg font-medium hover:bg-[#91AFFE] transition-colors"
+                    className="flex items-center gap-2 px-4 py-2 bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] rounded-lg font-medium hover:bg-[rgb(var(--accent-primary))]/90 transition-colors"
                   >
                     <FaEdit />
                     Edit Profile
@@ -170,7 +170,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                       whileTap={{ scale: 0.95 }}
                       onClick={handleSaveProfile}
                       disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 bg-[#4ADE80] text-[#080808] rounded-lg font-medium hover:bg-[#3CC970] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#4ADE80] text-[rgb(var(--bg-primary))] rounded-lg font-medium hover:bg-[#3CC970] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <FaSave />
                       {saving ? "Saving..." : "Save"}
@@ -180,7 +180,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                       whileTap={{ scale: 0.95 }}
                       onClick={handleEditToggle}
                       disabled={saving}
-                      className="flex items-center gap-2 px-4 py-2 bg-[#ff4444] text-white rounded-lg font-medium hover:bg-[#ee3333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center gap-2 px-4 py-2 bg-[#ff4444] text-[rgb(var(--bg-primary))] rounded-lg font-medium hover:bg-[#ee3333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <FaTimes />
                       Cancel
@@ -193,7 +193,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
 
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
             <div className="relative">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#A2BFFE] flex items-center justify-center overflow-hidden">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[rgb(var(--accent-primary))] flex items-center justify-center overflow-hidden">
                 {(isEditing ? editForm.avatar : profile?.avatar) ? (
                   <img
                     src={isEditing ? editForm.avatar : profile?.avatar}
@@ -201,7 +201,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span className="text-3xl sm:text-4xl font-bold text-[#080808]">
+                  <span className="text-3xl sm:text-4xl font-bold text-[rgb(var(--bg-primary))]">
                     {(isEditing ? editForm.username : profile?.username)?.[0]?.toUpperCase()}
                   </span>
                 )}
@@ -214,7 +214,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                   <h1 className="text-xl sm:text-2xl font-bold mb-2">
                     {profile?.username || "Loading..."}
                   </h1>
-                  <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
+                  <p className="text-[rgb(var(--text-primary))]/60 text-sm sm:text-base">
                     {profile?.email || "Loading..."}
                   </p>
                 </>
@@ -229,7 +229,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                       name="username"
                       value={editForm.username}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                      className="w-full bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-[rgb(var(--text-primary))] focus:outline-none focus:border-[rgb(var(--accent-primary))] transition-colors"
                       placeholder="Enter username"
                     />
                   </div>
@@ -242,7 +242,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                       name="email"
                       value={editForm.email}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                      className="w-full bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-[rgb(var(--text-primary))] focus:outline-none focus:border-[rgb(var(--accent-primary))] transition-colors"
                       placeholder="Enter email"
                     />
                   </div>
@@ -255,7 +255,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                       name="avatar"
                       value={editForm.avatar}
                       onChange={handleInputChange}
-                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                      className="w-full bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-[rgb(var(--text-primary))] focus:outline-none focus:border-[rgb(var(--accent-primary))] transition-colors"
                       placeholder="Enter avatar URL (optional)"
                     />
                   </div>
@@ -293,27 +293,27 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
 
         {/* Habits List */}
         {isOwnProfile && habits.length > 0 && (
-          <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6">
+          <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6">
             <h2 className="text-lg sm:text-xl font-bold mb-4">Your Habits</h2>
             <div className="space-y-4">
               {habits.map((habit) => (
                 <motion.div
                   key={habit._id}
-                  className="bg-[#1a1a1a] rounded-lg p-3 sm:p-4"
+                  className="bg-[rgb(var(--bg-tertiary))] rounded-lg p-3 sm:p-4"
                   whileHover={{ y: -2 }}
                 >
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                     <div>
                       <h3 className="font-bold">{habit.name}</h3>
-                      <p className="text-sm text-[#f5f5f7]/60">
+                      <p className="text-sm text-[rgb(var(--text-primary))]/60">
                         {habit.description}
                       </p>
                     </div>
                     <div className="text-left sm:text-right mt-2 sm:mt-0">
-                      <p className="text-xs sm:text-sm text-[#f5f5f7]/60">
+                      <p className="text-xs sm:text-sm text-[rgb(var(--text-primary))]/60">
                         Streak
                       </p>
-                      <p className="text-lg font-bold text-[#A2BFFE]">
+                      <p className="text-lg font-bold text-[rgb(var(--accent-primary))]">
                         {habit.currentStreak || 0} days
                       </p>
                     </div>
@@ -330,12 +330,12 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
 
 const StatCard = ({ icon, title, value }) => (
   <motion.div
-    className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4"
+    className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4"
     whileHover={{ y: -2 }}
   >
-    <div className="flex items-center gap-2 mb-2 text-[#A2BFFE]">
+    <div className="flex items-center gap-2 mb-2 text-[rgb(var(--accent-primary))]">
       {icon}
-      <h3 className="text-sm text-[#f5f5f7]/60">{title}</h3>
+      <h3 className="text-sm text-[rgb(var(--text-primary))]/60">{title}</h3>
     </div>
     <p className="text-xl font-bold">{value}</p>
   </motion.div>

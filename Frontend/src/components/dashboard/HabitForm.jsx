@@ -52,7 +52,7 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-[#0a0a0a] rounded-xl p-8 w-full max-w-2xl border border-[#222] my-8"
+        className="bg-[rgb(var(--bg-secondary))] rounded-xl p-8 w-full max-w-2xl border border-[rgb(var(--border-primary))] my-8"
       >
         <h2 className="text-2xl font-bold mb-6">Create New Habit</h2>
         <form onSubmit={handleSubmit}>
@@ -69,7 +69,7 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                  className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                   required
                 />
               </div>
@@ -84,7 +84,7 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                     onChange={(e) =>
                       setFormData({ ...formData, frequency: e.target.value })
                     }
-                    className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                    className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -101,7 +101,7 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                     onChange={(e) =>
                       setFormData({ ...formData, timeOfDay: e.target.value })
                     }
-                    className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                    className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                     required
                   />
                 </div>
@@ -116,18 +116,18 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                   onChange={(e) =>
                     setFormData({ ...formData, description: e.target.value })
                   }
-                  className="w-full px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE] h-24 resize-none"
+                  className="w-full px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))] h-24 resize-none"
                 />
               </div>
             </div>
 
             {/* Right Column - Reminder Settings */}
-            <div className="bg-[#111] rounded-lg p-4 border border-[#222]">
+            <div className="bg-[rgb(var(--bg-tertiary))] rounded-lg p-4 border border-[rgb(var(--border-primary))]">
               <h3 className="text-lg font-medium mb-4">Reminder Settings</h3>
 
               <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg">
-                  <label className="text-sm font-medium text-[#f5f5f7]/80">
+                <div className="flex items-center justify-between p-3 bg-[rgb(var(--bg-primary))] rounded-lg">
+                  <label className="text-sm font-medium text-[rgb(var(--text-primary))]/80">
                     Enable Reminders
                   </label>
                   <input
@@ -142,14 +142,14 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                         },
                       })
                     }
-                    className="w-5 h-5 accent-[#A2BFFE]"
+                    className="w-5 h-5 accent-[rgb(var(--accent-primary))]"
                   />
                 </div>
 
                 {formData.reminderSettings.enabled && (
                   <>
-                    <div className="p-3 bg-[#0a0a0a] rounded-lg">
-                      <label className="block text-sm font-medium text-[#f5f5f7]/80 mb-2">
+                    <div className="p-3 bg-[rgb(var(--bg-primary))] rounded-lg">
+                      <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/80 mb-2">
                         Reminder Time
                       </label>
                       <div className="flex items-center gap-2">
@@ -167,16 +167,16 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                               },
                             })
                           }
-                          className="w-20 px-3 py-2 bg-[#111] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+                          className="w-20 px-3 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
                         />
-                        <span className="text-sm text-[#f5f5f7]/60">
+                        <span className="text-sm text-[rgb(var(--text-primary))]/60">
                           minutes before
                         </span>
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg">
-                      <label className="text-sm font-medium text-[#f5f5f7]/80">
+                    <div className="flex items-center justify-between p-3 bg-[rgb(var(--bg-primary))] rounded-lg">
+                      <label className="text-sm font-medium text-[rgb(var(--text-primary))]/80">
                         Enable Missed Habit Check
                       </label>
                       <input
@@ -191,12 +191,12 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                             },
                           })
                         }
-                        className="w-5 h-5 accent-[#A2BFFE]"
+                        className="w-5 h-5 accent-[rgb(var(--accent-primary))]"
                       />
                     </div>
 
-                    <div className="flex items-center justify-between p-3 bg-[#0a0a0a] rounded-lg mt-3">
-                      <label className="text-sm font-medium text-[#f5f5f7]/80">
+                    <div className="flex items-center justify-between p-3 bg-[rgb(var(--bg-primary))] rounded-lg mt-3">
+                      <label className="text-sm font-medium text-[rgb(var(--text-primary))]/80">
                         Sync with Google Calendar
                       </label>
                       <input
@@ -208,12 +208,12 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
                             syncWithGoogleCalendar: e.target.checked,
                           })
                         }
-                        className="w-5 h-5 accent-[#A2BFFE]"
+                        className="w-5 h-5 accent-[rgb(var(--accent-primary))]"
                         disabled={!userGoogleCalendarConnected}
                       />
                     </div>
                     {!userGoogleCalendarConnected && (
-                      <p className="text-xs text-[#f5f5f7]/60 mt-2">
+                      <p className="text-xs text-[rgb(var(--text-primary))]/60 mt-2">
                         Connect Google Calendar in settings to enable this
                         feature
                       </p>
@@ -227,7 +227,7 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
           <div className="flex gap-3 mt-8">
             <motion.button
               type="submit"
-              className="flex-1 bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] py-2 rounded-lg font-bold flex items-center justify-center"
+              className="flex-1 bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] py-2 rounded-lg font-bold flex items-center justify-center"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={loading}
@@ -259,7 +259,7 @@ const HabitForm = ({ onClose, onSubmit, userGoogleCalendarConnected }) => {
             <motion.button
               type="button"
               onClick={onClose}
-              className="flex-1 border border-[#222] hover:border-[#A2BFFE] py-2 rounded-lg"
+              className="flex-1 border border-[rgb(var(--border-primary))] hover:border-[rgb(var(--accent-primary))] py-2 rounded-lg"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               disabled={loading}

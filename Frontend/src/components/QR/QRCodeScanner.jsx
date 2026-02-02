@@ -805,19 +805,19 @@ const QRCodeScanner = ({ onClose, onSuccess }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 w-full max-w-md"
+        className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 w-full max-w-md"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-[#f5f5f7]">Scan QR Code</h2>
-          <button onClick={handleClose} className="text-[#f5f5f7]/60 hover:text-[#f5f5f7] text-2xl">
+          <h2 className="text-xl font-bold text-[rgb(var(--text-primary))]">Scan QR Code</h2>
+          <button onClick={handleClose} className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))] text-2xl">
             ×
           </button>
         </div>
 
-        <div className="flex border-b border-[#333] mb-4">
+        <div className="flex border-b border-[rgb(var(--border-primary))] mb-4">
           <button
             className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'camera' ? 'text-[#A2BFFE] border-b-2 border-[#A2BFFE]' : 'text-[#f5f5f7]/60 hover:text-[#f5f5f7]'
+              activeTab === 'camera' ? 'text-[rgb(var(--accent-primary))] border-b-2 border-[rgb(var(--accent-primary))]' : 'text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]'
             }`}
             onClick={() => switchTab('camera')}
           >
@@ -825,7 +825,7 @@ const QRCodeScanner = ({ onClose, onSuccess }) => {
           </button>
           <button
             className={`py-2 px-4 font-medium text-sm ${
-              activeTab === 'image' ? 'text-[#A2BFFE] border-b-2 border-[#A2BFFE]' : 'text-[#f5f5f7]/60 hover:text-[#f5f5f7]'
+              activeTab === 'image' ? 'text-[rgb(var(--accent-primary))] border-b-2 border-[rgb(var(--accent-primary))]' : 'text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]'
             }`}
             onClick={() => switchTab('image')}
           >
@@ -835,29 +835,29 @@ const QRCodeScanner = ({ onClose, onSuccess }) => {
 
         {activeTab === 'camera' ? (
           <>
-            <p className="text-[#f5f5f7]/60 mb-4 text-sm">
+            <p className="text-[rgb(var(--text-primary))]/60 mb-4 text-sm">
               Position the QR code within the frame to complete habits or update challenges.
             </p>
-            <div className="rounded-lg overflow-hidden border-2 border-[#A2BFFE]">
+            <div className="rounded-lg overflow-hidden border-2 border-[rgb(var(--accent-primary))]">
               <div id="reader" className=""></div>
             </div>
             <div className="mt-4 text-center">
               {scanning ? (
-                <div className="text-[#A2BFFE] text-sm flex items-center justify-center gap-2">
-                  <div className="animate-spin h-4 w-4 border-2 border-[#A2BFFE] rounded-full border-t-transparent"></div>
+                <div className="text-[rgb(var(--accent-primary))] text-sm flex items-center justify-center gap-2">
+                  <div className="animate-spin h-4 w-4 border-2 border-[rgb(var(--accent-primary))] rounded-full border-t-transparent"></div>
                   Scanning...
                 </div>
               ) : (
-                <div className="text-[#A2BFFE] text-sm">Under Maintenance</div>
+                <div className="text-[rgb(var(--accent-primary))] text-sm">Under Maintenance</div>
               )}
             </div>
           </>
         ) : (
           <>
-            <p className="text-[#f5f5f7]/60 mb-4 text-sm">
+            <p className="text-[rgb(var(--text-primary))]/60 mb-4 text-sm">
               Upload an image containing a QR code to scan. Ensure the QR code is clear and well-lit for best results.
             </p>
-            <div className="rounded-lg overflow-hidden border-2 border-[#A2BFFE] p-6 flex flex-col items-center justify-center min-h-[250px]">
+            <div className="rounded-lg overflow-hidden border-2 border-[rgb(var(--accent-primary))] p-6 flex flex-col items-center justify-center min-h-[250px]">
               <input
                 type="file"
                 accept="image/*"
@@ -869,22 +869,22 @@ const QRCodeScanner = ({ onClose, onSuccess }) => {
               
               {scanning ? (
                 <div className="text-center">
-                  <div className="animate-spin h-8 w-8 border-3 border-[#A2BFFE] rounded-full border-t-transparent mx-auto mb-4"></div>
-                  <p className="text-[#A2BFFE] text-sm font-medium">Processing image...</p>
-                  <p className="text-[#f5f5f7]/60 text-xs mt-2">Trying multiple detection methods</p>
+                  <div className="animate-spin h-8 w-8 border-3 border-[rgb(var(--accent-primary))] rounded-full border-t-transparent mx-auto mb-4"></div>
+                  <p className="text-[rgb(var(--accent-primary))] text-sm font-medium">Processing image...</p>
+                  <p className="text-[rgb(var(--text-primary))]/60 text-xs mt-2">Trying multiple detection methods</p>
                 </div>
               ) : (
                 <>
                   <motion.button
                     onClick={triggerFileInput}
                     disabled={scanning}
-                    className="bg-[#A2BFFE] hover:bg-[#8CABFE] text-black font-medium py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+                    className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-black font-medium py-3 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed mb-4"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     Select Image
                   </motion.button>
-                  <p className="text-[#f5f5f7]/40 text-xs text-center max-w-xs">
+                  <p className="text-[rgb(var(--text-primary))]/40 text-xs text-center max-w-xs">
                     Supported formats: JPG, PNG, GIF. Maximum size: 10MB
                   </p>
                 </>
@@ -911,7 +911,7 @@ const QRCodeScanner = ({ onClose, onSuccess }) => {
 
         <motion.button
           onClick={handleClose}
-          className="w-full mt-4 flex justify-center items-center gap-2 bg-[#333] hover:bg-[#444] text-[#f5f5f7] py-3 rounded-lg font-medium"
+          className="w-full mt-4 flex justify-center items-center gap-2 bg-[rgb(var(--border-secondary))] hover:bg-[rgb(var(--border-primary))] text-[rgb(var(--text-primary))] py-3 rounded-lg font-medium"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
