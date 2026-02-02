@@ -24,7 +24,7 @@ exports.register = async (req, res) => {
       });
     }
 
-    console.log("📧 Checking if user exists...");
+    console.log("Checking if user exists...");
     // Check if user already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
