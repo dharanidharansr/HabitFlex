@@ -6,6 +6,7 @@ import HeroSection from "../components/HeroSection";
 import Features from "../components/Features";
 import CtaSection from "../components/CtaSection";
 import Footer from "../components/Footer";
+import ThemeToggle from "../components/ThemeToggle";
 
 const LandingPage = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -49,12 +50,13 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#080808] text-[#f5f5f7] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] overflow-x-hidden">
       <Navbar isScrolled={isScrolled} />
       <HeroSection />
       <Features />
       <CtaSection />
       <Footer />
+      <ThemeToggle />
     </div>
   );
 };

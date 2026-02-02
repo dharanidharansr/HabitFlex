@@ -11,22 +11,22 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
       type: type, // 'habit' or 'challenge'
       name: item.name
     };
-    
+
     // For challenges, include progress increment
     if (type === 'challenge') {
       data.progress = 10; // Default increment value
     }
-    
+
     return JSON.stringify(data);
   });
-  
+
   const qrRef = useRef(null);
-  
+
   const downloadQRCode = async () => {
     try {
       const canvas = await html2canvas(qrRef.current);
       const dataUrl = canvas.toDataURL('image/png');
-      
+
       // Create download link
       const link = document.createElement('a');
       link.href = dataUrl;
@@ -34,43 +34,43 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       toast.success('QR code downloaded successfully!');
     } catch (error) {
       toast.error('Failed to download QR code');
       console.error('Download error:', error);
     }
   };
-  
+
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 w-full max-w-md"
+        className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 w-full max-w-md"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-[#f5f5f7]">
+          <h2 className="text-xl font-bold text-[rgb(var(--text-primary))]">
             {type === 'habit' ? 'Habit QR Code' : 'Challenge QR Code'}
           </h2>
-          <button onClick={onClose} className="text-[#f5f5f7]/60 hover:text-[#f5f5f7] text-2xl">
+          <button onClick={onClose} className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))] text-2xl">
             ×
           </button>
         </div>
-        
+
         <div className="flex flex-col items-center mb-6">
-          <p className="text-[#f5f5f7]/60 mb-4 text-center">
-            {type === 'habit' 
-              ? 'Scan this QR code to mark this habit as completed for today.' 
+          <p className="text-[rgb(var(--text-primary))]/60 mb-4 text-center">
+            {type === 'habit'
+              ? 'Scan this QR code to mark this habit as completed for today.'
               : 'Scan this QR code to add 10% progress to this challenge.'}
           </p>
-          
+
           <div ref={qrRef} className="p-4 bg-white rounded-xl">
-            <QRCode 
-              value={qrValue} 
-              size={200} 
-              level="H" 
+            <QRCode
+              value={qrValue}
+              size={200}
+              level="H"
               imageSettings={{
                 src: "/logo.png",
                 height: 40,
@@ -83,10 +83,10 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
             </div>
           </div>
         </div>
-        
+
         <motion.button
           onClick={downloadQRCode}
-          className="w-full flex justify-center items-center gap-2 bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] py-3 rounded-lg font-bold"
+          className="w-full flex justify-center items-center gap-2 bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] py-3 rounded-lg font-bold"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -95,8 +95,8 @@ const QRCodeGenerator = ({ type, item, onClose }) => {
           </svg>
           Download QR Code
         </motion.button>
-        
-        <p className="text-[#f5f5f7]/40 text-xs text-center mt-4">
+
+        <p className="text-[rgb(var(--text-primary))]/40 text-xs text-center mt-4">
           Print this QR code and place it where you perform your habit for easy check-ins.
         </p>
       </motion.div>

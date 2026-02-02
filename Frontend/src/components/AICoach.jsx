@@ -159,7 +159,7 @@ const AICoach = () => {
   return (
     <div className="flex flex-col h-full relative">
       {/* Coach header */}
-      <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-2 md:p-4 mb-2 md:mb-4">
+      <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-2 md:p-4 mb-2 md:mb-4">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
           <div className="flex items-center gap-3">
             <motion.div
@@ -172,7 +172,7 @@ const AICoach = () => {
               <h3 className="font-bold text-lg">
                 {COACH_TYPES[coachType].name}
               </h3>
-              <p className="text-sm text-[#f5f5f7]/60">
+              <p className="text-sm text-[rgb(var(--text-primary))]/60">
                 {COACH_TYPES[coachType].description}
               </p>
             </div>
@@ -182,7 +182,7 @@ const AICoach = () => {
               onClick={() =>
                 setShowPersonalitySelector(!showPersonalitySelector)
               }
-              className="p-2 rounded-lg bg-[#1a1a1a] hover:bg-[#222] text-sm w-full sm:w-auto"
+              className="p-2 rounded-lg bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-primary))] text-sm w-full sm:w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -190,7 +190,7 @@ const AICoach = () => {
             </motion.button>
             <motion.button
               onClick={clearChat}
-              className="p-2 rounded-lg bg-[#1a1a1a] hover:bg-[#222] text-sm w-full sm:w-auto"
+              className="p-2 rounded-lg bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-primary))] text-sm w-full sm:w-auto"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -209,18 +209,18 @@ const AICoach = () => {
           onClick={() => setShowPersonalitySelector(false)}
         >
           <motion.div
-            className="bg-[#1a1a1a] border border-[#222] rounded-lg p-2 sm:p-4 w-full max-w-md sm:max-w-lg mx-auto"
+            className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg p-2 sm:p-4 w-full max-w-md sm:max-w-lg mx-auto"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-2 sm:mb-4">
-              <p className="text-sm text-[#f5f5f7]/60">
+              <p className="text-sm text-[rgb(var(--text-primary))]/60">
                 Select coach personality:
               </p>
               <motion.button
                 onClick={() => setShowPersonalitySelector(false)}
-                className="p-1 rounded-full hover:bg-[#333]"
+                className="p-1 rounded-full hover:bg-[rgb(var(--border-primary))]"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
               >
@@ -243,9 +243,8 @@ const AICoach = () => {
               {Object.entries(COACH_TYPES).map(([type, details]) => (
                 <motion.button
                   key={type}
-                  className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[#222] text-left ${
-                    coachType === type ? "border border-[#A2BFFE]" : ""
-                  }`}
+                  className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[rgb(var(--border-primary))] text-left ${coachType === type ? "border border-[rgb(var(--accent-primary))]" : ""
+                    }`}
                   onClick={() => changeCoachType(type)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -258,7 +257,7 @@ const AICoach = () => {
                   </motion.div>
                   <div>
                     <p className="font-medium">{details.name}</p>
-                    <p className="text-xs text-[#f5f5f7]/60">
+                    <p className="text-xs text-[rgb(var(--text-primary))]/60">
                       {details.description}
                     </p>
                   </div>
@@ -270,23 +269,21 @@ const AICoach = () => {
       )}
 
       {/* Chat messages */}
-      <div className="flex-1 overflow-y-auto bg-[#0a0a0a] border border-[#222] rounded-xl p-2 md:p-4 mb-2 md:mb-4">
+      <div className="flex-1 overflow-y-auto bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-2 md:p-4 mb-2 md:mb-4">
         <div className="flex flex-col gap-3 md:gap-4">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`flex ${
-                msg.sender === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
+                }`}
             >
               <div
-                className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${
-                  msg.sender === "user"
-                    ? "bg-[#A2BFFE] text-[#080808]"
+                className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${msg.sender === "user"
+                    ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
                     : msg.coachType
-                    ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
-                    : "bg-[#1a1a1a]"
-                }`}
+                      ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
+                      : "bg-[rgb(var(--bg-tertiary))]"
+                  }`}
               >
                 <p>{msg.text}</p>
                 <p className="text-xs mt-1 opacity-70">
@@ -318,7 +315,7 @@ const AICoach = () => {
       {/* Input form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-[#0a0a0a] border border-[#222] rounded-xl p-2 md:p-4"
+        className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-2 md:p-4"
       >
         <div className="flex flex-col sm:flex-row gap-2">
           <input
@@ -326,12 +323,12 @@ const AICoach = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Ask your habit coach for advice..."
-            className="flex-1 bg-[#1a1a1a] text-[#f5f5f7] rounded-lg px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50"
+            className="flex-1 bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] rounded-lg px-3 py-2 md:px-4 md:py-2 focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50"
             disabled={loading}
           />
           <motion.button
             type="submit"
-            className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-4 py-2 rounded-lg font-bold disabled:opacity-50"
+            className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] px-4 py-2 rounded-lg font-bold disabled:opacity-50"
             whileHover={{ scale: loading ? 1 : 1.05 }}
             whileTap={{ scale: loading ? 1 : 0.95 }}
             disabled={loading || !message.trim()}
@@ -339,7 +336,7 @@ const AICoach = () => {
             Send
           </motion.button>
         </div>
-        <p className="text-xs text-[#f5f5f7]/40 mt-2">
+        <p className="text-xs text-[rgb(var(--text-primary))]/40 mt-2">
           Your AI coach uses Groq to provide personalized habit advice
         </p>
       </form>

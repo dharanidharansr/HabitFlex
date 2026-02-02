@@ -26,6 +26,7 @@ import {
 import Achievements from "./Achievements";
 import ShareProgress from "../components/Progress/ShareProgress";
 import ContributionGraph from "../components/Progress/ContributionGraph";
+import ThemeToggle from "../components/ThemeToggle";
 
 // Register ChartJS components
 ChartJS.register(
@@ -310,33 +311,32 @@ const Progress = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080808] text-[#f5f5f7] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+      <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#f5f5f7] py-8">
+    <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] py-8">
       <main className="max-w-4xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">Your Progress</h1>
-            <p className="text-[#f5f5f7]/60">
+            <p className="text-[rgb(var(--text-secondary))]/60">
               Track your habit consistency and identify patterns
             </p>
           </div>
 
-          <div className="flex gap-2 bg-[#0a0a0a] border border-[#222] rounded-full">
+          <div className="flex gap-2 bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-full">
             {["week", "month", "all"].map((mode) => (
               <button
                 key={mode}
                 onClick={() => setViewMode(mode)}
-                className={`px-4 py-2 text-sm font-medium rounded-full ${
-                  viewMode === mode
-                    ? "bg-[#A2BFFE] text-[#080808]"
-                    : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-                }`}
+                className={`px-4 py-2 text-sm font-medium rounded-full ${viewMode === mode
+                  ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                  : "text-[rgb(var(--text-secondary))]/60 hover:text-[rgb(var(--text-primary))]"
+                  }`}
               >
                 {mode.charAt(0).toUpperCase() + mode.slice(1)}
               </button>
@@ -346,40 +346,40 @@ const Progress = () => {
         {/* Insights Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           <motion.div
-            className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4"
+            className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4"
             whileHover={{ y: -2 }}
           >
-            <h3 className="font-medium text-[#f5f5f7]/60 mb-1 text-sm">
+            <h3 className="font-medium text-[rgb(var(--text-secondary))]/60 mb-1 text-sm">
               Longest Streak
             </h3>
             <p className="text-2xl font-bold">{insights.longestStreak} days</p>
           </motion.div>
 
           <motion.div
-            className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4"
+            className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4"
             whileHover={{ y: -2 }}
           >
-            <h3 className="font-medium text-[#f5f5f7]/60 mb-1 text-sm">
+            <h3 className="font-medium text-[rgb(var(--text-secondary))]/60 mb-1 text-sm">
               Completion Rate
             </h3>
             <p className="text-2xl font-bold">{insights.completionRate}%</p>
           </motion.div>
 
           <motion.div
-            className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4"
+            className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4"
             whileHover={{ y: -2 }}
           >
-            <h3 className="font-medium text-[#f5f5f7]/60 mb-1 text-sm">
+            <h3 className="font-medium text-[rgb(var(--text-secondary))]/60 mb-1 text-sm">
               Most Productive Time
             </h3>
             <p className="text-2xl font-bold">{insights.mostProductiveTime}</p>
           </motion.div>
 
           <motion.div
-            className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4"
+            className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4"
             whileHover={{ y: -2 }}
           >
-            <h3 className="font-medium text-[#f5f5f7]/60 mb-1 text-sm">
+            <h3 className="font-medium text-[rgb(var(--text-secondary))]/60 mb-1 text-sm">
               Total Completions
             </h3>
             <p className="text-2xl font-bold">{insights.totalCompleted}</p>
@@ -394,10 +394,10 @@ const Progress = () => {
 
         {/* Weekly Summary */}
         <h2 className="text-xl font-bold mb-4">Weekly Summary</h2>
-        <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-6 mb-8">
+        <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6 mb-8">
           <div className="flex flex-col md:flex-row justify-between mb-6 gap-6">
             <div className="w-full md:w-1/2">
-              <h3 className="font-medium text-[#A2BFFE] mb-4">
+              <h3 className="font-medium text-[rgb(var(--accent-primary))] mb-4">
                 Daily Completion
               </h3>
               <div className="h-[250px]">
@@ -405,7 +405,7 @@ const Progress = () => {
               </div>
             </div>
             <div className="w-full md:w-1/2">
-              <h3 className="font-medium text-[#A2BFFE] mb-4">
+              <h3 className="font-medium text-[rgb(var(--accent-primary))] mb-4">
                 Completion Rate
               </h3>
               <div className="h-[250px]">
@@ -415,26 +415,24 @@ const Progress = () => {
           </div>
 
           <div
-            className={`grid ${
-              viewMode === "week"
-                ? "grid-cols-3 sm:grid-cols-7"
-                : "grid-cols-3 sm:grid-cols-10 overflow-x-auto"
-            } gap-2`}
+            className={`grid ${viewMode === "week"
+              ? "grid-cols-3 sm:grid-cols-7"
+              : "grid-cols-3 sm:grid-cols-10 overflow-x-auto"
+              } gap-2`}
           >
             {weeklyData.map((day, index) => (
               <div
                 key={index}
-                className={`p-3 rounded-lg text-center ${
-                  day.isToday
-                    ? "border border-[#A2BFFE]/50"
-                    : "border border-[#222]"
-                }`}
+                className={`p-3 rounded-lg text-center ${day.isToday
+                  ? "border border-[rgb(var(--accent-border))]/50"
+                  : "border border-[rgb(var(--border-primary))]"
+                  }`}
               >
-                <p className="text-sm font-medium text-[#f5f5f7]/80">
+                <p className="text-sm font-medium text-[rgb(var(--text-muted))]/80">
                   {day.day}
                 </p>
                 <div className="my-2 font-bold text-lg">{day.percentage}%</div>
-                <p className="text-xs text-[#f5f5f7]/60">
+                <p className="text-xs text-[rgb(var(--text-secondary))]/60">
                   {day.completed}/{day.completed + day.missed} habits
                 </p>
               </div>
@@ -449,7 +447,7 @@ const Progress = () => {
           {habits.map((habit) => (
             <motion.div
               key={habit._id}
-              className="bg-[#0a0a0a] border border-[#222] rounded-xl p-3 sm:p-4"
+              className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-3 sm:p-4"
               whileHover={{ y: -2 }}
             >
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
@@ -458,15 +456,15 @@ const Progress = () => {
                     {habit.name}
                   </h3>
                   <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 mt-1">
-                    <span className="text-sm text-[#f5f5f7]/60">
+                    <span className="text-sm text-[rgb(var(--text-secondary))]/60">
                       Current streak:
-                      <span className="text-[#A2BFFE] ml-1">
+                      <span className="text-[rgb(var(--accent-primary))] ml-1">
                         {habit.currentStreak} days
                       </span>
                     </span>
-                    <span className="text-sm text-[#f5f5f7]/60">
+                    <span className="text-sm text-[rgb(var(--text-secondary))]/60">
                       <span className="hidden sm:inline">| </span>Best:
-                      <span className="text-[#A2BFFE] ml-1">
+                      <span className="text-[rgb(var(--accent-primary))] ml-1">
                         {habit.longestStreak} days
                       </span>
                     </span>
@@ -476,7 +474,7 @@ const Progress = () => {
                   <div className="text-xl sm:text-2xl font-bold">
                     {habit.completedDates?.length || 0}
                   </div>
-                  <p className="text-xs text-[#f5f5f7]/60">total completions</p>
+                  <p className="text-xs text-[rgb(var(--text-primary))]/60">total completions</p>
                 </div>
               </div>
 
@@ -501,9 +499,8 @@ const Progress = () => {
                     return (
                       <div
                         key={idx}
-                        className={`flex-1 h-2 rounded-full ${
-                          wasCompleted ? "bg-[#A2BFFE]" : "bg-[#222]"
-                        }`}
+                        className={`flex-1 h-2 rounded-full ${wasCompleted ? "bg-[rgb(var(--accent-primary))]" : "bg-[rgb(var(--border-primary))]"
+                          }`}
                       ></div>
                     );
                   })}
@@ -512,6 +509,7 @@ const Progress = () => {
           ))}
         </div>
       </main>
+      <ThemeToggle />
     </div>
   );
 };

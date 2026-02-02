@@ -73,8 +73,7 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
 
     try {
       const response = await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
+        `${import.meta.env.VITE_API_URL
         }/api/partners/chat/${partnerId}/messages`,
         {
           content: newMessage,
@@ -146,15 +145,15 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
-        className="bg-[#0a0a0a] w-full max-w-lg rounded-xl shadow-xl flex flex-col"
+        className="bg-[rgb(var(--bg-secondary))] w-full max-w-lg rounded-xl shadow-xl flex flex-col"
         style={{ maxHeight: "80vh" }}
       >
         {/* Chat Header */}
-        <div className="p-4 border-b border-[#222] flex justify-between items-center">
+        <div className="p-4 border-b border-[rgb(var(--border-primary))] flex justify-between items-center">
           <h3 className="font-bold">Chat with {partnerName}</h3>
           <button
             onClick={onClose}
-            className="text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
+            className="text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
           >
             ×
           </button>
@@ -166,7 +165,7 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
           style={{ minHeight: "300px", maxHeight: "50vh" }}
         >
           {messages.length === 0 && (
-            <div className="text-center text-[#f5f5f7]/40 py-12">
+            <div className="text-center text-[rgb(var(--text-primary))]/40 py-12">
               No messages yet
             </div>
           )}
@@ -176,9 +175,9 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
             const formattedTime =
               messageDate instanceof Date && !isNaN(messageDate)
                 ? messageDate.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
                 : "Invalid date";
 
             const otherParticipantIds = [partnerId];
@@ -189,34 +188,31 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
             return (
               <div
                 key={index}
-                className={`flex flex-col ${
-                  isCurrentUser ? "items-end" : "items-start"
-                }`}
+                className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"
+                  }`}
               >
                 {/* Sender Name */}
-                <span className="text-xs text-[#f5f5f7]/60 mb-1">
+                <span className="text-xs text-[rgb(var(--text-primary))]/60 mb-1">
                   {isCurrentUser ? "You" : partnerName}
                 </span>
 
                 {/* Message Bubble */}
                 <div
-                  className={`max-w-[70%] p-3 rounded-lg ${
-                    isCurrentUser
-                      ? "bg-[#A2BFFE] text-[#080808]"
-                      : "bg-[#222] text-[#f5f5f7]"
-                  }`}
+                  className={`max-w-[70%] p-3 rounded-lg ${isCurrentUser
+                      ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                      : "bg-[rgb(var(--border-primary))] text-[rgb(var(--text-primary))]"
+                    }`}
                 >
                   <p className="break-words">{message.content}</p>
                   <p
-                    className={`text-xs mt-1 ${
-                      isCurrentUser ? "opacity-80" : "opacity-60"
-                    }`}
+                    className={`text-xs mt-1 ${isCurrentUser ? "opacity-80" : "opacity-60"
+                      }`}
                   >
                     {formattedTime}
                   </p>
                 </div>
                 {isCurrentUser && allOthersRead && (
-                  <span className="text-xs text-[#f5f5f7]/60 mt-1">Seen</span>
+                  <span className="text-xs text-[rgb(var(--text-primary))]/60 mt-1">Seen</span>
                 )}
               </div>
             );
@@ -224,7 +220,7 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
           <div ref={messagesEndRef} />
           {typingUsers.length > 0 &&
             typingUsers.some((id) => id !== currentUser.id) && (
-              <div className="text-sm text-[#f5f5f7]/60 italic">
+              <div className="text-sm text-[rgb(var(--text-primary))]/60 italic">
                 {typingUsers.length === 1
                   ? "Partner is typing..."
                   : "Partners are typing..."}
@@ -234,13 +230,13 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
 
         {/* Add typing indicator */}
         {isTyping && (
-          <div className="text-sm text-[#f5f5f7]/60 italic px-4 py-2">
+          <div className="text-sm text-[rgb(var(--text-primary))]/60 italic px-4 py-2">
             {partnerName} is typing...
           </div>
         )}
 
         {/* Message Input */}
-        <form onSubmit={sendMessage} className="p-4 border-t border-[#222]">
+        <form onSubmit={sendMessage} className="p-4 border-t border-[rgb(var(--border-primary))]">
           <div className="flex gap-2">
             <input
               type="text"
@@ -250,11 +246,11 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
                 handleTyping();
               }}
               placeholder="Type a message..."
-              className="flex-1 px-4 py-2 bg-[#1a1a1a] border border-[#222] rounded-lg focus:outline-none focus:border-[#A2BFFE]"
+              className="flex-1 px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg focus:outline-none focus:border-[rgb(var(--accent-primary))]"
             />
             <motion.button
               type="submit"
-              className="px-4 py-2 bg-[#A2BFFE] text-[#080808] rounded-lg font-bold"
+              className="px-4 py-2 bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] rounded-lg font-bold"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

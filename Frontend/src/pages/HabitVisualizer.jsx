@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import mermaid from "mermaid";
 import ConfirmationModal from "../components/ConfirmationModal";
+import ThemeToggle from "../components/ThemeToggle";
 
 const HabitVisualizer = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState({
@@ -524,36 +525,35 @@ const HabitVisualizer = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#080808] text-[#f5f5f7] py-8">
+    <div className="min-h-screen bg-[rgb(var(--bg-primary))] text-[rgb(var(--text-primary))] py-8">
       <main className="max-w-4xl mx-auto px-3 sm:px-6">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl sm:text-3xl font-bold mb-2">
             Habit Visualizer
           </h1>
-          <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
+          <p className="text-[rgb(var(--text-primary))]/60 text-sm sm:text-base">
             Create a visual representation of your habit's structure and
             relationships
           </p>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-4 mb-6 border-b border-[#222] overflow-x-auto">
+        <div className="flex gap-4 mb-6 border-b border-[rgb(var(--border-primary))] overflow-x-auto">
           {["create", "saved"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`pb-2 px-1 relative whitespace-nowrap ${
-                activeTab === tab
-                  ? "text-[#A2BFFE]"
-                  : "text-[#f5f5f7]/60 hover:text-[#f5f5f7]"
-              }`}
+              className={`pb-2 px-1 relative whitespace-nowrap ${activeTab === tab
+                ? "text-[rgb(var(--accent-primary))]"
+                : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
+                }`}
             >
               {tab === "create" ? "Create New" : "Saved Visualizations"}
               {activeTab === tab && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#A2BFFE]"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[rgb(var(--accent-primary))]"
                 />
               )}
             </button>
@@ -570,7 +570,7 @@ const HabitVisualizer = () => {
           >
             <div className="grid grid-cols-1 gap-8">
               {/* Form + Actions & Diagram */}
-              <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6">
+              <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Form */}
                   <div>
@@ -579,7 +579,7 @@ const HabitVisualizer = () => {
                     </h2>
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div>
-                        <label className="block text-sm font-medium text-[#f5f5f7]/70 mb-2">
+                        <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-2">
                           Habit Name
                         </label>
                         <input
@@ -587,24 +587,24 @@ const HabitVisualizer = () => {
                           value={habitName}
                           onChange={(e) => setHabitName(e.target.value)}
                           placeholder="e.g., Morning Meditation"
-                          className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50 text-sm"
+                          className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-secondary))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 text-sm"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-[#f5f5f7]/70 mb-2">
+                        <label className="block text-sm font-medium text-[rgb(var(--text-primary))]/70 mb-2">
                           Description (Optional)
                         </label>
                         <textarea
                           value={habitDescription}
                           onChange={(e) => setHabitDescription(e.target.value)}
                           placeholder="Describe your habit in more detail..."
-                          className="w-full px-4 py-2 bg-[#111] border border-[#333] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#A2BFFE]/50 min-h-[100px] text-sm"
+                          className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-secondary))] rounded-lg focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 min-h-[100px] text-sm"
                         />
                       </div>
                       <div className="flex flex-col sm:flex-row gap-2">
                         <motion.button
                           type="submit"
-                          className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 py-2.5 rounded-lg font-bold text-sm flex items-center justify-center flex-1"
+                          className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 py-2.5 rounded-lg font-bold text-sm flex items-center justify-center flex-1"
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                           disabled={loading}
@@ -635,7 +635,7 @@ const HabitVisualizer = () => {
                           <motion.button
                             type="button"
                             onClick={resetForm}
-                            className="bg-[#222] hover:bg-[#333] px-3 py-2.5 rounded-lg text-sm flex-1 sm:flex-none"
+                            className="bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] px-3 py-2.5 rounded-lg text-sm flex-1 sm:flex-none"
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
                           >
@@ -656,7 +656,7 @@ const HabitVisualizer = () => {
                           <div className="flex flex-wrap gap-2">
                             <motion.button
                               onClick={handleSaveVisualization}
-                              className="text-xs bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-3 py-1 rounded-md flex items-center"
+                              className="text-xs bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] px-3 py-1 rounded-md flex items-center"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -664,7 +664,7 @@ const HabitVisualizer = () => {
                             </motion.button>
                             <motion.button
                               onClick={handleDownload}
-                              className="text-xs bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-3 py-1 rounded-md flex items-center"
+                              className="text-xs bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] px-3 py-1 rounded-md flex items-center"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -672,11 +672,10 @@ const HabitVisualizer = () => {
                             </motion.button>
                             <motion.button
                               onClick={() => setShowCode(!showCode)}
-                              className={`text-xs ${
-                                showCode
-                                  ? "bg-[#A2BFFE] text-[#080808]"
-                                  : "bg-[#222] hover:bg-[#333] text-[#f5f5f7]"
-                              } px-3 py-1 rounded-md flex items-center`}
+                              className={`text-xs ${showCode
+                                ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                                : "bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))]"
+                                } px-3 py-1 rounded-md flex items-center`}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -685,7 +684,7 @@ const HabitVisualizer = () => {
                             </motion.button>
                             <motion.button
                               onClick={handleForecast}
-                              className="text-xs bg-[#222] hover:bg-[#333] text-[#f5f5f7] px-3 py-1 rounded-md flex items-center"
+                              className="text-xs bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))] px-3 py-1 rounded-md flex items-center"
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}
                             >
@@ -694,8 +693,8 @@ const HabitVisualizer = () => {
                           </div>
                         </div>
                         {showCode && (
-                          <div className="bg-[#111] rounded-md p-3 overflow-auto max-h-60 mb-4">
-                            <pre className="text-xs text-[#f5f5f7]/70 whitespace-pre-wrap">
+                          <div className="bg-[rgb(var(--bg-tertiary))] rounded-md p-3 overflow-auto max-h-60 mb-4">
+                            <pre className="text-xs text-[rgb(var(--text-primary))]/70 whitespace-pre-wrap">
                               {mermaidCode}
                             </pre>
                           </div>
@@ -734,45 +733,45 @@ const HabitVisualizer = () => {
                                       {day === "30"
                                         ? "30 Days"
                                         : day === "90"
-                                        ? "90 Days"
-                                        : "1 Year"}
+                                          ? "90 Days"
+                                          : "1 Year"}
                                     </h3>
                                     {forecast?.[day] &&
-                                    typeof forecast[day] === "object" ? (
+                                      typeof forecast[day] === "object" ? (
                                       <div className="space-y-3 text-sm text-[#f5f5f7]/90">
                                         {forecast[day][
                                           "Summary of expected progress or changes"
                                         ] && (
-                                          <div>
-                                            <h4 className="font-medium text-[#A2BFFE]/90">
-                                              Progress & Changes
-                                            </h4>
-                                            <p className="mt-1">
-                                              {
-                                                forecast[day][
+                                            <div>
+                                              <h4 className="font-medium text-[#A2BFFE]/90">
+                                                Progress & Changes
+                                              </h4>
+                                              <p className="mt-1">
+                                                {
+                                                  forecast[day][
                                                   "Summary of expected progress or changes"
-                                                ]
-                                              }
-                                            </p>
-                                          </div>
-                                        )}
+                                                  ]
+                                                }
+                                              </p>
+                                            </div>
+                                          )}
 
                                         {forecast[day][
                                           "Potential challenges"
                                         ] && (
-                                          <div>
-                                            <h4 className="font-medium text-[#A2BFFE]/90">
-                                              Challenges
-                                            </h4>
-                                            <p className="mt-1">
-                                              {
-                                                forecast[day][
+                                            <div>
+                                              <h4 className="font-medium text-[#A2BFFE]/90">
+                                                Challenges
+                                              </h4>
+                                              <p className="mt-1">
+                                                {
+                                                  forecast[day][
                                                   "Potential challenges"
-                                                ]
-                                              }
-                                            </p>
-                                          </div>
-                                        )}
+                                                  ]
+                                                }
+                                              </p>
+                                            </div>
+                                          )}
 
                                         {forecast[day]["Motivation tips"] && (
                                           <div>
@@ -814,10 +813,10 @@ const HabitVisualizer = () => {
                                           ? typeof forecast[day] === "string"
                                             ? forecast[day]
                                             : JSON.stringify(
-                                                forecast[day],
-                                                null,
-                                                2
-                                              )
+                                              forecast[day],
+                                              null,
+                                              2
+                                            )
                                           : "No data."}
                                       </pre>
                                     )}
@@ -833,14 +832,14 @@ const HabitVisualizer = () => {
                 </div>
               </div>
               {/* Visualization Preview */}
-              <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6">
+              <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6">
                 <h2 className="text-lg sm:text-xl font-bold mb-4">
                   Visualization Preview
                 </h2>
                 {!mermaidCode ? (
-                  <div className="flex flex-col items-center justify-center h-[300px] sm:h-[500px] border border-dashed border-[#333] rounded-lg">
+                  <div className="flex flex-col items-center justify-center h-[300px] sm:h-[500px] border border-dashed border-[rgb(var(--border-primary))] rounded-lg">
                     <svg
-                      className="h-12 w-12 sm:h-16 sm:w-16 text-[#333]"
+                      className="h-12 w-12 sm:h-16 sm:w-16 text-[rgb(var(--border-primary))]"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -852,15 +851,15 @@ const HabitVisualizer = () => {
                         d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
                       />
                     </svg>
-                    <p className="mt-4 text-[#555] text-sm text-center">
+                    <p className="mt-4 text-[rgb(var(--text-primary))]/40 text-sm text-center">
                       Enter your habit details and generate a visualization
                     </p>
                   </div>
                 ) : (
-                  <div className="overflow-auto border border-[#222] rounded-lg p-2 sm:p-4 bg-[#0c0c0c] min-h-[300px] sm:min-h-[500px]">
+                  <div className="overflow-auto border border-[rgb(var(--border-primary))] rounded-lg p-2 sm:p-4 bg-[rgb(var(--bg-primary))] min-h-[300px] sm:min-h-[500px]">
                     {loading ? (
                       <div className="flex items-center justify-center h-[300px] sm:h-[500px]">
-                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+                        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
                       </div>
                     ) : (
                       <div
@@ -882,13 +881,13 @@ const HabitVisualizer = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6">
+            <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-4 sm:p-6">
               <h2 className="text-lg sm:text-xl font-bold mb-6">
                 Saved Visualizations
               </h2>
               {loadingSaved ? (
                 <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[#A2BFFE]"></div>
+                  <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
                 </div>
               ) : savedVisualizations.length === 0 ? (
                 <div className="text-center py-12">
@@ -896,12 +895,12 @@ const HabitVisualizer = () => {
                   <h3 className="text-lg sm:text-xl font-bold mb-2">
                     No Saved Visualizations
                   </h3>
-                  <p className="text-[#f5f5f7]/60 mb-6">
+                  <p className="text-[rgb(var(--text-primary))]/60 mb-6">
                     Create and save habit visualizations to see them here
                   </p>
                   <motion.button
                     onClick={() => setActiveTab("create")}
-                    className="bg-[#A2BFFE] hover:bg-[#91AFFE] text-[#080808] px-6 py-2.5 rounded-full font-bold text-sm"
+                    className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] px-6 py-2.5 rounded-full font-bold text-sm"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -913,21 +912,21 @@ const HabitVisualizer = () => {
                   {savedVisualizations.map((visualization) => (
                     <motion.div
                       key={visualization._id}
-                      className="bg-[#111] border border-[#222] rounded-lg p-4 cursor-pointer hover:border-[#A2BFFE]/30"
+                      className="bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg p-4 cursor-pointer hover:border-[rgb(var(--accent-primary))]/30"
                       whileHover={{ y: -2 }}
                       onClick={() => loadVisualization(visualization._id)}
                     >
                       <div className="flex justify-between items-start">
                         <div>
-                          <h3 className="font-bold text-[#A2BFFE]">
+                          <h3 className="font-bold text-[rgb(var(--accent-primary))]">
                             {visualization.habitName}
                           </h3>
                           {visualization.habitDescription && (
-                            <p className="text-sm text-[#f5f5f7]/60 mt-1 line-clamp-2">
+                            <p className="text-sm text-[rgb(var(--text-primary))]/60 mt-1 line-clamp-2">
                               {visualization.habitDescription}
                             </p>
                           )}
-                          <p className="text-xs text-[#f5f5f7]/40 mt-2">
+                          <p className="text-xs text-[rgb(var(--text-primary))]/40 mt-2">
                             {new Date(
                               visualization.updatedAt
                             ).toLocaleDateString()}
@@ -937,7 +936,7 @@ const HabitVisualizer = () => {
                           onClick={(e) =>
                             deleteVisualization(visualization._id, e)
                           }
-                          className="text-[#f5f5f7]/60 hover:text-[#EF4444] p-1"
+                          className="text-[rgb(var(--text-primary))]/60 hover:text-[#EF4444] p-1"
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                         >
@@ -977,6 +976,7 @@ const HabitVisualizer = () => {
           type="danger"
         />
       </main>
+      <ThemeToggle />
     </div>
   );
 };
