@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import ChatWindow from "./ChatWindow";
 import { FaUserMinus } from "react-icons/fa";
 import { debounce } from "lodash";
+import { mockPartners, mockMessages } from "../../utils/mockData";
 
 const PartnersSection = () => {
   const currentUser = JSON.parse(localStorage.getItem("user")); // Add this line
@@ -26,15 +27,12 @@ const PartnersSection = () => {
 
   const fetchPendingRequests = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/partners/requests/pending`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setPendingRequests(response.data);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Use mock data and filter pending partners
+      const pending = mockPartners.filter(p => p.status === 'pending');
+      setPendingRequests(pending);
     } catch (error) {
       console.error("Failed to fetch pending requests:", error);
     }
@@ -42,20 +40,13 @@ const PartnersSection = () => {
 
   const handleAcceptRequest = async (requestId) => {
     try {
-      await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
-        }/api/partners/request/${requestId}/accept`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
       toast.success("Partner request accepted!");
-      fetchPartners();
-      fetchPendingRequests();
+      toast.info("Demo mode: Changes are not persisted");
+      // fetchPartners();
+      // fetchPendingRequests();
     } catch (error) {
       toast.error("Failed to accept request");
     }
@@ -63,19 +54,12 @@ const PartnersSection = () => {
 
   const handleDeclineRequest = async (requestId) => {
     try {
-      await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
-        }/api/partners/request/${requestId}/decline`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
       toast.success("Partner request declined");
-      fetchPendingRequests();
+      toast.info("Demo mode: Changes are not persisted");
+      // fetchPendingRequests();
     } catch (error) {
       toast.error("Failed to decline request");
     }
@@ -87,15 +71,12 @@ const PartnersSection = () => {
 
   const fetchPartners = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/partners`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setPartners(response.data);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Use mock data and filter active partners
+      const activePartners = mockPartners.filter(p => p.status === 'active');
+      setPartners(activePartners);
     } catch (error) {
       toast.error("Failed to fetch partners");
     }

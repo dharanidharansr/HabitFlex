@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { mockCoachMessages, mockCoachSuggestions } from "../utils/mockData";
 
 const COACH_TYPES = {
   supportive: {
@@ -100,28 +101,28 @@ const AICoach = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/coach`,
-        {
-          message: message.trim(),
-          coachType,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Generate mock response based on coach type
+      const mockResponses = {
+        supportive: "That's a great question! I believe in you and I'm here to help you every step of the way. 💪",
+        strict: "Listen up! You need to focus and commit to your habits. No excuses!",
+        funny: "Haha, great question! Let me think... 🤔 Well, habits are like coffee - better when they're consistent!",
+        analytical: "Based on the data, I recommend focusing on consistency and tracking your metrics carefully.",
+        motivational: "You've got this! Every small step counts towards your bigger goals. Keep pushing! ⚡"
+      };
 
       // Add coach's response to the chat
       const coachMessage = {
-        text: response.data.message,
+        text: mockResponses[coachType] || "I'm here to help you with your habits!",
         sender: "coach",
         coachType,
         timestamp: new Date().toISOString(),
       };
 
       setMessages((prev) => [...prev, coachMessage]);
+      toast.info("Demo mode: AI responses are simulated");
     } catch (error) {
       console.error("Error getting coach response:", error);
       toast.error("Failed to get coach response");

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import ParticipantsList from "../components/Challenges/ParticipantsList";
 import QRCodeGenerator from "../components/QR/QRCodeGenerator";
 import QRCodeScanner from "../components/QR/QRCodeScanner";
+import { mockChallenges, getCurrentUserId, getMyParticipations, getAvailableChallenges } from "../utils/mockData";
 
 const Challenges = () => {
   const [activeTab, setActiveTab] = useState("explore");
@@ -31,32 +32,24 @@ const Challenges = () => {
       .split("T")[0], // 30 days from now
   });
 
-  // Fetch all challenges
+  // Fetch all challenges - using mock data
   const fetchChallenges = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("token");
-
-      const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/challenges`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Process challenges to identify user's participations
-      const challenges = response.data;
-      const userId = JSON.parse(atob(token.split(".")[1])).id;
-
-      const participations = challenges.filter((challenge) =>
+      
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Use mock data instead of API call
+      const userId = getCurrentUserId();
+      
+      const participations = mockChallenges.filter((challenge) =>
         challenge.participants.some(
-          (p) => p.user === userId || p.user?._id === userId
+          (p) => p.user._id === userId
         )
       );
 
-      setChallenges(challenges);
+      setChallenges(mockChallenges);
       setMyParticipations(participations);
       setLoading(false);
     } catch (error) {
@@ -66,29 +59,22 @@ const Challenges = () => {
     }
   };
 
-  // Join a challenge
+  // Join a challenge - using mock data
   const joinChallenge = async (challengeId) => {
     try {
-      const token = localStorage.getItem("token");
-      const user = localStorage.getItem("user");
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/challenges/${challengeId}/join`,
-        { user: user ? JSON.parse(user) : undefined },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 300));
+      
       toast.success("Successfully joined challenge!");
-      fetchChallenges();
+      toast.info("Demo mode: Changes are not persisted");
+      // In demo mode, we don't actually update the data
+      // fetchChallenges();
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to join challenge");
+      toast.error("Failed to join challenge");
     }
   };
 
-  // Update progress for a challenge
+  // Update progress for a challenge - using mock data
   const updateProgress = async (challengeId, progress, currentProgress) => {
     // Calculate new total progress
     const newTotalProgress = currentProgress + progress;
@@ -100,52 +86,27 @@ const Challenges = () => {
     }
 
     try {
-      const token = localStorage.getItem("token");
-      const user = localStorage.getItem("user");
-
-      await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
-        }/api/challenges/${challengeId}/progress`,
-        {
-          progress,
-          user: user ? JSON.parse(user) : undefined,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 300));
 
       toast.success("Progress updated successfully!");
-      fetchChallenges();
+      toast.info("Demo mode: Changes are not persisted");
+      // In demo mode, we don't actually update the data
+      // fetchChallenges();
     } catch (error) {
       toast.error("Failed to update progress");
     }
   };
 
-  // Create a new challenge
+  // Create a new challenge - using mock data
   const createChallenge = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      const user = localStorage.getItem("user");
-
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/challenges`,
-        {
-          ...formData,
-          user: user ? JSON.parse(user) : undefined,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       toast.success("Challenge created successfully!");
+      toast.info("Demo mode: Changes are not persisted");
       setShowCreateModal(false);
       setFormData({
         name: "",
@@ -155,7 +116,8 @@ const Challenges = () => {
           .toISOString()
           .split("T")[0],
       });
-      fetchChallenges();
+      // In demo mode, we don't actually update the data
+      // fetchChallenges();
     } catch (error) {
       toast.error("Failed to create challenge");
     }

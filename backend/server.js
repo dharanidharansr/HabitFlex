@@ -3,21 +3,12 @@ const cors = require("cors");
 const { createServer } = require("http");
 const connectDB = require("./config/db");
 const habitRoutes = require("./routes/habitRoutes");
-const partnerRoutes = require("./routes/partnerRoutes");
 const authRoutes = require("./routes/authroutes");
 const socketIo = require("socket.io");
 const Chat = require("./models/chat"); // Add this
-const recommendationRoutes = require('./routes/recommendationRoute');
-const visualizerRoutes = require('./routes/visualizerRoutes');
-const forecastRoutes = require('./routes/forecastRoutes');
-const challengeRoutes = require('./routes/challengeRoutes');
-const userRoutes = require("./routes/userRoutes");
-const googleCalendarRoutes = require('./routes/googleCalendarRoutes');
-const emailRoutes = require('./routes/emailRoutes');
 const { initWebsocket } = require('./services/websocket');
 const { scheduleAllHabitsReminders } = require('./services/reminderService');
 const user = require("./models/user");
-const coachRoutes = require("./routes/coachRoutes");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 8000;
@@ -150,20 +141,9 @@ app.use((req, res, next) => {
 
 app.use("/api/habits", habitRoutes);
 app.use("/api/auth", authRoutes);
-app.use("/api/partners", partnerRoutes);
-app.use('/api/recommendations', recommendationRoutes);
 app.get("/", (req, res) => {
   res.send("Habitz API is running...");
 });
-app.use('/api/google-calendar', googleCalendarRoutes);
-// Legacy callback route for existing Google OAuth config
-app.use('/auth/google', googleCalendarRoutes);
-app.use('/api/visualizer', visualizerRoutes);
-app.use('/api/forecast', forecastRoutes);
-app.use('/api/challenges', challengeRoutes);
-app.use("/api/users", userRoutes);
-app.use('/api/coach', coachRoutes);
-app.use('/api/email', emailRoutes);
 
 // Change app.listen to httpServer.listen
 httpServer.listen(PORT, () => {

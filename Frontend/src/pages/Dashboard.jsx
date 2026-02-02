@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import QRCodeScanner from "../components/QR/QRCodeScanner";
 import { subDays } from "date-fns";
+import { mockRecommendations } from "../utils/mockData";
 
 const Dashboard = () => {
   const [habits, setHabits] = useState([]);
@@ -104,52 +105,15 @@ const Dashboard = () => {
     setLoadingRecommendations(true);
 
     try {
-      // Format the habits data for the API request
-      const habitNames = habits.map((h) => h.name);
-      const habitCategories = [...new Set(habits.map((h) => h.category))];
-      const timePreferences = habits.map((h) => h.timeOfDay);
-
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/recommendations`,
-        {
-          existingHabits: habitNames,
-          categories: habitCategories,
-          timePreferences: timePreferences,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      setRecommendations(response.data);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Use mock recommendations
+      setRecommendations(mockRecommendations);
     } catch (error) {
       console.error("Error generating recommendations:", error);
       // Set fallback recommendations if the API fails
-      setRecommendations([
-        {
-          category: "health",
-          title: "Drink a glass of water",
-          recommendation: "Adding water intake could boost your productivity.",
-          timeOfDay: "08:00",
-          icon: "💧",
-        },
-        {
-          category: "productivity",
-          title: "5-minute journal",
-          recommendation: "Consider a short journaling session to reflect.",
-          timeOfDay: "21:00",
-          icon: "📝",
-        },
-        {
-          category: "self-care",
-          title: "2-minute meditation",
-          recommendation: "Start small with just 2 minutes of meditation.",
-          timeOfDay: "07:30",
-          icon: "🧘",
-        },
-      ]);
+      setRecommendations(mockRecommendations);
     } finally {
       setLoadingRecommendations(false);
     }
