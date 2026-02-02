@@ -2,21 +2,6 @@
 
 A comprehensive habit tracking application with AI coaching, social features, and beautiful visualizations to help you build and maintain healthy habits.
 
-code - github
-protect server,auth and cors
-
-branch - dev,main
-
-commit - each feature
-
-swagger
-google Oauth
-different usecase - like amazon->food delivery
-secure api
-firewall
-calling api from all the url -> not allowed cors
-
-
 ## Features
 
 - **Habit Tracking**: Create, track, and manage your daily habits
