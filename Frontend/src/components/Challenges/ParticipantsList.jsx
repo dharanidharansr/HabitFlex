@@ -13,26 +13,26 @@ const ParticipantsList = ({ challengeId, challenges }) => {
       // Find the selected challenge from the challenges array
       const selectedChallenge = challenges.find(c => c._id === challengeId);
       setChallenge(selectedChallenge);
-      
+
       if (selectedChallenge) {
         // Get participants with user details
         fetchParticipantDetails(selectedChallenge);
       }
     }
   }, [challengeId, challenges]);
-  
+
   const fetchParticipantDetails = async (challenge) => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
-      
+
       // Create an array to hold participants with full details
       const participantsWithDetails = [];
-      
+
       // For each participant in the challenge, get user details
       for (const participant of challenge.participants) {
         const userId = participant.user._id || participant.user;
-        
+
         try {
           const userResponse = await axios.get(
             `${import.meta.env.VITE_API_URL}/api/users/${userId}`,
@@ -42,7 +42,7 @@ const ParticipantsList = ({ challengeId, challenges }) => {
               },
             }
           );
-          
+
           participantsWithDetails.push({
             ...participant,
             userDetails: userResponse.data,
@@ -55,7 +55,7 @@ const ParticipantsList = ({ challengeId, challenges }) => {
           });
         }
       }
-      
+
       setParticipants(participantsWithDetails);
     } catch (error) {
       toast.error("Failed to fetch participant details");
@@ -63,9 +63,9 @@ const ParticipantsList = ({ challengeId, challenges }) => {
       setLoading(false);
     }
   };
-  
+
   if (!challenge) return null;
-  
+
   return (
     <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-xl p-6">
       <div className="mb-6">
@@ -74,7 +74,7 @@ const ParticipantsList = ({ challengeId, challenges }) => {
           {participants.length} participants in this challenge
         </p>
       </div>
-      
+
       {loading ? (
         <div className="flex justify-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-[rgb(var(--accent-primary))]"></div>
@@ -92,34 +92,33 @@ const ParticipantsList = ({ challengeId, challenges }) => {
             <div className="col-span-4">Progress</div>
             <div className="col-span-2 text-right">Status</div>
           </div>
-          
+
           {/* Participant Rows */}
           {participants
             .sort((a, b) => b.progress - a.progress)
             .map((participant, index) => {
-              const username = participant.userDetails?.username || 
-                              (typeof participant.user === 'string' 
-                                ? `User ${participant.user.substring(0, 5)}...` 
-                                : 'Anonymous');
-              
+              const username = participant.userDetails?.username ||
+                (typeof participant.user === 'string'
+                  ? `User ${participant.user.substring(0, 5)}...`
+                  : 'Anonymous');
+
               // Get the current user ID to highlight their row
               const token = localStorage.getItem("token");
               const currentUserId = token ? JSON.parse(atob(token.split(".")[1])).id : null;
-              const isCurrentUser = participant.user === currentUserId || 
-                                   participant.user?._id === currentUserId;
-              
+              const isCurrentUser = participant.user === currentUserId ||
+                participant.user?._id === currentUserId;
+
               return (
                 <motion.div
                   key={index}
-                  className={`grid grid-cols-12 items-center py-3 px-2 rounded-lg ${
-                    isCurrentUser ? "bg-[rgb(var(--bg-tertiary))]" : ""
-                  }`}
+                  className={`grid grid-cols-12 items-center py-3 px-2 rounded-lg ${isCurrentUser ? "bg-[rgb(var(--bg-tertiary))]" : ""
+                    }`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: index * 0.05 }}
                 >
                   <div className="col-span-1 font-medium">{index + 1}</div>
-                  
+
                   <div className="col-span-5">
                     <div className="flex items-center">
                       <div className="w-8 h-8 rounded-full bg-[rgb(var(--accent-primary))] flex items-center justify-center mr-3">
@@ -134,11 +133,11 @@ const ParticipantsList = ({ challengeId, challenges }) => {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div className="col-span-4">
                     <div className="w-full bg-[rgb(var(--border-primary))] rounded-full h-2.5">
-                      <div 
-                        className="bg-[rgb(var(--accent-primary))] h-2.5 rounded-full" 
+                      <div
+                        className="bg-[rgb(var(--accent-primary))] h-2.5 rounded-full"
                         style={{ width: `${participant.progress || 0}%` }}
                       ></div>
                     </div>
@@ -146,7 +145,7 @@ const ParticipantsList = ({ challengeId, challenges }) => {
                       <span className="text-xs">{participant.progress || 0}%</span>
                     </div>
                   </div>
-                  
+
                   <div className="col-span-2 text-right">
                     {participant.completed ? (
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-500">
@@ -160,7 +159,7 @@ const ParticipantsList = ({ challengeId, challenges }) => {
                   </div>
                 </motion.div>
               );
-          })}
+            })}
         </div>
       )}
     </div>

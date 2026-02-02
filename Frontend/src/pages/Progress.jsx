@@ -334,8 +334,8 @@ const Progress = () => {
                 key={mode}
                 onClick={() => setViewMode(mode)}
                 className={`px-4 py-2 text-sm font-medium rounded-full ${viewMode === mode
-                    ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
-                    : "text-[rgb(var(--text-secondary))]/60 hover:text-[rgb(var(--text-primary))]"
+                  ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                  : "text-[rgb(var(--text-secondary))]/60 hover:text-[rgb(var(--text-primary))]"
                   }`}
               >
                 {mode.charAt(0).toUpperCase() + mode.slice(1)}
@@ -416,16 +416,16 @@ const Progress = () => {
 
           <div
             className={`grid ${viewMode === "week"
-                ? "grid-cols-3 sm:grid-cols-7"
-                : "grid-cols-3 sm:grid-cols-10 overflow-x-auto"
+              ? "grid-cols-3 sm:grid-cols-7"
+              : "grid-cols-3 sm:grid-cols-10 overflow-x-auto"
               } gap-2`}
           >
             {weeklyData.map((day, index) => (
               <div
                 key={index}
                 className={`p-3 rounded-lg text-center ${day.isToday
-                    ? "border border-[rgb(var(--accent-border))]/50"
-                    : "border border-[rgb(var(--border-primary))]"
+                  ? "border border-[rgb(var(--accent-border))]/50"
+                  : "border border-[rgb(var(--border-primary))]"
                   }`}
               >
                 <p className="text-sm font-medium text-[rgb(var(--text-muted))]/80">

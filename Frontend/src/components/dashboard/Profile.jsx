@@ -124,7 +124,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
           },
         }
       );
-      
+
       setProfile(response.data);
       // Update localStorage
       const userData = JSON.parse(localStorage.getItem("user"));
@@ -134,7 +134,7 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
         email: response.data.email,
         avatar: response.data.avatar,
       }));
-      
+
       setIsEditing(false);
       toast.success("Profile updated successfully!");
     } catch (error) {

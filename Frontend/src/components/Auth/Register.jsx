@@ -89,7 +89,7 @@ const Register = () => {
       }
 
       toast.success("Registration successful! 🎉");
-      
+
       // Store user data and token
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify({
@@ -127,8 +127,8 @@ const Register = () => {
       <div className="absolute inset-0 z-0 opacity-10">
         <div className="h-full w-full grid grid-cols-[repeat(40,1fr)] grid-rows-[repeat(20,1fr)]">
           {[...Array(800)].map((_, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className="w-0.5 h-0.5 rounded-full bg-[rgb(var(--accent-primary))]/20"
             ></div>
           ))}

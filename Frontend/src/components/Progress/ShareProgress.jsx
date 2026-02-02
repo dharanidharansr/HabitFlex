@@ -225,8 +225,8 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
         <div className="bg-[rgb(var(--bg-secondary))] border border-[rgb(var(--border-primary))] rounded-full p-1 flex">
           <button
             className={`px-3 py-1 text-xs rounded-full font-medium transition ${activeTab === "text"
-                ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
-                : "text-[rgb(var(--text-primary))]/70 hover:text-[rgb(var(--text-primary))]"
+              ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+              : "text-[rgb(var(--text-primary))]/70 hover:text-[rgb(var(--text-primary))]"
               }`}
             onClick={() => setActiveTab("text")}
           >
@@ -234,8 +234,8 @@ Join me on HabitFlex to build lasting habits! #HabitFlexApp`;
           </button>
           <button
             className={`px-3 py-1 text-xs rounded-full font-medium transition ${activeTab === "image"
-                ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
-                : "text-[rgb(var(--text-primary))]/70 hover:text-[rgb(var(--text-primary))]"
+              ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+              : "text-[rgb(var(--text-primary))]/70 hover:text-[rgb(var(--text-primary))]"
               }`}
             onClick={() => setActiveTab("image")}
           >

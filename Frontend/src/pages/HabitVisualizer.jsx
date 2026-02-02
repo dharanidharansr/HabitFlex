@@ -545,8 +545,8 @@ const HabitVisualizer = () => {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`pb-2 px-1 relative whitespace-nowrap ${activeTab === tab
-                  ? "text-[rgb(var(--accent-primary))]"
-                  : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
+                ? "text-[rgb(var(--accent-primary))]"
+                : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
                 }`}
             >
               {tab === "create" ? "Create New" : "Saved Visualizations"}
@@ -673,8 +673,8 @@ const HabitVisualizer = () => {
                             <motion.button
                               onClick={() => setShowCode(!showCode)}
                               className={`text-xs ${showCode
-                                  ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
-                                  : "bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))]"
+                                ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                                : "bg-[rgb(var(--border-primary))] hover:bg-[rgb(var(--bg-tertiary))] text-[rgb(var(--text-primary))]"
                                 } px-3 py-1 rounded-md flex items-center`}
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.95 }}

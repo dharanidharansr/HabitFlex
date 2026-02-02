@@ -368,8 +368,8 @@ const Dashboard = () => {
                   key={tab}
                   onClick={() => setActiveTab(tab)}
                   className={`pb-2 px-1 relative ${activeTab === tab
-                      ? "text-[rgb(var(--accent-primary))]"
-                      : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
+                    ? "text-[rgb(var(--accent-primary))]"
+                    : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
                     }`}
                 >
                   {tab === "habits"

@@ -119,9 +119,8 @@ const StreakStaircase2 = ({ streak = 0 }) => {
           <h3 className="text-xl font-bold text-[#f5f5f7]">Day {streak}</h3>
           <p className="text-sm text-[#f5f5f7]/60">
             {streak > 0
-              ? `${Math.floor(streak / 7)} ${
-                  Math.floor(streak / 7) === 1 ? "Week" : "Weeks"
-                }, ${streak % 7} ${streak % 7 === 1 ? "Day" : "Days"}`
+              ? `${Math.floor(streak / 7)} ${Math.floor(streak / 7) === 1 ? "Week" : "Weeks"
+              }, ${streak % 7} ${streak % 7 === 1 ? "Day" : "Days"}`
               : "Start your streak!"}
           </p>
         </div>
@@ -196,35 +195,33 @@ const StreakStaircase2 = ({ streak = 0 }) => {
                     {/* Step platform */}
                     <motion.div
                       className={`relative w-24 h-24 flex items-center justify-center cursor-pointer
-                ${
-                  isSpecialMilestone
-                    ? "bg-gradient-to-br from-[#A2BFFE]/90 to-fuchsia-600/80"
-                    : isMilestone
-                    ? "bg-gradient-to-br from-[#A2BFFE]/80 to-blue-600/70"
-                    : isCurrentDay
-                    ? "bg-gradient-to-br from-emerald-500/80 to-green-600/70"
-                    : "bg-gradient-to-br from-[rgb(var(--border-primary))]/90 to-[rgb(var(--bg-tertiary))]/80"
-                } 
+                ${isSpecialMilestone
+                          ? "bg-gradient-to-br from-[#A2BFFE]/90 to-fuchsia-600/80"
+                          : isMilestone
+                            ? "bg-gradient-to-br from-[#A2BFFE]/80 to-blue-600/70"
+                            : isCurrentDay
+                              ? "bg-gradient-to-br from-emerald-500/80 to-green-600/70"
+                              : "bg-gradient-to-br from-[rgb(var(--border-primary))]/90 to-[rgb(var(--bg-tertiary))]/80"
+                        } 
                 rounded-lg border border-white/10 shadow-lg`}
                       whileHover={{
                         boxShadow: isSpecialMilestone
                           ? "0 0 15px rgba(162, 191, 254, 0.6)"
                           : isMilestone
-                          ? "0 0 10px rgba(162, 191, 254, 0.5)"
-                          : isCurrentDay
-                          ? "0 0 10px rgba(16, 185, 129, 0.5)"
-                          : "0 0 5px rgba(255, 255, 255, 0.2)",
+                            ? "0 0 10px rgba(162, 191, 254, 0.5)"
+                            : isCurrentDay
+                              ? "0 0 10px rgba(16, 185, 129, 0.5)"
+                              : "0 0 5px rgba(255, 255, 255, 0.2)",
                       }}
                     >
                       {/* Content container */}
                       <div className="flex flex-col items-center justify-center">
                         {/* Day number */}
                         <span
-                          className={`text-xl font-bold ${
-                            isSpecialMilestone || isMilestone
+                          className={`text-xl font-bold ${isSpecialMilestone || isMilestone
                               ? "text-white"
                               : "text-[#f5f5f7]"
-                          } drop-shadow-lg`}
+                            } drop-shadow-lg`}
                         >
                           {dayNumber}
                         </span>
@@ -303,16 +300,14 @@ const StreakStaircase2 = ({ streak = 0 }) => {
                 className="absolute z-50"
                 style={{
                   // Adjust avatar position with the same centering offset
-                  bottom: `${
-                    (streak - visibleRange.start - 1) * 30 -
+                  bottom: `${(streak - visibleRange.start - 1) * 30 -
                     ((visibleRange.end - visibleRange.start - 1) * 30) / 2 +
                     25
-                  }px`,
-                  left: `${
-                    (streak - visibleRange.start - 1) * 60 -
+                    }px`,
+                  left: `${(streak - visibleRange.start - 1) * 60 -
                     ((visibleRange.end - visibleRange.start - 1) * 60) / 2 +
                     12
-                  }px`,
+                    }px`,
                 }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -337,24 +332,21 @@ const StreakStaircase2 = ({ streak = 0 }) => {
                 className={`w-3 h-3 ${item.color} rounded-sm border border-white/10`}
                 animate={{
                   boxShadow: [
-                    `0 0 1px ${
-                      item.color === "bg-[rgb(var(--border-primary))]"
-                        ? "rgba(255, 255, 255, 0.2)"
-                        : item.color === "bg-[rgb(var(--accent-primary))]"
+                    `0 0 1px ${item.color === "bg-[rgb(var(--border-primary))]"
+                      ? "rgba(255, 255, 255, 0.2)"
+                      : item.color === "bg-[rgb(var(--accent-primary))]"
                         ? "rgba(162, 191, 254, 0.3)"
                         : "rgba(16, 185, 129, 0.3)"
                     }`,
-                    `0 0 3px ${
-                      item.color === "bg-[rgb(var(--border-primary))]"
-                        ? "rgba(255, 255, 255, 0.4)"
-                        : item.color === "bg-[rgb(var(--accent-primary))]"
+                    `0 0 3px ${item.color === "bg-[rgb(var(--border-primary))]"
+                      ? "rgba(255, 255, 255, 0.4)"
+                      : item.color === "bg-[rgb(var(--accent-primary))]"
                         ? "rgba(162, 191, 254, 0.6)"
                         : "rgba(16, 185, 129, 0.6)"
                     }`,
-                    `0 0 1px ${
-                      item.color === "bg-[rgb(var(--border-primary))]"
-                        ? "rgba(255, 255, 255, 0.2)"
-                        : item.color === "bg-[rgb(var(--accent-primary))]"
+                    `0 0 1px ${item.color === "bg-[rgb(var(--border-primary))]"
+                      ? "rgba(255, 255, 255, 0.2)"
+                      : item.color === "bg-[rgb(var(--accent-primary))]"
                         ? "rgba(162, 191, 254, 0.3)"
                         : "rgba(16, 185, 129, 0.3)"
                     }`,

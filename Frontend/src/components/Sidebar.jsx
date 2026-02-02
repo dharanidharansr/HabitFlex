@@ -388,8 +388,8 @@ const Sidebar = ({ children }) => {
               >
                 <motion.div
                   className={`flex items-center gap-3 px-3 py-3 rounded-lg mb-2 ${isActive
-                      ? "bg-[rgb(var(--accent-bg))]/10 text-[rgb(var(--accent-primary))]"
-                      : "text-[rgb(var(--text-tertiary))]/70 hover:text-[rgb(var(--text-primary))] hover:bg-[rgb(var(--border-primary))]/50"
+                    ? "bg-[rgb(var(--accent-bg))]/10 text-[rgb(var(--accent-primary))]"
+                    : "text-[rgb(var(--text-tertiary))]/70 hover:text-[rgb(var(--text-primary))] hover:bg-[rgb(var(--border-primary))]/50"
                     }`}
                   whileHover={{ x: 4 }}
                 >

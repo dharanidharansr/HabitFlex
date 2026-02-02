@@ -73,8 +73,7 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
 
     try {
       const response = await axios.post(
-        `${
-          import.meta.env.VITE_API_URL
+        `${import.meta.env.VITE_API_URL
         }/api/partners/chat/${partnerId}/messages`,
         {
           content: newMessage,
@@ -176,9 +175,9 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
             const formattedTime =
               messageDate instanceof Date && !isNaN(messageDate)
                 ? messageDate.toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
                 : "Invalid date";
 
             const otherParticipantIds = [partnerId];
@@ -189,9 +188,8 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
             return (
               <div
                 key={index}
-                className={`flex flex-col ${
-                  isCurrentUser ? "items-end" : "items-start"
-                }`}
+                className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"
+                  }`}
               >
                 {/* Sender Name */}
                 <span className="text-xs text-[rgb(var(--text-primary))]/60 mb-1">
@@ -200,17 +198,15 @@ const ChatWindow = ({ partnerId, partnerName, onClose }) => {
 
                 {/* Message Bubble */}
                 <div
-                  className={`max-w-[70%] p-3 rounded-lg ${
-                    isCurrentUser
+                  className={`max-w-[70%] p-3 rounded-lg ${isCurrentUser
                       ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
                       : "bg-[rgb(var(--border-primary))] text-[rgb(var(--text-primary))]"
-                  }`}
+                    }`}
                 >
                   <p className="break-words">{message.content}</p>
                   <p
-                    className={`text-xs mt-1 ${
-                      isCurrentUser ? "opacity-80" : "opacity-60"
-                    }`}
+                    className={`text-xs mt-1 ${isCurrentUser ? "opacity-80" : "opacity-60"
+                      }`}
                   >
                     {formattedTime}
                   </p>

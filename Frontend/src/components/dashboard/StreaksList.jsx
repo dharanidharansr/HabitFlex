@@ -10,8 +10,8 @@ const StreaksList = ({ habits }) => {
   const highestStreakHabit =
     habits.length > 0
       ? habits.reduce((prev, current) =>
-          prev.currentStreak > current.currentStreak ? prev : current
-        )
+        prev.currentStreak > current.currentStreak ? prev : current
+      )
       : null;
 
   // When selecting a habit, show its staircase
@@ -55,11 +55,10 @@ const StreaksList = ({ habits }) => {
         {habits.map((habit) => (
           <motion.div
             key={habit._id}
-            className={`bg-[rgb(var(--bg-secondary))] border ${
-              selectedHabit?._id === habit._id
+            className={`bg-[rgb(var(--bg-secondary))] border ${selectedHabit?._id === habit._id
                 ? "border-[rgb(var(--accent-primary))]"
                 : "border-[rgb(var(--border-primary))]"
-            } rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between cursor-pointer`}
+              } rounded-xl p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between cursor-pointer`}
             whileHover={{ y: -2 }}
             onClick={() => handleHabitSelect(habit)}
           >
@@ -103,11 +102,10 @@ const StreaksList = ({ habits }) => {
               {Array.from({ length: 7 }).map((_, idx) => (
                 <div
                   key={idx}
-                  className={`h-1.5 flex-1 rounded-full ${
-                    idx < Math.min(habit.currentStreak, 7)
+                  className={`h-1.5 flex-1 rounded-full ${idx < Math.min(habit.currentStreak, 7)
                       ? "bg-gradient-to-r from-[rgb(var(--accent-primary))] to-[rgb(var(--accent-primary))]/80"
                       : "bg-[rgb(var(--border-primary))]"
-                  }`}
+                    }`}
                 />
               ))}
             </div>

@@ -243,9 +243,8 @@ const AICoach = () => {
               {Object.entries(COACH_TYPES).map(([type, details]) => (
                 <motion.button
                   key={type}
-                  className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[rgb(var(--border-primary))] text-left ${
-                    coachType === type ? "border border-[rgb(var(--accent-primary))]" : ""
-                  }`}
+                  className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg hover:bg-[rgb(var(--border-primary))] text-left ${coachType === type ? "border border-[rgb(var(--accent-primary))]" : ""
+                    }`}
                   onClick={() => changeCoachType(type)}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -275,18 +274,16 @@ const AICoach = () => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`flex ${
-                msg.sender === "user" ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"
+                }`}
             >
               <div
-                className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${
-                  msg.sender === "user"
+                className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${msg.sender === "user"
                     ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
                     : msg.coachType
-                    ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
-                    : "bg-[rgb(var(--bg-tertiary))]"
-                }`}
+                      ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
+                      : "bg-[rgb(var(--bg-tertiary))]"
+                  }`}
               >
                 <p>{msg.text}</p>
                 <p className="text-xs mt-1 opacity-70">

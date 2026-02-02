@@ -353,8 +353,8 @@ const Challenges = () => {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`pb-2 px-1 relative whitespace-nowrap ${activeTab === tab
-                  ? "text-[rgb(var(--accent-primary))]"
-                  : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
+                ? "text-[rgb(var(--accent-primary))]"
+                : "text-[rgb(var(--text-primary))]/60 hover:text-[rgb(var(--text-primary))]"
                 }`}
             >
               {tab === "explore"
@@ -593,8 +593,8 @@ const Challenges = () => {
                                 updateProgress(challenge._id, amount, progress)
                               }
                               className={`flex-1 bg-[rgb(var(--bg-tertiary))] hover:bg-[rgb(var(--border-secondary))] text-[rgb(var(--text-primary))] py-2 rounded-lg text-sm ${progress >= 100
-                                  ? "opacity-50 cursor-not-allowed"
-                                  : ""
+                                ? "opacity-50 cursor-not-allowed"
+                                : ""
                                 }`}
                               whileHover={{ scale: progress >= 100 ? 1 : 1.02 }}
                               whileTap={{ scale: progress >= 100 ? 1 : 0.98 }}
@@ -623,8 +623,8 @@ const Challenges = () => {
                                 min="1"
                                 max={100 - progress}
                                 className={`w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border ${progressErrors[challenge._id]
-                                    ? "border-red-500"
-                                    : "border-[rgb(var(--border-primary))]"
+                                  ? "border-red-500"
+                                  : "border-[rgb(var(--border-primary))]"
                                   } rounded-lg focus:outline-none focus:ring-1 focus:ring-[rgb(var(--accent-primary))]/50 ${progress >= 100
                                     ? "opacity-50 cursor-not-allowed"
                                     : ""
@@ -665,8 +665,8 @@ const Challenges = () => {
                               }
                             }}
                             className={`bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))] px-4 py-2 rounded-lg font-medium text-sm ${!customProgress || progress >= 100
-                                ? "opacity-50 cursor-not-allowed"
-                                : ""
+                              ? "opacity-50 cursor-not-allowed"
+                              : ""
                               }`}
                             whileHover={{
                               scale:
@@ -736,8 +736,8 @@ const Challenges = () => {
                       <div className="flex items-center gap-3">
                         <div
                           className={`w-2 h-2 rounded-full ${update.type === "join"
-                              ? "bg-green-500"
-                              : "bg-blue-500"
+                            ? "bg-green-500"
+                            : "bg-blue-500"
                             }`}
                         ></div>
                         <p className="text-sm">{update.message}</p>
