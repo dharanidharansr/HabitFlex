@@ -99,11 +99,11 @@ function App() {
           }
         />
         <Route
-          path="/profile/:userId"
+          path="/challenges"
           element={
             <ProtectedRoute>
               <Sidebar>
-                <UserProfile isOwnProfile={false} />
+                <Challenges />
               </Sidebar>
             </ProtectedRoute>
           }
