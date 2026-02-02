@@ -69,9 +69,69 @@ exports.getMe = async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      avatar: user.avatar,
       googleCalendar: user.googleCalendar, 
     });
   } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Update user profile
+exports.updateProfile = async (req, res) => {
+  try {
+    const { username, email, avatar } = req.body;
+    const userId = req.user.id;
+    
+    // Check if username is already taken by another user
+    if (username) {
+      const existingUser = await User.findOne({ 
+        username, 
+        _id: { $ne: userId } 
+      });
+      if (existingUser) {
+        return res.status(400).json({ message: "Username already taken" });
+      }
+    }
+    
+    // Check if email is already taken by another user
+    if (email) {
+      const existingUser = await User.findOne({ 
+        email, 
+        _id: { $ne: userId } 
+      });
+      if (existingUser) {
+        return res.status(400).json({ message: "Email already taken" });
+      }
+    }
+    
+    // Update user
+    const updateData = {};
+    if (username) updateData.username = username;
+    if (email) updateData.email = email;
+    if (avatar !== undefined) updateData.avatar = avatar;
+    
+    const user = await User.findByIdAndUpdate(
+      userId,
+      updateData,
+      { new: true, runValidators: true }
+    ).select('-password');
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    
+    res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+      message: "Profile updated successfully"
+    });
+  } catch (error) {
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ message: error.message });
+    }
     res.status(500).json({ message: error.message });
   }
 };

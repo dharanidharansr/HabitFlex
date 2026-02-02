@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { FaTrophy, FaCalendarCheck, FaFire, FaClock } from "react-icons/fa";
+import { FaTrophy, FaCalendarCheck, FaFire, FaClock, FaEdit, FaSave, FaTimes } from "react-icons/fa";
 
 const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
   const { userId: paramsUserId } = useParams();
@@ -17,6 +17,13 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
     currentStreak: 0,
     longestStreak: 0,
   });
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState({
+    username: "",
+    email: "",
+    avatar: "",
+  });
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -25,6 +32,11 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
         username: userData.username,
         email: userData.email,
         _id: userData._id,
+      });
+      setEditForm({
+        username: userData.username,
+        email: userData.email,
+        avatar: userData.avatar || "",
       });
     }
 
@@ -45,6 +57,11 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
         }
       );
       setProfile(response.data);
+      setEditForm({
+        username: response.data.username,
+        email: response.data.email,
+        avatar: response.data.avatar || "",
+      });
     } catch (error) {
       toast.error("Failed to load profile");
     }
@@ -76,24 +93,174 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
     });
   };
 
+  const handleEditToggle = () => {
+    if (isEditing) {
+      // Reset form if canceling
+      setEditForm({
+        username: profile.username,
+        email: profile.email,
+        avatar: profile.avatar || "",
+      });
+    }
+    setIsEditing(!isEditing);
+  };
+
+  const handleInputChange = (e) => {
+    setEditForm({
+      ...editForm,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      setSaving(true);
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/users/me`,
+        editForm,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      
+      setProfile(response.data);
+      // Update localStorage
+      const userData = JSON.parse(localStorage.getItem("user"));
+      localStorage.setItem("user", JSON.stringify({
+        ...userData,
+        username: response.data.username,
+        email: response.data.email,
+        avatar: response.data.avatar,
+      }));
+      
+      setIsEditing(false);
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update profile");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#080808] text-[#f5f5f7] py-8">
       <div className="max-w-4xl mx-auto px-3 sm:px-6">
         {/* Profile Header */}
         <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 sm:p-6 mb-6">
+          <div className="flex justify-between items-start mb-4">
+            <h2 className="text-xl font-bold">Profile</h2>
+            {isOwnProfile && (
+              <div className="flex gap-2">
+                {!isEditing ? (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleEditToggle}
+                    className="flex items-center gap-2 px-4 py-2 bg-[#A2BFFE] text-[#080808] rounded-lg font-medium hover:bg-[#91AFFE] transition-colors"
+                  >
+                    <FaEdit />
+                    Edit Profile
+                  </motion.button>
+                ) : (
+                  <>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleSaveProfile}
+                      disabled={saving}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#4ADE80] text-[#080808] rounded-lg font-medium hover:bg-[#3CC970] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <FaSave />
+                      {saving ? "Saving..." : "Save"}
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={handleEditToggle}
+                      disabled={saving}
+                      className="flex items-center gap-2 px-4 py-2 bg-[#ff4444] text-white rounded-lg font-medium hover:bg-[#ee3333] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <FaTimes />
+                      Cancel
+                    </motion.button>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#A2BFFE] flex items-center justify-center">
-              <span className="text-3xl sm:text-4xl font-bold text-[#080808]">
-                {profile?.username?.[0]?.toUpperCase()}
-              </span>
+            <div className="relative">
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-[#A2BFFE] flex items-center justify-center overflow-hidden">
+                {(isEditing ? editForm.avatar : profile?.avatar) ? (
+                  <img
+                    src={isEditing ? editForm.avatar : profile?.avatar}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-3xl sm:text-4xl font-bold text-[#080808]">
+                    {(isEditing ? editForm.username : profile?.username)?.[0]?.toUpperCase()}
+                  </span>
+                )}
+              </div>
             </div>
-            <div className="text-center sm:text-left">
-              <h1 className="text-xl sm:text-2xl font-bold mb-2">
-                {profile?.username || "Loading..."}
-              </h1>
-              <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
-                {profile?.email || "Loading..."}
-              </p>
+
+            <div className="flex-1 w-full text-center sm:text-left">
+              {!isEditing ? (
+                <>
+                  <h1 className="text-xl sm:text-2xl font-bold mb-2">
+                    {profile?.username || "Loading..."}
+                  </h1>
+                  <p className="text-[#f5f5f7]/60 text-sm sm:text-base">
+                    {profile?.email || "Loading..."}
+                  </p>
+                </>
+              ) : (
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium mb-1 text-left">
+                      Username
+                    </label>
+                    <input
+                      type="text"
+                      name="username"
+                      value={editForm.username}
+                      onChange={handleInputChange}
+                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                      placeholder="Enter username"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1 text-left">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={editForm.email}
+                      onChange={handleInputChange}
+                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                      placeholder="Enter email"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1 text-left">
+                      Avatar URL
+                    </label>
+                    <input
+                      type="text"
+                      name="avatar"
+                      value={editForm.avatar}
+                      onChange={handleInputChange}
+                      className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 text-white focus:outline-none focus:border-[#A2BFFE] transition-colors"
+                      placeholder="Enter avatar URL (optional)"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
