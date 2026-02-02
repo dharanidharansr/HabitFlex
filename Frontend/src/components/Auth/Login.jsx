@@ -2,21 +2,46 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       navigate("/dashboard");
     }
-  }, []);
+
+    // Handle OAuth callback
+    const urlParams = new URLSearchParams(window.location.search);
+    const token_param = urlParams.get('token');
+    const userId = urlParams.get('userId');
+    const username = urlParams.get('username');
+    const email = urlParams.get('email');
+    const error = urlParams.get('error');
+
+    if (error) {
+      toast.error('Authentication failed. Please try again.');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (token_param && userId) {
+      localStorage.setItem('token', token_param);
+      localStorage.setItem('user', JSON.stringify({
+        id: userId,
+        username: username,
+        email: email
+      }));
+      toast.success('Welcome back! 🎉');
+      window.history.replaceState({}, document.title, window.location.pathname);
+      navigate('/dashboard');
+    }
+  }, [navigate]);
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,6 +89,10 @@ const Login = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/auth/google`;
   };
 
   return (
@@ -162,6 +191,28 @@ const Login = () => {
             {loading ? "Logging In..." : "Login"}
           </motion.button>
         </form>
+
+        {/* Divider */}
+        <div className="relative my-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-[#222]"></div>
+          </div>
+          <div className="relative flex justify-center text-sm">
+            <span className="px-2 bg-[#0a0a0a] text-[#f5f5f7]/60">Or continue with</span>
+          </div>
+        </div>
+
+        {/* Google OAuth Button */}
+        <motion.button
+          onClick={handleGoogleLogin}
+          className="w-full bg-white hover:bg-gray-100 text-gray-800 px-4 py-3 rounded-md font-semibold text-base transition flex justify-center items-center gap-2"
+          whileHover={{ scale: 1.03 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <FcGoogle size={24} />
+          Continue with Google
+        </motion.button>
+
         <p className="mt-6 text-center text-sm text-[#f5f5f7]/60">
           Don't have an account?{" "}
           <Link

@@ -21,9 +21,24 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please provide a password"],
+      required: function() {
+        return !this.googleId; // Password not required for OAuth users
+      },
       minlength: [6, "Password must be at least 6 characters"],
       select: false,
+    },
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true, // Allows null values to be non-unique
+    },
+    avatar: {
+      type: String, // Store user's profile picture URL
+    },
+    authProvider: {
+      type: String,
+      enum: ['local', 'google'],
+      default: 'local',
     },
     googleCalendar: {
       tokens: { type: Object },
