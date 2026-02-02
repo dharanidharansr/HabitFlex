@@ -8,11 +8,10 @@ const Navbar = ({ isScrolled }) => {
   return (
     <div className="fixed top-4 left-0 right-0 z-40 px-6">
       <motion.nav
-        className={`max-w-4xl mx-auto px-6 py-3.5 rounded-full transition-all duration-300 backdrop-blur-md border border-[rgb(var(--border-primary))]/30 shadow-lg ${
-          isScrolled 
-            ? "bg-[rgb(var(--bg-secondary))]/95 shadow-xl" 
+        className={`max-w-4xl mx-auto px-6 py-3.5 rounded-full transition-all duration-300 backdrop-blur-md border border-[rgb(var(--border-primary))]/30 shadow-lg ${isScrolled
+            ? "bg-[rgb(var(--bg-secondary))]/95 shadow-xl"
             : "bg-[rgb(var(--bg-secondary))]/70"
-        }`}
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
