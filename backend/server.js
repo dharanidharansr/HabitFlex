@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const session = require("express-session");
+const passport = require("./config/passport");
 const { createServer } = require("http");
 const connectDB = require("./config/db");
 const habitRoutes = require("./routes/habitRoutes");
@@ -138,6 +140,23 @@ app.use(
 );
 
 app.use(express.json());
+
+// Session configuration for passport
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET || "your-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }
+  })
+);
+
+// Initialize Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Add request logging middleware
 app.use((req, res, next) => {

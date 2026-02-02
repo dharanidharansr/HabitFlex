@@ -158,3 +158,22 @@ exports.getUserProfile = async (req, res) => {
     });
   }
 };
+
+// @desc    Google OAuth callback
+// @route   GET /api/auth/google/callback
+// @access  Public
+exports.googleCallback = async (req, res) => {
+  try {
+    // User is already authenticated via passport
+    const user = req.user;
+    
+    // Generate JWT token
+    const token = generateToken(user._id);
+    
+    // Redirect to frontend with token
+    res.redirect(`${process.env.FRONTEND_URL}?token=${token}&userId=${user._id}&username=${user.username}&email=${user.email}`);
+  } catch (error) {
+    console.error("Google callback error:", error);
+    res.redirect(`${process.env.FRONTEND_URL}/login?error=auth_failed`);
+  }
+};
