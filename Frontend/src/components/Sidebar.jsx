@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 
 const Sidebar = ({ children }) => {
   // Only calculate on mount
@@ -9,6 +10,67 @@ const Sidebar = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "{}");
+  
+  // Search state
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const searchRef = useRef(null);
+
+  // Close search results when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setShowSearchResults(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // Search users with debouncing
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchQuery.trim()) {
+        searchUsers();
+      } else {
+        setSearchResults([]);
+        setShowSearchResults(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const searchUsers = async () => {
+    try {
+      setSearchLoading(true);
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/users/search?query=${searchQuery}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSearchResults(response.data);
+      setShowSearchResults(true);
+    } catch (error) {
+      console.error("Error searching users:", error);
+    } finally {
+      setSearchLoading(false);
+    }
+  };
+
+  const handleUserClick = (userId) => {
+    navigate(`/profile/${userId}`);
+    setSearchQuery("");
+    setShowSearchResults(false);
+    if (window.innerWidth < 640) setIsCollapsed(true);
+  };
 
   const navItems = [
     {
@@ -200,6 +262,93 @@ const Sidebar = ({ children }) => {
             )}
           </button>
         </div>
+
+        {/* Search Bar */}
+        {!isCollapsed && (
+          <div className="px-4 mb-4 relative" ref={searchRef}>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search users..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-[#1a1a1a] border border-[#333] rounded-lg px-4 py-2 pl-10 text-sm text-white placeholder-[#666] focus:outline-none focus:border-[#A2BFFE] transition-colors"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 absolute left-3 top-2.5 text-[#666]"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+              {searchLoading && (
+                <div className="absolute right-3 top-2.5">
+                  <div className="animate-spin h-5 w-5 border-2 border-[#A2BFFE] border-t-transparent rounded-full"></div>
+                </div>
+              )}
+            </div>
+
+            {/* Search Results Dropdown */}
+            <AnimatePresence>
+              {showSearchResults && searchResults.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#333] rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto"
+                >
+                  {searchResults.map((result) => (
+                    <motion.div
+                      key={result._id}
+                      whileHover={{ backgroundColor: "#222" }}
+                      onClick={() => handleUserClick(result._id)}
+                      className="flex items-center gap-3 p-3 cursor-pointer border-b border-[#222] last:border-b-0"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#A2BFFE] to-[#6B8FFF] flex items-center justify-center text-sm font-bold text-[#080808]">
+                        {result.avatar ? (
+                          <img
+                            src={result.avatar}
+                            alt={result.username}
+                            className="w-full h-full rounded-full object-cover"
+                          />
+                        ) : (
+                          result.username.charAt(0).toUpperCase()
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-white truncate">
+                          {result.username}
+                        </p>
+                        <p className="text-xs text-[#666] truncate">
+                          {result.email}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+              {showSearchResults && searchResults.length === 0 && !searchLoading && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="absolute top-full left-4 right-4 mt-2 bg-[#1a1a1a] border border-[#333] rounded-lg shadow-xl p-4 z-50"
+                >
+                  <p className="text-sm text-[#666] text-center">
+                    No users found
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
 
         {/* Nav Items */}
         <div className="flex-1 px-2 overflow-y-auto">

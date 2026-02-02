@@ -11,7 +11,8 @@ import Progress from "./pages/Progress";
 import Sidebar from "./components/Sidebar";
 import Partners from "./pages/Partners";
 import Achievements from "./pages/Achievements";
-import UserProfile from "./components/dashboard/Profile";
+import UserProfile from "./components/UserProfile";
+import OwnProfile from "./components/dashboard/Profile";
 import HabitVisualizer from "./pages/HabitVisualizer";
 import Challenges from "./pages/Challenges";
 import CoachPage from "./pages/CoachPage";
@@ -82,17 +83,17 @@ function App() {
           element={
             <ProtectedRoute>
               <Sidebar>
-                <UserProfile userId={userId} isOwnProfile={true} />
+                <OwnProfile userId={userId} isOwnProfile={true} />
               </Sidebar>
             </ProtectedRoute>
           }
         />
         <Route
-          path="/challenges"
+          path="/profile/:userId"
           element={
             <ProtectedRoute>
               <Sidebar>
-                <Challenges />
+                <UserProfile />
               </Sidebar>
             </ProtectedRoute>
           }
