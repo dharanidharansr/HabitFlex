@@ -135,7 +135,7 @@ const Login = () => {
                 setFormData({ ...formData, email: e.target.value })
               }
               required
-              className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 focus:border-[rgb(var(--accent-primary))]/50 transition"
+              className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 focus:border-[rgb(var(--accent-primary))]/50 transition text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-primary))]/40"
               placeholder="you@example.com"
             />
           </div>
@@ -155,20 +155,20 @@ const Login = () => {
                 setFormData({ ...formData, password: e.target.value })
               }
               required
-              className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 focus:border-[rgb(var(--accent-primary))]/50 transition"
+              className="w-full px-4 py-2 bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-md focus:outline-none focus:ring-2 focus:ring-[rgb(var(--accent-primary))]/50 focus:border-[rgb(var(--accent-primary))]/50 transition text-[rgb(var(--text-primary))] placeholder:text-[rgb(var(--text-primary))]/40"
               placeholder="••••••••"
             />
           </div>
           <motion.button
             type="submit"
-            className="w-full bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-[rgb(var(--bg-primary))] px-4 py-3 rounded-md font-bold text-base transition flex justify-center items-center"
+            className="w-full bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-white px-4 py-3 rounded-md font-bold text-base transition flex justify-center items-center"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             disabled={loading}
           >
             {loading ? (
               <svg
-                className="animate-spin -ml-1 mr-3 h-5 w-5 text-[rgb(var(--bg-primary))]"
+                className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -213,11 +213,11 @@ const Login = () => {
           Continue with Google
         </motion.button>
 
-        <p className="mt-6 text-center text-sm text-[#f5f5f7]/60">
+        <p className="mt-6 text-center text-sm text-[rgb(var(--text-primary))]/60">
           Don't have an account?{" "}
           <Link
             to="/register"
-            className="font-medium text-[#A2BFFE] hover:text-[#91AFFE] transition"
+            className="font-medium text-[rgb(var(--accent-primary))] hover:text-[rgb(var(--accent-primary))]/80 transition"
           >
             Sign Up
           </Link>
