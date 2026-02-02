@@ -89,7 +89,7 @@ const HabitEditor = ({
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
-        className="bg-[rgb(var(--bg-secondary))] rounded-xl p-8 w-full max-w-2xl border border-[rgb(var(--border-primary))] my-8">
+        className="bg-[rgb(var(--bg-secondary))] rounded-xl p-8 w-full max-w-2xl border border-[rgb(var(--border-primary))] my-8"
       >
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Edit Habit</h2>
