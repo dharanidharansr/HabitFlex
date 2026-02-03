@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import QRCodeScanner from "../components/QR/QRCodeScanner";
 import { subDays } from "date-fns";
 import ThemeToggle from "../components/ThemeToggle";
+import { FaFire, FaChartBar, FaStar, FaSeedling } from "react-icons/fa";
 
 const Dashboard = () => {
   const [habits, setHabits] = useState([]);
@@ -318,15 +319,22 @@ const Dashboard = () => {
           <StatsCard
             title="Current Streak"
             value={`${stats.currentStreak} days`}
-            icon="🔥"
+            icon={FaFire}
+            iconColor="#f97316"
             isStreak={true}
           />
           <StatsCard
             title="Completion Rate"
             value={`${stats.completionRate}%`}
-            icon="📊"
+            icon={FaChartBar}
+            iconColor="#3b82f6"
           />
-          <StatsCard title="Total Habits" value={stats.totalHabits} icon="✨" />
+          <StatsCard
+            title="Total Habits"
+            value={stats.totalHabits}
+            icon={FaStar}
+            iconColor="#eab308"
+          />
         </div>
 
         {/* Error State */}
@@ -343,7 +351,7 @@ const Dashboard = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center py-12"
           >
-            <div className="text-4xl mb-4">🌱</div>
+            <FaSeedling className="text-4xl mb-4 mx-auto text-green-500" />
             <h3 className="text-xl font-bold mb-2">Start Your Journey</h3>
             <p className="text-[rgb(var(--text-primary))]/60 mb-6">
               Create your first habit and begin tracking your progress

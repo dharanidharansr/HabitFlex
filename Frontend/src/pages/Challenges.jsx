@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaTrophy, FaUsers } from "react-icons/fa";
 import ParticipantsList from "../components/Challenges/ParticipantsList";
 import QRCodeGenerator from "../components/QR/QRCodeGenerator";
 import QRCodeScanner from "../components/QR/QRCodeScanner";
@@ -384,7 +385,7 @@ const Challenges = () => {
             >
               {challenges.length === 0 ? (
                 <div className="col-span-full text-center py-12">
-                  <div className="text-4xl mb-4">🏆</div>
+                  <FaTrophy className="text-4xl mb-4 mx-auto text-yellow-500" />
                   <h3 className="text-xl font-bold mb-2">
                     No Challenges Available
                   </h3>
@@ -429,7 +430,7 @@ const Challenges = () => {
                             setActiveTab("participants");
                           }}
                         >
-                          <span className="mr-1">👥</span>{" "}
+                          <FaUsers className="mr-1" />
                           {challenge.participants.length} participants
                         </button>
                       </div>

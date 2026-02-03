@@ -2,36 +2,37 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { FaHeart, FaDumbbell, FaSmile, FaChartBar, FaBolt } from "react-icons/fa";
 
 const COACH_TYPES = {
   supportive: {
     name: "Coach Alex",
     description: "Supportive & encouraging",
-    icon: "❤️",
+    icon: FaHeart,
     color: "bg-green-500/20 text-green-400",
   },
   strict: {
     name: "Coach Drill",
     description: "Strict & no-nonsense",
-    icon: "💪",
+    icon: FaDumbbell,
     color: "bg-red-500/20 text-red-400",
   },
   funny: {
     name: "Coach Chuckles",
     description: "Witty & humorous",
-    icon: "😄",
+    icon: FaSmile,
     color: "bg-yellow-500/20 text-yellow-400",
   },
   analytical: {
     name: "Coach Logic",
     description: "Data-driven & methodical",
-    icon: "📊",
+    icon: FaChartBar,
     color: "bg-blue-500/20 text-blue-400",
   },
   motivational: {
     name: "Coach Spark",
     description: "Energetic & inspiring",
-    icon: "⚡",
+    icon: FaBolt,
     color: "bg-purple-500/20 text-purple-400",
   },
 };
@@ -166,7 +167,7 @@ const AICoach = () => {
               layoutId="coachIcon"
               className={`w-10 h-10 rounded-full ${COACH_TYPES[coachType].color} flex items-center justify-center text-xl`}
             >
-              {COACH_TYPES[coachType].icon}
+              {React.createElement(COACH_TYPES[coachType].icon)}
             </motion.div>
             <div>
               <h3 className="font-bold text-lg">
@@ -253,7 +254,7 @@ const AICoach = () => {
                     layoutId={coachType === type ? "coachIcon" : null}
                     className={`w-10 h-10 rounded-full ${details.color} flex items-center justify-center text-xl`}
                   >
-                    {details.icon}
+                    {React.createElement(details.icon)}
                   </motion.div>
                   <div>
                     <p className="font-medium">{details.name}</p>
@@ -279,10 +280,10 @@ const AICoach = () => {
             >
               <div
                 className={`max-w-[90%] sm:max-w-[80%] p-2 md:p-3 rounded-lg ${msg.sender === "user"
-                    ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
-                    : msg.coachType
-                      ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
-                      : "bg-[rgb(var(--bg-tertiary))]"
+                  ? "bg-[rgb(var(--accent-primary))] text-[rgb(var(--bg-primary))]"
+                  : msg.coachType
+                    ? `${COACH_TYPES[msg.coachType].color} bg-opacity-20`
+                    : "bg-[rgb(var(--bg-tertiary))]"
                   }`}
               >
                 <p>{msg.text}</p>

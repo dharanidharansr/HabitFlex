@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import mermaid from "mermaid";
 import ConfirmationModal from "../components/ConfirmationModal";
 import ThemeToggle from "../components/ThemeToggle";
+import { FaChartBar } from "react-icons/fa";
 
 const HabitVisualizer = () => {
   const [deleteConfirmation, setDeleteConfirmation] = useState({
@@ -891,7 +892,7 @@ const HabitVisualizer = () => {
                 </div>
               ) : savedVisualizations.length === 0 ? (
                 <div className="text-center py-12">
-                  <div className="text-4xl mb-4">📊</div>
+                  <FaChartBar className="text-4xl mb-4 mx-auto text-blue-500" />
                   <h3 className="text-lg sm:text-xl font-bold mb-2">
                     No Saved Visualizations
                   </h3>

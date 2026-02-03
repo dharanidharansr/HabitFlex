@@ -9,8 +9,8 @@ const Navbar = ({ isScrolled }) => {
     <div className="fixed top-4 left-0 right-0 z-40 px-6">
       <motion.nav
         className={`max-w-4xl mx-auto px-6 py-3.5 rounded-full transition-all duration-300 backdrop-blur-md border border-[rgb(var(--border-primary))]/30 shadow-lg ${isScrolled
-            ? "bg-[rgb(var(--bg-secondary))]/95 shadow-xl"
-            : "bg-[rgb(var(--bg-secondary))]/70"
+          ? "bg-[rgb(var(--bg-secondary))]/95 shadow-xl"
+          : "bg-[rgb(var(--bg-secondary))]/70"
           }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -36,7 +36,7 @@ const Navbar = ({ isScrolled }) => {
               Login
             </motion.button>
             <motion.button
-              className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-primary))]/90 text-white px-5 py-2 rounded-full font-semibold text-sm shadow-md hover:shadow-lg transition-shadow"
+              className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-5 py-2 rounded-full font-semibold text-sm shadow-md hover:shadow-lg transition-all"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {

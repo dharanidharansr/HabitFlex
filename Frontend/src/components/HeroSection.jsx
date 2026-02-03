@@ -85,7 +85,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <motion.button
-            className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg w-full sm:w-auto"
+            className="bg-[rgb(var(--accent-primary))] hover:bg-[rgb(var(--accent-hover))] text-[rgb(var(--bg-primary))] px-6 sm:px-8 py-3 sm:py-4 rounded-md font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg hover:shadow-xl transition-all"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
