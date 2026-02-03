@@ -241,8 +241,9 @@ const UserProfile = ({ userId: propsUserId, isOwnProfile }) => {
                       type="email"
                       name="email"
                       value={editForm.email}
-                      onChange={handleInputChange}
-                      className="w-full bg-[rgb(var(--bg-tertiary))] border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-[rgb(var(--text-primary))] focus:outline-none focus:border-[rgb(var(--accent-primary))] transition-colors"
+                      disabled
+                      readOnly
+                      className="w-full bg-[rgb(var(--bg-tertiary))]/50 border border-[rgb(var(--border-primary))] rounded-lg px-4 py-2 text-[rgb(var(--text-primary))]/60 cursor-not-allowed"
                       placeholder="Enter email"
                     />
                   </div>
